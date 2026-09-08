@@ -1,0 +1,15 @@
+{
+  "name": "Vietnam Master Plan",
+  "short_name": "Vietnam",
+  "description": "Day-by-day timeline for the 18–28 Sep 2026 trip, with offline maps and routes.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#EEF1EC",
+  "theme_color": "#2F4F86",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
