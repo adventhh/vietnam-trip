@@ -89,6 +89,13 @@ const ROAD_CLASS = {
 const rnd = (v) => +v.toFixed(5);
 function overpassQuery(a) {
   const [s, w, n, e] = a.bbox, bb = `${s},${w},${n},${e}`;
+  if (a.detail === "corridor") {
+    return `[out:json][timeout:180];(
+      way["highway"~"^(motorway|trunk)$"](${bb});
+      relation["natural"="water"]["water"="river"](${bb}); way["waterway"="river"](${bb});
+      node["place"~"^(city|town)$"](${bb});
+    );out geom;`;
+  }
   if (a.detail === "wide") {
     return `[out:json][timeout:180];(
       way["highway"~"^(motorway|motorway_link|trunk|trunk_link|primary)$"](${bb});
@@ -120,7 +127,7 @@ function simplifyOverpass(json, area) {
     const g = geom(el); if (g.length < 2) continue;
     const extent = (pts) => { let a = Infinity, b = -Infinity, c = Infinity, d = -Infinity; for (const [y, x] of pts) { a = Math.min(a, y); b = Math.max(b, y); c = Math.min(c, x); d = Math.max(d, x); } return Math.max(b - a, d - c); };
     if (t.highway) { const c = ROAD_CLASS[t.highway] || "d"; out.roads.push({ n: t.name || "", c, g, o: t.oneway === "yes" ? 1 : 0 }); }
-    else if (t.natural === "water" || t.water) { if (area.detail !== "wide" || extent(g) > 0.004) out.water.push(g); }
+    else if (t.natural === "water" || t.water) { if (area.detail === "full" || extent(g) > (area.detail === "corridor" ? 0.01 : 0.004)) out.water.push(g); }
     else if (t.waterway) out.rail.push({ k: "river", g });
     else if (t.leisure || t.landuse) out.green.push(g);
     else if (t.railway) out.rail.push({ k: "rail", g });
@@ -146,6 +153,38 @@ async function buildVector() {
     fs.writeFileSync(file, JSON.stringify(slim));
     console.log(`map ${a.id}: ${slim.roads.length} roads, ${slim.water.length} water, ${slim.green.length} green, ${slim.places.length} place names, ${(fs.statSync(file).size / 1024).toFixed(0)} KB`);
     await sleep(2000);
+  }
+}
+
+/* ---------------- slim the big-area files: drop points that don't change the line (Douglas–Peucker) ---------------- */
+function rdp(pts, tol) {
+  if (pts.length < 3) return pts;
+  const [a, b] = [pts[0], pts[pts.length - 1]];
+  let maxD = 0, idx = 0;
+  for (let i = 1; i < pts.length - 1; i++) {
+    const [y, x] = pts[i], dx = b[1] - a[1], dy = b[0] - a[0];
+    const d = dx === 0 && dy === 0 ? Math.hypot(x - a[1], y - a[0]) : Math.abs(dy * x - dx * y + b[1] * a[0] - b[0] * a[1]) / Math.hypot(dx, dy);
+    if (d > maxD) { maxD = d; idx = i; }
+  }
+  if (maxD <= tol) return [a, b];
+  return rdp(pts.slice(0, idx + 1), tol).slice(0, -1).concat(rdp(pts.slice(idx), tol));
+}
+function slimMaps() {
+  for (const a of PLAN.AREAS) {
+    if (a.detail === "full") continue;
+    const file = path.join(ROOT, "data", `map-${a.id}.json`);
+    if (!fs.existsSync(file)) continue;
+    const d = JSON.parse(fs.readFileSync(file, "utf8"));
+    if (d.slim) continue;
+    const tol = a.detail === "corridor" ? 0.0004 : 0.00015; // degrees: ~40 m on the long corridors, ~15 m on the wide areas
+    const before = fs.statSync(file).size;
+    d.roads.forEach(r => { r.g = rdp(r.g, tol); });
+    d.water = d.water.map(g => rdp(g, tol)).filter(g => g.length >= 3);
+    d.rail.forEach(r => { r.g = rdp(r.g, tol); });
+    d.aero.forEach(r => { r.g = rdp(r.g, tol); });
+    d.slim = true;
+    fs.writeFileSync(file, JSON.stringify(d));
+    console.log(`map ${a.id}: slimmed ${(before / 1024).toFixed(0)} → ${(fs.statSync(file).size / 1024).toFixed(0)} KB`);
   }
 }
 
@@ -179,5 +218,6 @@ function buildPrecache() {
 await buildFonts();
 await buildRoutes();
 await buildVector();
+slimMaps();
 buildPrecache();
 console.log(`done in ${((Date.now() - t0) / 1000).toFixed(0)} s`);

@@ -1,0 +1,614 @@
+[
+  {
+    "id": "LANTANA_BOUTIQUE_HOI_AN",
+    "name": "Lantana Boutique Hoi An Hotel",
+    "vi": "Khách sạn Lantana Boutique Hội An",
+    "addr": "9 Thoại Ngọc Hầu, Minh An, Hội An",
+    "lat": 15.87582,
+    "lng": 108.32227,
+    "approx": false,
+    "hours": "24h reception",
+    "phone": null,
+    "price": null,
+    "tip": "North bank, ~350 m west of the Japanese Bridge. Outside the vehicle-free core, so a Grab can pull up to the door at any hour.",
+    "why": "Base hotel",
+    "role": "venue",
+    "near": "self",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Lantana%20Boutique%20Hoi%20An%20Hotel"
+    ]
+  },
+  {
+    "id": "BEBE_TAILOR_1",
+    "name": "Bebe Tailor (Bebe 1)",
+    "vi": "Nhà may Bebe",
+    "addr": "05-07 Hoàng Diệu, Hội An",
+    "lat": 15.87823,
+    "lng": 108.33266,
+    "approx": false,
+    "hours": "Daily, sources split between 08:00-20:00 and 08:00-21:30; Thursday is a normal trading day",
+    "phone": "+84 235 2212670",
+    "price": null,
+    "tip": "Three branches: Bebe 1 (05-07 Hoàng Diệu), Bebe 2 (95 Phan Châu Trinh), Bebe 3 (40 Trần Hưng Đạo). Bebe 1 is the main house with in-house tailors, so it is the one to use for a rush job.",
+    "why": "Tailor option 1",
+    "role": "venue",
+    "near": "East end of Ancient Town, ~1.2 km from Lantana",
+    "sources": [
+      "https://bebetailor.com/",
+      "https://tailorsinhoian.com/places/bebe-tailor-large-scale-custom-tailoring-in-hoi-an/",
+      "https://goodmorning-hoian.com/en/best-tailors-in-hoi-an/"
+    ]
+  },
+  {
+    "id": "YALY_COUTURE_EXCLUSIVE",
+    "name": "Yaly Couture Exclusive",
+    "vi": "Yaly Couture",
+    "addr": "47 Trần Phú, Minh An, Hội An",
+    "lat": 15.8773,
+    "lng": 108.33027,
+    "approx": false,
+    "hours": "Daily 08:00-21:30",
+    "phone": "+84 235 3861119",
+    "price": null,
+    "tip": "Flagship in the Ancient Town core. Yaly's own guidance is a 3-day minimum for a suit; simple linen and cotton pieces are the ones they will turn round overnight.",
+    "why": "Tailor option 2",
+    "role": "venue",
+    "near": "Trần Phú, 2 min from Faifo Coffee",
+    "sources": [
+      "https://yalycouture.com/en/about-us/store-location",
+      "https://yaly-couture-exclusive.wheree.com/",
+      "https://hoiannow.com/yaly-couture/"
+    ]
+  },
+  {
+    "id": "YALY_COUTURE_SIGNATURE",
+    "name": "Yaly Couture Signature",
+    "vi": "Yaly Couture Signature",
+    "addr": "47 Nguyễn Thái Học, Hội An",
+    "lat": 15.87657,
+    "lng": 108.32977,
+    "approx": false,
+    "hours": "Daily, approx 08:00-21:30 (same group hours as Exclusive)",
+    "phone": "+84 235 2212474",
+    "price": null,
+    "tip": "Sits on the Nguyễn Thái Học artisan-shop street, so it drops into the Fri 09:00-11:30 block with no detour.",
+    "why": "Tailor option 2b, on the planned shopping street",
+    "role": "venue",
+    "near": "Nguyễn Thái Học artisan shops",
+    "sources": [
+      "https://yalycouture.com/en/about-us/store-location"
+    ]
+  },
+  {
+    "id": "JAPANESE_COVERED_BRIDGE",
+    "name": "Japanese Covered Bridge",
+    "vi": "Chùa Cầu",
+    "addr": "Trần Phú / Nguyễn Thị Minh Khai, Hội An",
+    "lat": 15.87712,
+    "lng": 108.32601,
+    "approx": false,
+    "hours": "Exterior open 24h; shrine interior with the Ancient Town ticket, approx 07:00-21:00",
+    "phone": null,
+    "price": "Covered by the 120,000 VND Ancient Town ticket (one tear-off stub)",
+    "tip": "The 2022-2024 restoration is finished - it reopened in August 2024 and is fully open and scaffolding-free in 2026. Walking across is free; the stub is only taken to enter the shrine. Shoot it 06:30-07:30 for an empty frame.",
+    "why": "Listed stop and the main photo spot",
+    "role": "venue",
+    "near": "350 m east of Lantana",
+    "sources": [
+      "https://www.asiantrails.travel/latest-news/hoi-an-bridge-reopen/",
+      "https://hoianheritage.net/en/specialised-exchanges/research-exchange/japanese-covered-bridge-in-hoi-an-renovations-1.html",
+      "https://hoianit.com/hoi-an-entrance-ticket/"
+    ]
+  },
+  {
+    "id": "TAN_KY_OLD_HOUSE",
+    "name": "Tan Ky Old House",
+    "vi": "Nhà cổ Tấn Ký",
+    "addr": "101 Nguyễn Thái Học, Hội An",
+    "lat": 15.87646,
+    "lng": 108.32783,
+    "approx": false,
+    "hours": "Approx 08:00-17:30 daily",
+    "phone": null,
+    "price": "One stub of the 120,000 VND Ancient Town ticket",
+    "tip": "Ticketed site that shuts late afternoon, so keep it in the Fri 09:00-11:30 block rather than pushing it later.",
+    "why": "Listed stop",
+    "role": "venue",
+    "near": "Nguyễn Thái Học, opposite Morning Glory",
+    "sources": [
+      "https://hoianit.com/hoi-an-entrance-ticket/",
+      "https://hoiandaytrip.com/hoi-an-old-town-ticket/"
+    ]
+  },
+  {
+    "id": "FUJIAN_ASSEMBLY_HALL",
+    "name": "Assembly Hall of the Fujian Chinese Congregation",
+    "vi": "Hội quán Phúc Kiến",
+    "addr": "46 Trần Phú, Hội An",
+    "lat": 15.87814,
+    "lng": 108.33099,
+    "approx": false,
+    "hours": "Approx 07:00-17:30 daily",
+    "phone": null,
+    "price": "One stub of the 120,000 VND Ancient Town ticket",
+    "tip": "The most photogenic assembly hall (pink triple gate, hanging coil incense). Shoulders and knees covered.",
+    "why": "Listed stop - assembly halls",
+    "role": "venue",
+    "near": "Trần Phú, 3 min from Yaly Exclusive",
+    "sources": [
+      "https://hoianit.com/hoi-an-entrance-ticket/"
+    ]
+  },
+  {
+    "id": "ANCIENT_TOWN_TICKET_BOOTH",
+    "name": "Hoi An Ancient Town ticket booth",
+    "vi": "Quầy vé phố cổ Hội An",
+    "addr": "11 booths ring the old town; nearest to Lantana is the one just behind the Japanese Bridge, others at the An Hội bridge foot and on Hai Bà Trưng",
+    "lat": 15.87679,
+    "lng": 108.32693,
+    "approx": true,
+    "hours": "07:00-21:30 in summer, to 21:00 in winter",
+    "phone": null,
+    "price": "120,000 VND foreigners, 80,000 VND Vietnamese; 5 tear-off stubs covering 5 of the 22 heritage sites",
+    "tip": "Cannot be bought online - anything sold online is a reseller markup. Enforcement for simply walking the streets is loose; you need it for Tấn Ký, the assembly halls and the bridge interior.",
+    "why": "Required for the ticketed sites on Friday morning",
+    "role": "venue",
+    "near": "Japanese Bridge / An Hội Bridge",
+    "sources": [
+      "https://hoianit.com/hoi-an-entrance-ticket/",
+      "https://hoiandaytrip.com/hoi-an-old-town-ticket/",
+      "https://hoabinhtourist.com/en/blog/hoi-an-ancient-town-ticket"
+    ]
+  },
+  {
+    "id": "ROSIES_CAFE",
+    "name": "Rosie's Cafe",
+    "vi": "Rosie's Cafe",
+    "addr": "8/6 Nguyễn Thị Minh Khai, Hội An",
+    "lat": 15.87779,
+    "lng": 108.32576,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "North bank, in the lane just past the Japanese Bridge - about 4 min on foot from Lantana and the closer of the two cafe options to the hotel.",
+    "why": "Listed 11:45-12:45 cafe option",
+    "role": "venue",
+    "near": "Japanese Bridge / Lantana",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Rosie%27s%20Cafe%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "COCOBOX",
+    "name": "Cocobox",
+    "vi": "Cocobox",
+    "addr": "94 Lê Lợi, Minh An, Hội An",
+    "lat": 15.8767,
+    "lng": 108.32856,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Farm-to-table juice and deli bar inside the core, 3 min from Nước Mót - the 11:45-12:45 block works as one short loop.",
+    "why": "Listed 11:45-12:45 cafe option",
+    "role": "venue",
+    "near": "Lê Lợi, Ancient Town core",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Cocobox%2C%20Le%20Loi%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "NUOC_MOT",
+    "name": "Nuoc Mot Hoi An",
+    "vi": "Nước Mót Hội An",
+    "addr": "150 Trần Phú, Hội An",
+    "lat": 15.87716,
+    "lng": 108.32729,
+    "approx": true,
+    "hours": null,
+    "phone": null,
+    "price": "Approx 30,000-40,000 VND for the signature herbal iced tea",
+    "tip": "The yellow wall is the photo itself - order the Mót herbal tea and shoot against it. Short queue before noon, long after 16:00.",
+    "why": "Listed drink stop",
+    "role": "venue",
+    "near": "Trần Phú, 100 m from Faifo Coffee",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Nuoc%20Mot%2C%20150%20Tran%20Phu%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "MADAM_KHANH",
+    "name": "Madam Khanh - The Banh Mi Queen",
+    "vi": "Bánh mì Madam Khánh",
+    "addr": "115 Trần Cao Vân, Minh An, Hội An",
+    "lat": 15.88063,
+    "lng": 108.32791,
+    "approx": false,
+    "hours": "Daily 06:30-19:00",
+    "phone": null,
+    "price": "25,000-40,000 VND (approx USD 1.00-1.60)",
+    "tip": "North of the old town, almost never a queue - the better of the two for a sit-down at 13:00. Cash.",
+    "why": "Listed 13:00-14:00 option",
+    "role": "venue",
+    "near": "Trần Cao Vân, 5 min north of the Ancient Town",
+    "sources": [
+      "https://hoianprivatetaxi.com/madam-khanh-the-banh-mi-queen/",
+      "https://lasiestaresorts.com/banh-mi-hoi-an.html"
+    ]
+  },
+  {
+    "id": "BANH_MI_PHUONG",
+    "name": "Banh Mi Phuong",
+    "vi": "Bánh mì Phượng",
+    "addr": "2B Phan Châu Trinh, Hội An",
+    "lat": 15.87848,
+    "lng": 108.33201,
+    "approx": false,
+    "hours": "Daily 06:30-21:30",
+    "phone": null,
+    "price": "15,000-35,000 VND",
+    "tip": "The Bourdain one, so budget 15-30 min queuing at 13:00. It is 250 m from Bebe Tailor 1 - pair the two on one trip east.",
+    "why": "Listed 13:00-14:00 option",
+    "role": "venue",
+    "near": "Phan Châu Trinh, next to Bebe Tailor 1",
+    "sources": [
+      "https://lasiestaresorts.com/banh-mi-hoi-an.html",
+      "https://hoianprivatetaxi.com/banh-mi-phuong-hoi-an/"
+    ]
+  },
+  {
+    "id": "FAIFO_COFFEE",
+    "name": "Faifo Coffee",
+    "vi": "Faifo Coffee",
+    "addr": "130 Trần Phú, Hội An",
+    "lat": 15.87723,
+    "lng": 108.32813,
+    "approx": false,
+    "hours": "Mon-Thu 08:30-21:00, Fri-Sun 08:00-21:30 (some listings say 08:00-21:30 daily)",
+    "phone": "+84 96 666 1981",
+    "price": "39,000-100,000 VND per drink",
+    "tip": "The rooftop is the Xiaohongshu shot, looking down the tiled roofs of Trần Phú. Three floors - go straight to the top; the terrace is small and fills from about 15:30. Best light 16:30-17:30.",
+    "why": "Listed 14:30-17:30 rooftop",
+    "role": "venue",
+    "near": "Trần Phú, 100 m from Nước Mót",
+    "sources": [
+      "https://www.mytravelbuzzg.com/faifo-coffee-hoi-an/",
+      "https://us.trip.com/restaurant/vietnam/hoi-an/detail/faifo-coffee-31399931"
+    ]
+  },
+  {
+    "id": "WHITE_ROSE_RESTAURANT",
+    "name": "White Rose Restaurant",
+    "vi": "Nhà hàng Bông Hồng Trắng",
+    "addr": "533 Hai Bà Trưng, Hội An",
+    "lat": 15.88296,
+    "lng": 108.32501,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "The family workshop that supplies white-rose dumplings to most of the town, and you can watch them folded. It is ~900 m north-west of Trần Phú - a 10-12 min walk from Faifo, so treat it as its own leg, not a hop.",
+    "why": "Listed 14:30-17:30 stop",
+    "role": "venue",
+    "near": "Hai Bà Trưng, north of the Ancient Town",
+    "sources": [
+      "https://photon.komoot.io/api/?q=White%20Rose%20Restaurant%2C%20533%20Hai%20Ba%20Trung%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "LANTERN_BOAT_PIER",
+    "name": "Hoai River lantern boat pier (Bach Dang / An Hoi bridge foot)",
+    "vi": "Bến thuyền hoa đăng sông Hoài",
+    "addr": "Bạch Đằng, at the An Hội footbridge, Hội An",
+    "lat": 15.87679,
+    "lng": 108.32693,
+    "approx": true,
+    "hours": "Boats run roughly 17:30-22:00; busiest 18:30-20:30",
+    "phone": null,
+    "price": "Syndicate-fixed per BOAT: 150,000-170,000 VND for 1-3 people, 200,000-220,000 VND for 4-5. Floating lanterns 5,000-15,000 VND each, sold separately",
+    "tip": "Buy at the official counter at the start of Bạch Đằng or at the An Hội bridge foot, not from touts on the promenade. The rate is per boat, not per head, so for two of you it is the 1-3 price. Ride is ~20 min between the An Hội and Cẩm Nam bridges. NOTE: Thu 24 Sep 2026 is the Full Moon Lantern Festival (lunar 14th) and Mid-Autumn eve, with the Ancient Town's electric lights off ~18:00-22:00 - that is the better boat night if they can reach the pier by ~21:45.",
+    "why": "Listed 18:00-19:15 activity",
+    "role": "venue",
+    "near": "Bạch Đằng riverfront",
+    "sources": [
+      "https://hoiandaytrip.com/hoi-an-lantern-boat-ride/",
+      "https://dananghoian.net/en/explore/lantern-boat-floating-on-hoi-ans-hoai-river-price-guide/",
+      "https://www.yourvietnamtravel.com/hoi-an-lantern-boat-ride"
+    ]
+  },
+  {
+    "id": "BALE_WELL",
+    "name": "Bale Well",
+    "vi": "Quán Bale Well",
+    "addr": "45/51 Trần Hưng Đạo, Hội An",
+    "lat": 15.8789,
+    "lng": 108.32979,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Down a narrow alley off Trần Hưng Đạo. No menu - one fixed set per person (bánh xèo, nem lụi, spring rolls) and a staff member rolls the first one for you.",
+    "why": "Listed 19:30-21:00 dinner option",
+    "role": "venue",
+    "near": "Trần Hưng Đạo, north edge of the Ancient Town",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Bale%20Well%2C%2045%20Tran%20Hung%20Dao%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "MORNING_GLORY_ORIGINAL",
+    "name": "Morning Glory Original",
+    "vi": "Morning Glory",
+    "addr": "106 Nguyễn Thái Học, Hội An",
+    "lat": 15.87662,
+    "lng": 108.32779,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Ms Vy's flagship and the busiest sit-down in the old town - book ahead for a 19:30 table. Directly opposite Tấn Ký Old House.",
+    "why": "Listed 19:30-21:00 dinner option",
+    "role": "venue",
+    "near": "Nguyễn Thái Học, opposite Tấn Ký",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Morning%20Glory%20Original%2C%20106%20Nguyen%20Thai%20Hoc%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "HOI_AN_NIGHT_MARKET",
+    "name": "Hoi An Night Market (Nguyen Hoang street market)",
+    "vi": "Chợ đêm Nguyễn Hoàng",
+    "addr": "Nguyễn Hoàng, An Hội, Hội An",
+    "lat": 15.87578,
+    "lng": 108.32593,
+    "approx": false,
+    "hours": "Daily approx 17:00-23:00; many stalls start packing up around 21:00, food stalls run latest",
+    "phone": null,
+    "price": "Skewers and snacks 10,000-50,000 VND",
+    "tip": "This is the realistic answer to the Thursday 21:30-23:00 snack window - it is the one place still cooking that late, and it is where bánh xoài and thịt xiên nướng are actually sold (they are street-cart food, not restaurant food). Lantern-lit street, so it doubles as the first photo stop. On Thu 24 Sep it is festival night, so the market and the whole An Hoi strip will be at maximum density.",
+    "why": "Only reliably late-night food + the bánh xoài and thịt xiên nướng the plan asks for",
+    "role": "extra",
+    "near": "Thu 21:30-23:00 late snacks; 550 m / 7 min walk from Lantana over the An Hội bridge",
+    "sources": [
+      "https://hoianit.com/nguyen-hoang-night-market-hoi-an-a-must-visit-place/",
+      "https://www.vietnamairlines.com/us/en/useful-information/travel-guide/night-market-hoi-an"
+    ]
+  },
+  {
+    "id": "CAO_LAU_TRUNG_BAC",
+    "name": "Trung Bac Restaurant (cao lau)",
+    "vi": "Cao lầu Trung Bắc",
+    "addr": "87 Trần Phú, Hội An",
+    "lat": 15.87717,
+    "lng": 108.32884,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "A century-old shophouse doing the traditional version - closes in the evening, so it fits the Friday lunch window better than Thursday night.",
+    "why": "The classic cao lầu house, 100+ years old, on the same block as the Friday walking route",
+    "role": "extra",
+    "near": "Fri 09:00-11:30 Trần Phú block; 80 m from Hoi An Roastery, 100 m from Faifo Coffee",
+    "sources": [
+      "https://hiddenhoian.com/eat/cao-lau-restaurants/",
+      "https://culturephamtravel.com/cao-lau-noodles-hoi-an/"
+    ]
+  },
+  {
+    "id": "CAO_LAU_THANH",
+    "name": "Quan Cao Lau Thanh",
+    "vi": "Cao lầu Thanh",
+    "addr": "26 Thái Phiên, Minh An, Hội An",
+    "lat": 15.88169,
+    "lng": 108.32839,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Locals' choice, plastic-stool setting, no English menu needed - point at the one dish. Cash.",
+    "why": "The cao lầu locals rate highest, and it is 130 m from Madam Khanh",
+    "role": "extra",
+    "near": "Fri 13:00-14:00 Madam Khanh stop (2 min walk)",
+    "sources": [
+      "https://hiddenhoian.com/eat/cao-lau-restaurants/",
+      "https://www.hoiana.com/blog/cao-lau-hoi-an-discover-the-best-spots-recommended-by-locals"
+    ]
+  },
+  {
+    "id": "QUAN_CO_SAU_MI_QUANG",
+    "name": "Quan Co Sau (mi Quang)",
+    "vi": "Quán cô Sáu Mì Quảng",
+    "addr": "110 Trần Hưng Đạo, Hội An",
+    "lat": 15.87985,
+    "lng": 108.32408,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Mì Quảng is a morning/lunch dish here - go before 12:00 or the broth is finished.",
+    "why": "Closest proper mì Quảng to the hotel, on the north-bank walk back from Bale Well",
+    "role": "extra",
+    "near": "Between Lantana and Bale Well on Trần Hưng Đạo, ~450 m from the hotel",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Mi%20Quang%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "CONG_CAPHE_HOI_AN",
+    "name": "Cong Caphe",
+    "vi": "Cộng Cà Phê",
+    "addr": "Công Nữ Ngọc Hoa, Hội An",
+    "lat": 15.87716,
+    "lng": 108.32482,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": "Approx 45,000-70,000 VND a drink",
+    "tip": "Opens early and does the coconut coffee; it is the nearest reliable sit-down breakfast/coffee to Lantana on the north bank, 300 m and no bridge crossing.",
+    "why": "Breakfast spot near Lantana - useful on Sat morning before the 09:30 Grab",
+    "role": "extra",
+    "near": "Lantana (4 min walk); also on the way to the Japanese Bridge",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Cong%20Caphe%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "CAFE_CITRONELLA",
+    "name": "Cafe CitroNella",
+    "vi": "Cafe CitroNella",
+    "addr": "05 Nguyễn Thị Minh Khai, Hội An",
+    "lat": 15.87707,
+    "lng": 108.32578,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Sits on the quiet heritage lane immediately west of the Japanese Bridge - same old-house look as Trần Phú with a fraction of the crowd.",
+    "why": "Second breakfast option, on the Lantana-to-Japanese-Bridge line",
+    "role": "extra",
+    "near": "Japanese Covered Bridge (60 m) and Lantana (5 min)",
+    "sources": [
+      "https://photon.komoot.io/api/?q=cafe%20Nguyen%20Thi%20Minh%20Khai%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "HOI_AN_ROASTERY_TRAN_PHU",
+    "name": "Hoi An Roastery (Tran Phu)",
+    "vi": "Hoi An Roastery",
+    "addr": "135 Trần Phú, Hội An",
+    "lat": 15.87701,
+    "lng": 108.32869,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "The Xiaohongshu shot here is the upstairs window with the paper-lantern light on the yellow wall - late afternoon sun comes through the lattice around 15:30-16:30. Several branches; the Trần Phú one is the photographed one.",
+    "why": "Xiaohongshu-famous photo cafe, directly across from Faifo",
+    "role": "extra",
+    "near": "Fri 14:30-17:30 Faifo Coffee block (60 m)",
+    "sources": [
+      "https://hoianmemoriesresort.com/en/best-rooftop-cafes-and-bars-in-hoi-an-top-spots-for-stunning-views.html",
+      "https://photon.komoot.io/api/?q=Hoi%20An%20Roastery"
+    ]
+  },
+  {
+    "id": "THE_CHEF_ROOFTOP",
+    "name": "The Chef (rooftop)",
+    "vi": "The Chef",
+    "addr": "166 Trần Phú, Hội An",
+    "lat": 15.87728,
+    "lng": 108.32696,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "The backup if Faifo's small terrace is full - same tiled-roof view one block west, and usually seats available. Closer to the Japanese Bridge end.",
+    "why": "Rooftop-view alternative to Faifo Coffee on the same street",
+    "role": "extra",
+    "near": "Fri 14:30-17:30 Faifo Coffee block; 120 m from Nước Mót",
+    "sources": [
+      "https://hotelroyalhoian.vn/rooftop-cafes-with-hoi-an/",
+      "https://photon.komoot.io/api/?q=The%20Chef%2C%20166%20Tran%20Phu%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "REACHING_OUT_TEA_HOUSE",
+    "name": "Reaching Out Tea House",
+    "vi": "Reaching Out Tea House",
+    "addr": "131 Trần Phú, Hội An",
+    "lat": 15.87704,
+    "lng": 108.32724,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Staffed by deaf artisans, so it is run in silence with wooden request blocks - the quietest room in the old town and zero effort. The attached shop sells their own ceramics and textiles, which is the best of the indie-boutique buys on Trần Phú.",
+    "why": "Indie boutique shopping plus a genuinely restful stop between the tailor and the rooftop",
+    "role": "extra",
+    "near": "Fri 09:00-11:30 Trần Phú artisan block; 40 m from Nước Mót",
+    "sources": [
+      "https://photon.komoot.io/api/?q=Reaching%20Out%20Tea%20House%2C%20131%20Tran%20Phu%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "BANH_MI_BA_NGA",
+    "name": "Banh Mi Ba Nga",
+    "vi": "Bánh mì Bà Nga",
+    "addr": "62-74 Lê Lợi, Hội An",
+    "lat": 15.87731,
+    "lng": 108.32859,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "A cart, not a shop - the no-queue bánh mì inside the old town if Phượng's line is out the door at 13:00.",
+    "why": "Third bánh mì, 20 m from Cocobox",
+    "role": "extra",
+    "near": "Fri 11:45-12:45 Cocobox stop",
+    "sources": [
+      "https://photon.komoot.io/api/?q=banh%20mi%20Le%20Loi%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "AN_HOI_BRIDGE",
+    "name": "An Hoi Bridge",
+    "vi": "Cầu An Hội",
+    "addr": "Bạch Đằng / Nguyễn Phúc Chu, Hội An",
+    "lat": 15.87637,
+    "lng": 108.32645,
+    "approx": false,
+    "hours": "24h, free",
+    "phone": null,
+    "price": null,
+    "tip": "Stand on the bridge facing east about 17:40-18:10 - the lanterns come on while there is still colour in the sky, which is the frame everyone posts. Then walk 100 m to the boat counter.",
+    "why": "Sunset and lantern photo spot, immediately before the 18:00 boat",
+    "role": "extra",
+    "near": "Fri 18:00 lantern boat pier (100 m); 500 m from Lantana",
+    "sources": [
+      "https://hoiandaytrip.com/hoi-an-lantern-boat-ride/",
+      "https://photon.komoot.io/api/?q=An%20Hoi%20Bridge%2C%20Hoi%20An"
+    ]
+  },
+  {
+    "id": "CAM_NAM_BRIDGE",
+    "name": "Cam Nam Bridge",
+    "vi": "Cầu Cẩm Nam",
+    "addr": "Bạch Đằng / Hoàng Diệu / Phan Bội Châu junction, Hội An",
+    "lat": 15.87554,
+    "lng": 108.33314,
+    "approx": false,
+    "hours": "24h, free",
+    "phone": null,
+    "price": null,
+    "tip": "Wider river and no crowd compared with the An Hội bridge; best 17:30-18:30. It is the far east end of the riverfront, so use it only if you shift dinner east toward Bebe/Bánh Mì Phượng.",
+    "why": "The uncrowded sunset viewpoint over the Thu Bồn",
+    "role": "extra",
+    "near": "East end of Bạch Đằng riverfront, 350 m from Bebe Tailor 1",
+    "sources": [
+      "https://hoiandaytrip.com/cam-nam-bridge-hoi-an/",
+      "https://hoianmemoriesland.com/en/top-places-to-watch-the-sunset-in-hoi-an-best-locations-for-2026-d620"
+    ]
+  },
+  {
+    "id": "FULL_MOON_LANTERN_FESTIVAL",
+    "name": "Hoi An Full Moon Lantern Festival (Mid-Autumn eve)",
+    "vi": "Lễ hội đèn lồng đêm rằm Hội An / Tết Trung Thu",
+    "addr": "Ancient Town streets and the Hoài River waterfront, Hội An",
+    "lat": 15.87679,
+    "lng": 108.32693,
+    "approx": true,
+    "hours": "Thu 24 Sep 2026, electric street lighting off approx 18:00-22:00; lantern parades and lion dances through the evening",
+    "phone": null,
+    "price": "Free to attend",
+    "tip": "Falls on the 14th of each lunar month; 2026 dates are 27 Jul, 26 Aug, 24 Sep, 23 Oct, 22 Nov, 22 Dec. The 24 Sep one is Mid-Autumn eve and one of the two biggest nights of the year. Their 21:30 arrival catches only the last ~30 min of the lights-off window - go straight out from the hotel without unpacking. Fri 25 Sep is Tet Trung Thu itself: not a public holiday, so shops trade normally, but restaurants fill - book Morning Glory.",
+    "why": "Falls on their arrival night and changes the Thursday evening plan",
+    "role": "extra",
+    "near": "Thu 24 Sep 21:30-23:00 walk; An Hoi bridge and Bach Dang riverfront",
+    "sources": [
+      "https://www.nghevilla.com/en/blog/hoi-an-lantern-festival-2026-calendar-dates",
+      "https://hoiandaytrip.com/hoi-an-lantern-festival/",
+      "https://madmonkeyhostels.com/blogs/hoi-an-lantern-festival-guide/"
+    ]
+  }
+]

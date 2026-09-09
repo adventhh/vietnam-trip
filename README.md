@@ -17,6 +17,7 @@ Offline-capable trip companion for 18–28 September 2026. A single web page wit
 | `manifest.webmanifest`, `icons/` | Home-screen app metadata and icons. |
 | `tools/build.mjs` | Rebuilds fonts, routes, map data and the cache list. |
 | `tools/make_icons.py` | Regenerates the icons. |
+| `tools/research/` | Per-region research behind the plan (verified hours, addresses, pins, sources) and the plan-affecting findings. Not shipped to the phone. |
 
 ## Rebuilding after editing the plan
 

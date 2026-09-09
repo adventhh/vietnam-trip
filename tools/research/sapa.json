@@ -1,0 +1,560 @@
+[
+  {
+    "id": "PISTACHIO_HOTEL_SAPA",
+    "name": "Pistachio Hotel Sapa",
+    "vi": "Khách sạn Pistachio Sapa, Tổ 5 đường Thác Bạc, phường Sa Pa, Lào Cai",
+    "addr": "To 5, Thac Bac Street, Sa Pa, Lao Cai 661300",
+    "lat": 22.335752,
+    "lng": 103.838737,
+    "approx": true,
+    "hours": "Reception 24h. Infinity pool (12F) 06:30-11:30 and 13:00-19:00.",
+    "phone": null,
+    "price": null,
+    "tip": "Pool has a midday closure (11:30-13:00) - the Tue 08:45-10:15 swim is inside the morning window, but do not drift past 11:30. Bags can be left at reception before the 14:00 check-in, which is what the 05:30 bus arrival depends on; confirm by email in advance.",
+    "why": "Base hotel; 12th-floor outdoor infinity pool next to Fansi Sky Bar, the only one in the town centre.",
+    "role": "venue",
+    "near": "Thac Bac street, ~400 m uphill from Sun Plaza",
+    "sources": [
+      "https://pistachiohotel.com/wellness/infinity-pool",
+      "https://sapanomad.com/pistachio-hotel-sapa/",
+      "https://www.tripadvisor.com/Hotel_Review-g311304-d15246389-Reviews-Pistachio_Hotel_Sapa-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "PHO_GA_HOANG_NGAN",
+    "name": "Pho Ga Hoang Ngan",
+    "vi": "Phở Gà Hoàng Ngân, cạnh Nhà thờ Đá, trung tâm Sa Pa",
+    "addr": "Beside Sapa Stone Church, town centre, Sa Pa",
+    "lat": 22.335203,
+    "lng": 103.842254,
+    "approx": true,
+    "hours": "Breakfast only; opens early, closes when the broth runs out (aim before 08:30)",
+    "phone": null,
+    "price": null,
+    "tip": "The named pho ga the plan is missing - it is literally next to the Stone Church, so the 06:15-07:15 slot works. Sapa pho ga has a clear chicken-bone broth, not Hanoi-style. Cash only.",
+    "why": "The specific well-known pho ga by the central square/church, matching the Sun 06:15 breakfast slot.",
+    "role": "venue",
+    "near": "Sapa Stone Church / central square",
+    "sources": [
+      "https://travelsapa.com.vn/chi-tiet-du-lich/quan-pho-ga-ngon-o-sapa-2166-1488.html",
+      "https://mytour.vn/vi/blog/bai-viet/danh-sach-top-6-quan-pho-ngon-nhat-tai-sapa-lao-cai.html"
+    ]
+  },
+  {
+    "id": "SUN_WORLD_FANSIPAN_LEGEND",
+    "name": "Sun World Fansipan Legend (board at Sun Plaza)",
+    "vi": "Sun World Fansipan Legend, ga Sun Plaza, đường Nguyễn Chí Thanh / Fansipan, Sa Pa, Lào Cai",
+    "addr": "Sun Plaza station, Nguyen Chi Thanh / Fansipan Street, Sa Pa, Lao Cai",
+    "lat": 22.334558,
+    "lng": 103.840482,
+    "approx": false,
+    "hours": "Sun 07:30-14:30; Sat 07:30-15:30; Mon-Thu 08:00-14:30; Fri 08:00-15:30. CLOSED FOR MAINTENANCE 21-27 Sep 2026 (cable car + both funiculars), reopening 28 Sep.",
+    "phone": null,
+    "price": "Cable car round trip 850,000 VND adult / 550,000 child (1.0-1.4 m). Cable car + Muong Hoa funicular + summit funicular combo 1,370,000 adult / 1,070,000 child. Under 1 m free. Sat/holiday surcharge 50,000 on adult cable car.",
+    "tip": "The plan's assumption is right: 20 Sep 2026 IS the last operating day before the annual shutdown - which is exactly why it will be the busiest day of the month, on a Sunday. Buy the combo ticket online the night before and be at Sun Plaza for the 07:30 first departure. There is no fallback day on this trip.",
+    "why": "Core stop; zero walking on the combo ticket - funicular from Sun Plaza, cable car, then summit funicular to 3,143 m.",
+    "role": "venue",
+    "near": "Sun Plaza, town centre",
+    "sources": [
+      "https://vecaptreosapa.com/lich-bao-tri-cap-treo-fansipan-2026-tam-dung-tu-21-09-den-27-09/",
+      "https://sunworld.vn/vi/fansipan/check-in/cam-nang-trai-nghiem-sun-world-fansipan",
+      "https://sapanomad.com/fansipan-cable-car-ticket-review/"
+    ]
+  },
+  {
+    "id": "CON_SUI_ONG_HA",
+    "name": "Con Sui Ong Ha",
+    "vi": "Cốn Sủi Ông Há, 591 Điện Biên Phủ, Sa Pa, Lào Cai",
+    "addr": "591 Dien Bien Phu, Sa Pa, Lao Cai (some listings say 436 Dien Bien Phu)",
+    "lat": 22.339180,
+    "lng": 103.850172,
+    "approx": true,
+    "hours": "04:00-14:00 daily",
+    "phone": "0856 332 323",
+    "price": "35,000-40,000 VND per bowl",
+    "tip": "Closes at 14:00, so the 11:45-13:00 slot is the last safe window. It is on Dien Bien Phu, roughly 1.5 km downhill/north-east of Sun Plaza - not a walk after a morning on the mountain, take a taxi. Cash.",
+    "why": "Seven-generation con sui (flat wheat noodles in thick savoury sauce, not clear broth) - the Sapa dish most worth the detour.",
+    "role": "venue",
+    "near": "Dien Bien Phu, same street as the HK Buslines office",
+    "sources": [
+      "https://phoconsui.com/",
+      "https://www.tripadvisor.com/Restaurant_Review-g311304-d18816124-Reviews-C_n_S_i_Ong_Ha-Sapa_Lao_Cai_Province.html",
+      "https://vecaptreosapa.com/review-nha-hang-con-sui-ong-ha/"
+    ]
+  },
+  {
+    "id": "ALPINE_COASTER_SAPA",
+    "name": "Alpine Coaster Sapa (Ban Mong)",
+    "vi": "Xe trượt núi Alpine Coaster, Tổ 3, Cầu Mây (bản Mòng), Sa Pa, Lào Cai",
+    "addr": "To 3, Cau May (Ban Mong), Sa Pa, Lao Cai",
+    "lat": 22.322563,
+    "lng": 103.866565,
+    "approx": false,
+    "hours": "Reported 07:00-18:30 or 09:00-18:00 daily; may close in heavy rain/fog",
+    "phone": null,
+    "price": "200,000-250,000 VND adult per ride; ~100,000 VND child 90-135 cm riding with an adult",
+    "tip": "Roughly 3.5 km south-east of the square, not 5 km, but it is a real taxi hop and Grab cover thins out there - ask the driver to wait or take his number. Over 1,000 m of track, ~30 min per experience. Wet track = closure, so check the same morning.",
+    "why": "Longest alpine coaster in Vietnam; zero-effort thrill with valley views, fits the no-hiking rule.",
+    "role": "venue",
+    "near": "Cau May / Ban Mong, ~3.5 km SE of Sapa square",
+    "sources": [
+      "https://sapanomad.com/alpine-coaster-sapa/",
+      "https://www.klook.com/en-US/activity/43346-sapa-mong-village-alpine-coaster-experience/",
+      "https://mia.vn/cam-nang-du-lich/alpine-coaster-o-ban-mong-sapa-20813"
+    ]
+  },
+  {
+    "id": "NHA_HANG_A_PHU",
+    "name": "Nha Hang A Phu",
+    "vi": "Nhà hàng A Phủ, 15 đường Fansipan, Sa Pa, Lào Cai",
+    "addr": "15 Fansipan Street, Sa Pa, Lao Cai",
+    "lat": 22.332540,
+    "lng": 103.839349,
+    "approx": true,
+    "hours": "09:00-23:00 daily",
+    "phone": "0868 159 900",
+    "price": null,
+    "tip": "Salmon hotpot is the house dish; sturgeon and salmon are usually priced per kg, so agree the fish weight before they cook it. Book ahead for 17:30 on a Sunday.",
+    "why": "The better-known of the two hotpot options; Tay Bac specialities (thang co, lon cap nach) alongside the salmon/sturgeon hotpot.",
+    "role": "venue",
+    "near": "Fansipan Street, ~5 min walk from Sun Plaza",
+    "sources": [
+      "https://vecaptreosapa.com/nha-hang-a-phu-sapa/",
+      "https://mia.vn/cam-nang-du-lich/nha-hang-a-phu-sapa-noi-hoi-tu-tinh-hoa-am-thuc-tay-bac-559"
+    ]
+  },
+  {
+    "id": "HOTPOT_CENTER_SAPA",
+    "name": "Hotpot Center Sapa",
+    "vi": "Nhà hàng Lẩu Hotpot Center Sapa, 71 Xuân Viên, Sa Pa, Lào Cai",
+    "addr": "71 Xuan Vien, Sa Pa, Lao Cai",
+    "lat": 22.337854,
+    "lng": 103.844245,
+    "approx": true,
+    "hours": "08:00-22:00 daily",
+    "phone": null,
+    "price": null,
+    "tip": "Overlooks Sapa Lake and is a 2-minute walk from it, so it chains straight into the evening lake/night-market leg better than A Phu does. Menu is largely Vietnamese-only and staff use translation apps - screenshot the dish names first. Sturgeon hotpot is the pick.",
+    "why": "Lake-view hotpot with 200+ dishes; the plan's second hotpot option and the more convenient one for the 19:30 night-market move.",
+    "role": "venue",
+    "near": "Sapa Lake / Xuan Vien",
+    "sources": [
+      "https://www.foody.vn/lao-cai/hotpot-center-lau-nuong-bang-chuyen",
+      "https://reviewtaybac.com/danh-gia-hotpot-center-071-xuan-vien-sapa/",
+      "https://wanderlog.com/place/details/3980258/nh%C3%A0-h%C3%A0ng-l%E1%BA%A9u-hotpot-center-sapa"
+    ]
+  },
+  {
+    "id": "SAPA_NIGHT_MARKET",
+    "name": "Sapa Night Market (N1 street)",
+    "vi": "Chợ đêm Sa Pa, đường N1, tổ 3B, Sa Pa, Lào Cai",
+    "addr": "N1 street, group 3B, at the Lao Cai Information and Tourism Promotion Centre, Sa Pa",
+    "lat": 22.338292,
+    "lng": 103.851985,
+    "approx": true,
+    "hours": "Fri, Sat and Sun 16:00-22:00 (many stalls run to around midnight); busiest 20:00-22:00",
+    "phone": null,
+    "price": "Free entry",
+    "tip": "Sunday IS a market night - the plan is safe. But this is the modern night market, not the historic 'love market'; do not expect an ethnic courtship ceremony. Bring small notes, stalls are cash-only and haggling is expected.",
+    "why": "Grilled skewers, thang co, brocade stalls; the 19:30-21:30 slot lands exactly on the peak hours.",
+    "role": "venue",
+    "near": "Town centre, walkable from Sapa Lake and the square",
+    "sources": [
+      "https://sapanomad.com/night-market-sapa/",
+      "https://vinwonders.com/en/wonderpedia/news/sapa-night-market-ideal-spot-to-embrace-sapas-rich-culture/",
+      "https://www.bestpricetravel.com/travel-guide/sapa-night-market.html"
+    ]
+  },
+  {
+    "id": "SAPA_STONE_CHURCH",
+    "name": "Sapa Stone Church (Our Lady of the Rosary)",
+    "vi": "Nhà thờ Đá Sa Pa (Nhà thờ Đức Mẹ Mân Côi), phố Hàm Rồng, Sa Pa, Lào Cai",
+    "addr": "Ham Rong Street, Sa Pa, Lao Cai",
+    "lat": 22.335203,
+    "lng": 103.842254,
+    "approx": false,
+    "hours": "Interior Mon-Sat 07:00-18:00, Sun 09:00-18:00. Sunday Mass 09:00 and 19:00.",
+    "phone": null,
+    "price": "Free",
+    "tip": "The 19:30-21:30 slot is after the interior closes at 18:00, and a Sunday evening Mass runs at 19:00 - so plan on the floodlit exterior only. That is the Xiaohongshu shot anyway; the square in front is where the crowds and the photos are.",
+    "why": "The town's landmark and the anchor of the central square; free, floodlit, zero effort.",
+    "role": "venue",
+    "near": "Central square, next to the pho ga breakfast stop",
+    "sources": [
+      "https://www.yourvietnamtravel.com/sapa-stone-church",
+      "https://sapanomad.com/notre-dame-cathedral-sapa/",
+      "https://revitrip.com/blog/sapa-church-history-architecture-and-visitor-guide-2026/"
+    ]
+  },
+  {
+    "id": "CAT_CAT_VILLAGE",
+    "name": "Cat Cat Village",
+    "vi": "Bản Cát Cát, đường Cát Cát (nối đường Fansipan), Sa Pa, Lào Cai",
+    "addr": "Cat Cat Road, ~2 km downhill from Sapa town centre, Sa Pa, Lao Cai",
+    "lat": 22.330991,
+    "lng": 103.833855,
+    "approx": true,
+    "hours": "06:00-18:00 daily",
+    "phone": null,
+    "price": "150,000 VND adult, 70,000 VND child up to 1.3 m. Rainbow slide 40,000 VND per ride (separate). Electric buggy from Gate 2 down to the village centre 10,000 VND per person per trip.",
+    "tip": "Tickets are sold at the gate, cash only - no card, no online. Going down is easy, coming back up is the strenuous part the plan rightly avoids: take a xe om from the bottom exit (50,000-60,000 VND/person) or a car (80,000-120,000 VND). Arrive by 09:45 as planned; tour groups land from about 09:30.",
+    "why": "Waterwheels, waterfall, suspension bridge and Hmong houses; entry includes the dance show, and the route is all downhill.",
+    "role": "venue",
+    "near": "Bottom of Fansipan Street, ~2 km from Sapa square",
+    "sources": [
+      "https://asiamystika.com/blog/cat-cat-village-vietnam",
+      "https://sapanomad.com/rainbow-slide-sapa/",
+      "https://passportandstamps.com/sapa-cat-cat-village-guide/",
+      "https://www.bestpricetravel.com/travel-guide/cat-cat-village.html"
+    ]
+  },
+  {
+    "id": "QUAN_O_QUY_HO",
+    "name": "Nha Hang O Quy Ho",
+    "vi": "Nhà hàng Ô Quý Hồ, 08 Thạch Sơn, Sa Pa, Lào Cai",
+    "addr": "08 Thach Son, Sa Pa, Lao Cai",
+    "lat": 22.336022,
+    "lng": 103.843470,
+    "approx": false,
+    "hours": "08:00-21:00 daily",
+    "phone": "0888 029 119",
+    "price": "Sturgeon priced by weight, around 180,000-250,000 VND/kg; reviewers call it not cheap but generous portions",
+    "tip": "Note the spelling: the sign and website are 'Ô Quý Hồ', not 'Ô Quy Hồ' - useful when showing a driver. It is in the town centre on Thach Son, NOT out at the O Quy Ho pass, so the 12:15 arrival from Cat Cat is a short taxi. Com lam and grilled pork are the reason to come.",
+    "why": "Tay Bac specialities - com lam in bamboo, charcoal-grilled goat and pork, black chicken - with a valley view from the tables.",
+    "role": "venue",
+    "near": "Thach Son, town centre, 3 min from the square",
+    "sources": [
+      "https://oquyhorestaurant.com/",
+      "https://visitsapa.com.vn/vi/nha-hang-o-quy-ho-sapa",
+      "https://vn.trip.com/restaurant/vietnam/sapa/detail/o-quy-ho-sa-pa-restaurant-52811798/"
+    ]
+  },
+  {
+    "id": "DAOS_CARE_HERBAL_BATH",
+    "name": "Dao's Care (Red Dao herbal bath)",
+    "vi": "Dao's Care, số 26 phố Đồng Lợi, Sa Pa, Lào Cai",
+    "addr": "26 Dong Loi Street, Sa Pa, Lao Cai",
+    "lat": 22.333081,
+    "lng": 103.841831,
+    "approx": true,
+    "hours": "08:00-23:30 daily",
+    "phone": null,
+    "price": "From ~200,000 VND per herbal bath session; couple and private rooms available at higher rates",
+    "tip": "The 13:30-14:30 slot is tight - a proper bath is 20-30 min in the tub plus changing, and you should not go straight from a hot herbal bath into a 15-minute walk. If the day is running late, this is the right thing to drop, exactly as the plan allows. Book in the morning; the couple room is the one that sells out.",
+    "why": "The signature Sapa wellness stop; a social enterprise employing Red Dao women, well regarded and central.",
+    "role": "venue",
+    "near": "Dong Loi Street, 5 min walk from Hotel de la Coupole",
+    "sources": [
+      "https://sapanomad.com/red-dao-herbal-bath-embrace-deep-healing-experience/",
+      "https://vinpearl.com/en/red-dao-herbal-bath",
+      "https://www.tripadvisor.com/Attraction_Review-g311304-d8262650-Reviews-Red_Dao_Spa_Sapa-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "ABSINTHE_BAR_LOUNGE",
+    "name": "Absinthe Bar & Lounge, Hotel de la Coupole MGallery",
+    "vi": "Absinthe Bar, tầng 10 Hotel de la Coupole MGallery, số 1 đường Hoàng Liên, Sa Pa, Lào Cai",
+    "addr": "10th floor, Hotel de la Coupole - MGallery, 1 Hoang Lien Street, Sa Pa, Lao Cai 33000",
+    "lat": 22.334772,
+    "lng": 103.840384,
+    "approx": false,
+    "hours": "11:00-23:00 daily (some listings say to midnight). No children admitted after 18:00.",
+    "phone": "+84 214 362 9999 ext. 6426 (hotel 0214 3629 999)",
+    "price": null,
+    "tip": "The afternoon tea price is NOT published anywhere - call or email minhanh.do@accor.com to book and get the current rate. The 14:45-17:00 slot is well inside opening hours. Ask for the outdoor fireplace terrace; if it is fogged in, the indoor Bensley interior is the photo anyway.",
+    "why": "Rooftop bar on the 10th floor with an open fireplace and Sapa skyline views; Bill Bensley's Coco Chanel-inspired interior is heavily photographed on Xiaohongshu.",
+    "role": "venue",
+    "near": "Hoang Lien Street, next to Sun Plaza",
+    "sources": [
+      "https://www.hoteldelacoupole.com/dining/absinthe/",
+      "https://mgallery.accor.com/en/hotels/A5V2/B001.bar.html",
+      "https://www.tripadvisor.com/Restaurant_Review-g311304-d17337395-Reviews-Absinthe_Bar-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "MOANA_SAPA",
+    "name": "Moana Sapa",
+    "vi": "Moana Sapa, số 68 đường Violet, phường Cầu Mây, Sa Pa, Lào Cai",
+    "addr": "68 Violet Street, Cau May Ward, Sa Pa, Lao Cai",
+    "lat": 22.327362,
+    "lng": 103.846281,
+    "approx": false,
+    "hours": "07:00-17:00 (some sources 07:00-19:00); ticket sales reported to stop around 16:30",
+    "phone": null,
+    "price": "80,000-90,000 VND basic ticket (often includes a drink); combo packages 150,000-180,000 VND",
+    "tip": "The 17:15-18:30 slot is a real risk - ticketing reportedly stops around 16:30 and the site closes at 17:00 on the conservative reading. Move Moana earlier (swap it with the Absinthe tea) or confirm the closing time by phone that morning. All photo-set fees are included in the ticket, no per-spot surcharges. ~3 km from the square, 10-15 min by taxi.",
+    "why": "The Xiaohongshu/Instagram set piece - Bali 'Gate of Heaven' replica, infinity deck and sky swings framed on Fansipan and the terraces.",
+    "role": "venue",
+    "near": "Violet Street, Cau May ward, ~3 km SE of the centre",
+    "sources": [
+      "https://sapanomad.com/moana-sapa/",
+      "https://www.flysapa.com/en/post/moana-sapa-review-tips",
+      "https://asiamystika.com/blog/moana-sapa",
+      "https://kampatour.com/moana-sapa"
+    ]
+  },
+  {
+    "id": "SAPA_LAKE",
+    "name": "Sapa Lake (Ho Sa Pa)",
+    "vi": "Hồ Sa Pa, khu vực Xuân Viên, Sa Pa, Lào Cai",
+    "addr": "Xuan Vien area, town centre, Sa Pa",
+    "lat": 22.338112,
+    "lng": 103.846257,
+    "approx": false,
+    "hours": "Open access, 24h",
+    "phone": null,
+    "price": "Free",
+    "tip": "A full loop on the fenced footpath is about 30 minutes at a stroll, 10 minutes brisk - flat and paved, so it suits the no-hiking rule. Evening is the better light: the lake mirrors the town lights.",
+    "why": "Flat lakeside loop linking the hotpot restaurants, Le Gecko and the night market; the reflection shots are the reason to come at dusk.",
+    "role": "venue",
+    "near": "Between Hotpot Center, Le Gecko and the night market",
+    "sources": [
+      "https://sapanomad.com/sapa-lake/",
+      "https://www.tripadvisor.co.uk/Attraction_Review-g311304-d13534081-Reviews-Sapa_Lake-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "LE_GECKO_CAFE",
+    "name": "Le Gecko Cafe",
+    "vi": "Le Gecko Cafe, số 2 đường Ngũ Chỉ Sơn, Sa Pa, Lào Cai",
+    "addr": "2 Ngu Chi Son Street, Sa Pa, Lao Cai 330000",
+    "lat": 22.336642,
+    "lng": 103.844092,
+    "approx": false,
+    "hours": "06:30-23:00 daily",
+    "phone": null,
+    "price": null,
+    "tip": "Ask for the third floor or the outdoor terrace - that is where the lake and Fansipan view is; the ground floor has none of it. Open to 23:00, so the 18:45-21:00 slot is comfortable.",
+    "why": "French-leaning cafe right by the lake with a genuine third-floor view; reliable coffee and a Vietnamese menu alongside the Western one.",
+    "role": "venue",
+    "near": "Sapa Lake, 2 min from Hotpot Center",
+    "sources": [
+      "https://legeckosapa.com/menu",
+      "https://sapanomad.com/le-gecko-cafe-sapa/",
+      "https://www.tripadvisor.com/Restaurant_Review-g311304-d12556438-Reviews-Le_Gecko_Cafe-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "THE_MIST_SAPA",
+    "name": "THE MIST SAPA",
+    "vi": "THE MIST SAPA, 11A phố Thác Bạc, Sa Pa, Lào Cai",
+    "addr": "11A Thac Bac Street, Sa Pa, Lao Cai 330000",
+    "lat": 22.335752,
+    "lng": 103.838737,
+    "approx": true,
+    "hours": "07:30-20:00, CLOSED MONDAYS (one source reports a ~17:00 close)",
+    "phone": null,
+    "price": null,
+    "tip": "It is on Thac Bac - the same street as Pistachio, a few minutes' walk, not on Hoang Lien as the plan has it. That makes it the better of the two Tuesday options: walk from check-out, no taxi, and back at the hotel in time for the 12:30 pick-up. Closed Mondays, which does not affect a Tuesday visit. Egg coffee and coconut coffee are the orders; resident cats and dogs roam.",
+    "why": "4.9 stars over 1,500+ reviews, cloud-facing deck, and the closest quality cafe to the hotel for the final morning.",
+    "role": "venue",
+    "near": "Thac Bac Street - walking distance from Pistachio Hotel",
+    "sources": [
+      "https://sapanomad.com/the-mist-cafe-sapa/",
+      "https://coool.cafe/cafe/the-mist-sapa-sa-pa",
+      "https://the-mist-sapa.wheree.com/menu"
+    ]
+  },
+  {
+    "id": "VIETTREKKING_COFFEE",
+    "name": "Viettrekking Coffee & Restaurant",
+    "vi": "Viettrekking Coffee & Restaurant, 33 đường Hoàng Liên, Sa Pa, Lào Cai",
+    "addr": "33 Hoang Lien, TT. Sa Pa, Lao Cai 333320",
+    "lat": 22.335010,
+    "lng": 103.840671,
+    "approx": true,
+    "hours": "07:00-22:00 daily",
+    "phone": null,
+    "price": null,
+    "tip": "This is the Hoang Lien cliffside deck the plan means. The famous shot is the Muong Hoa funicular gliding through the green hills below the terrace - but the cloud sea is an October-April, before-08:00 phenomenon, so a 10:45 visit in September gets the valley, not the clouds. If you want the clouds, this is a sunrise stop, not a check-out stop.",
+    "why": "The defining Sapa view cafe - carved timber room aimed at a glass wall over Muong Hoa valley and the Hoang Lien Son range.",
+    "role": "venue",
+    "near": "Hoang Lien Street, near Hotel de la Coupole and Sun Plaza",
+    "sources": [
+      "https://sapanomad.com/viettrekking-sapa-cafe/",
+      "https://vietpowertravel.com/blog/viettrekking-coffee-sapa-location-menu-opening-hours.html",
+      "https://www.flysapa.com/en/post/viettrekking-sapa-review"
+    ]
+  },
+  {
+    "id": "HK_BUSLINES_SAPA_OFFICE",
+    "name": "HK Buslines Sapa office",
+    "vi": "Nhà xe HK Buslines, 697 Điện Biên Phủ, Sa Pa, Lào Cai",
+    "addr": "697 Dien Bien Phu, Sa Pa, Lao Cai",
+    "lat": 22.339180,
+    "lng": 103.850172,
+    "approx": true,
+    "hours": "About 20 departures a day from Sapa to Hanoi",
+    "phone": null,
+    "price": null,
+    "tip": "HK does not run the big limousine to the hotel door. A shuttle collects from hotels in the Sapa centre zone and takes you to the office at 697 Dien Bien Phu, where the limousine actually departs. So a 12:30 'pick-up at Pistachio' means the shuttle, and the real departure is later - reconfirm with HK the day before, and treat 12:30 as a hard checkout deadline, not a soft one.",
+    "why": "Departure point for the Hanoi leg; the pick-up mechanics change how tight Tuesday morning is.",
+    "role": "venue",
+    "near": "Dien Bien Phu, same street as Con Sui Ong Ha",
+    "sources": [
+      "https://sapanomad.com/hk-limousine-hanoi-sapa/",
+      "https://www.klook.com/en-US/activity/194003-hanoi-sapa-bus-seating-limousine-bus-by-hk-buslines/",
+      "https://joytime.vn/en/product/3702-hanoi-sapa-shuttle-service-by-hk-buslines.html"
+    ]
+  },
+  {
+    "id": "SAPA_SKY_VIEW",
+    "name": "Sapa Sky View Restaurant & Bar",
+    "vi": "Sapa Sky View, tầng thượng khách sạn Châu Long, 24 phố Đồng Lợi, Sa Pa, Lào Cai",
+    "addr": "Rooftop of Chau Long Hotel, 24 Dong Loi Street, Sa Pa, Lao Cai",
+    "lat": 22.333081,
+    "lng": 103.841831,
+    "approx": true,
+    "hours": "Breakfast until 22:00",
+    "phone": null,
+    "price": "Mains 100,000-500,000 VND",
+    "tip": "Open to non-guests. The circular brick window framing the Fansipan range is the photo everyone comes for; at night the lights climbing the mountain are the better version. 4.5 stars over 670+ reviews.",
+    "why": "A second rooftop option a 4-minute walk from Dao's Care on the same street - the Monday backup if Absinthe is booked out or too pricey.",
+    "role": "extra",
+    "near": "Dong Loi Street - beside Dao's Care, near Hotel de la Coupole",
+    "sources": [
+      "https://sapanomad.com/sapa-sky-view-restaurant-bar/",
+      "https://sapanomad.com/cafe-in-sapa-with-cloud-view/"
+    ]
+  },
+  {
+    "id": "WHITE_CLOUD_CAFE",
+    "name": "White Cloud Cafe",
+    "vi": "White Cloud Cafe, 65 đường Fansipan, Sa Pa, Lào Cai",
+    "addr": "65 Fansipan Street, Sa Pa, Lao Cai",
+    "lat": 22.332448,
+    "lng": 103.839021,
+    "approx": false,
+    "hours": "From 07:00",
+    "phone": null,
+    "price": "Mains 60,000-160,000 VND",
+    "tip": "The round window looking straight at the peaks is the Xiaohongshu frame - get there before the queue for that one seat. Egg coffee and coconut iced coffee are the orders.",
+    "why": "Cheap, photogenic and 50 m from Nha Hang A Phu at 15 Fansipan - a natural pre-dinner stop on Sunday evening.",
+    "role": "extra",
+    "near": "Fansipan Street, beside Nha Hang A Phu",
+    "sources": [
+      "https://sapanomad.com/white-cloud-cafe-sapa/",
+      "https://sapanomad.com/cafe-in-sapa-with-cloud-view/"
+    ]
+  },
+  {
+    "id": "FANSIPAN_TERRACE_CAFE",
+    "name": "Fansipan Terrace Cafe",
+    "vi": "Fansipan Terrace Cafe, 67 đường Fansipan, Sa Pa, Lào Cai",
+    "addr": "67 Fansipan Street, Sa Pa, Lao Cai",
+    "lat": 22.332448,
+    "lng": 103.839021,
+    "approx": true,
+    "hours": "From 06:30 daily",
+    "phone": null,
+    "price": null,
+    "tip": "Opens 06:30, which is the point - it is the only view terrace serving before the 07:30 Fansipan departure on Sunday. Direct line of sight down Muong Hoa valley.",
+    "why": "Earliest-opening view cafe in town; a coffee here before Sun Plaza on Sunday costs nothing in time.",
+    "role": "extra",
+    "near": "Fansipan Street, 5 min walk from Sun Plaza",
+    "sources": [
+      "https://sapanomad.com/cafe-in-sapa-with-cloud-view/",
+      "https://sapanomad.com/sapa-cafe/"
+    ]
+  },
+  {
+    "id": "BAGUETTE_ET_CHOCOLAT",
+    "name": "Baguette & Chocolat Cafe",
+    "vi": "Baguette & Chocolat, trung tâm Sa Pa (gần nhà thờ và chợ)",
+    "addr": "Central Sa Pa, about 5 min from the market and the church",
+    "lat": 22.335203,
+    "lng": 103.842254,
+    "approx": true,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "A hospitality-training social enterprise; the pastry counter and cakes are the draw and prices are low for what it is. Cash is safest.",
+    "why": "The best-regarded bakery in the centre, 5 min from the Stone Church - a pastry-and-coffee filler for the Sunday breakfast hour or the Monday gap.",
+    "role": "extra",
+    "near": "Town centre, near Sapa Stone Church and the day market",
+    "sources": [
+      "https://www.vietnamonline.com/restaurant/sapa/baguette-chocolat-cafe.html",
+      "https://www.tripadvisor.com/Restaurants-g311304-zfg9901-Sapa_Lao_Cai_Province.html"
+    ]
+  },
+  {
+    "id": "THE_FRENCH_BAKERY_SAPA",
+    "name": "The French Bakery",
+    "vi": "The French Bakery, cuối phố Cầu Mây, Sa Pa, Lào Cai",
+    "addr": "End of Cau May Street, Sa Pa, Lao Cai",
+    "lat": 22.332518,
+    "lng": 103.842928,
+    "approx": true,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "The almond brownie and the chocolate tart are the recommended items; pair with a black Vietnamese coffee. Cau May is the main tourist strip, so it is on the way to almost everything in the centre.",
+    "why": "Dessert stop on Cau May, a couple of minutes from Quan O Quy Ho and the square - fits the Monday afternoon gap.",
+    "role": "extra",
+    "near": "Cau May Street, near Quan O Quy Ho",
+    "sources": [
+      "https://www.vietnamonline.com/restaurant/sapa/the-french-bakery.html",
+      "https://www.vivutravel.com/vietnam-travel-destinations/sapa-travel-guide/best-restaurants-in-sapa/the-french-bakery"
+    ]
+  },
+  {
+    "id": "CONG_CAPHE_SAPA",
+    "name": "Cong Caphe Sapa",
+    "vi": "Cộng Cà Phê Sa Pa, đường Fansipan, Sa Pa, Lào Cai",
+    "addr": "Fansipan Street, Sa Pa, Lao Cai",
+    "lat": 22.331896,
+    "lng": 103.836696,
+    "approx": false,
+    "hours": null,
+    "phone": null,
+    "price": null,
+    "tip": "Order the coconut coffee (ca phe cot dua) - it is what the chain is known for. The Sapa branch's military-nostalgia interior against the mountain backdrop is a standard Xiaohongshu frame.",
+    "why": "Reliable, card-friendly chain on Fansipan Street; a wet-weather fallback near Cat Cat road and the Fansipan Street cafes.",
+    "role": "extra",
+    "near": "Fansipan Street, on the way down to Cat Cat",
+    "sources": [
+      "https://sapanomad.com/sapa-cafe/",
+      "https://bobowin.blog/sapa-top10/"
+    ]
+  },
+  {
+    "id": "SAPA_DAY_MARKET",
+    "name": "Sapa Market (Cho Sa Pa)",
+    "vi": "Chợ Sa Pa, đường Lương Định Của, Sa Pa, Lào Cai",
+    "addr": "Luong Dinh Cua Street, Sa Pa, Lao Cai",
+    "lat": 22.338292,
+    "lng": 103.851985,
+    "approx": false,
+    "hours": "Daytime, busiest in the morning",
+    "phone": null,
+    "price": "Free entry",
+    "tip": "This is the daytime market, a different place from the N1 night market - upstairs is the food court where locals eat, downstairs is produce and brocade. Better value than the night market for textiles.",
+    "why": "Two minutes from the night market site and the lake; worth 20 minutes for food-court snacks and the produce hall.",
+    "role": "extra",
+    "near": "Beside the night market area, walkable from Sapa Lake",
+    "sources": [
+      "https://revitrip.com/blog/sapa-market-guide-10-best-markets-to-visit-2026",
+      "https://asiamystika.com/blog/market-in-sapa"
+    ]
+  },
+  {
+    "id": "HOTEL_DE_LA_COUPOLE_PUBLIC",
+    "name": "Hotel de la Coupole MGallery - lobby and facade",
+    "vi": "Hotel de la Coupole MGallery, số 1 đường Hoàng Liên, Sa Pa, Lào Cai",
+    "addr": "1 Hoang Lien Street, Sa Pa, Lao Cai 33000",
+    "lat": 22.334772,
+    "lng": 103.840384,
+    "approx": false,
+    "hours": "Public areas accessible when the hotel is open; be discreet, it is a working hotel",
+    "phone": "0214 3629 999",
+    "price": "Free (you are already paying for the rooftop bar upstairs)",
+    "tip": "Bill Bensley's colonial-couture interiors - the grand staircase, the pink corridors and the courtyard facade - are among the most-posted Sapa frames on Xiaohongshu, and you get them free on the way up to Absinthe. Shoot before you sit down, while the light is still up.",
+    "why": "Zero extra cost or travel: it is the same building as the Monday afternoon tea, and the photo spots are the reason people go there.",
+    "role": "extra",
+    "near": "Hoang Lien Street, beneath Absinthe Bar; next to Sun Plaza",
+    "sources": [
+      "https://mgallery.accor.com/en/hotels/A5V2.html",
+      "https://bobowin.blog/sapa-top10/"
+    ]
+  }
+]

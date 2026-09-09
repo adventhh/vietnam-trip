@@ -1,6 +1,6 @@
 // Service worker: caches the whole app (page, fonts, map tiles, routes) so it works with no connection.
 // The build script rewrites VERSION; a new version replaces the old cache on next load.
-const VERSION = "20260908T145931";
+const VERSION = "20260909T004040";
 const CACHE = "vn-trip-" + VERSION;
 
 async function broadcast(msg) {

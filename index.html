@@ -144,7 +144,7 @@
   .leg.past .line { background: var(--celadon); }
   .leg .mode { margin-top: 6px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); text-align: center; line-height: 1.3; }
   .leg .mode b { display: block; font-weight: 500; color: var(--ink); }
-  .leg.bus .line, .leg.fly .line { background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 10px); }
+  .leg.bus .line, .leg.fly .line, .leg.boat .line { background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 10px); }
 
   /* ---------- Reel ---------- */
   .reel-wrap { position: relative; }
@@ -326,7 +326,7 @@ const G = {
   wa: (n) => "https://wa.me/" + n.replace(/[^\d]/g, ""),
 };
 const ROLE_LABEL = { primary: "Primary pick", alt: "Alternatives", snack: "Along the way" };
-const MODE_LABEL = { walk: "Walk", grab: "Grab", bus: "Bus", fly: "Flight" };
+const MODE_LABEL = { walk: "Walk", grab: "Grab", car: "Car", bus: "Bus", fly: "Flight", boat: "Boat" };
 const ICON = {
   maps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.1 7-12a7 7 0 1 0-14 0c0 4.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-5h14l2 5v6H3z"/><circle cx="7" cy="16" r="1.5"/><circle cx="17" cy="16" r="1.5"/></svg>',
@@ -393,7 +393,6 @@ function renderTabs() {
     b.onclick = () => { viewMode === "flow" ? scrollToStop(d.stops[0].id, true) : showDay(d); };
     el.appendChild(b);
   });
-  const g = document.createElement("span"); g.className = "tab ghost"; g.textContent = "Days 3–11 · next build"; el.appendChild(g);
   const led = document.createElement("button"); led.className = "tab util"; led.textContent = "Bookings"; led.onclick = openLedger; el.appendChild(led);
   const pv = document.createElement("button"); pv.className = "tab util" + (simOffset ? " live" : ""); pv.textContent = simOffset ? "Preview on" : "Preview time"; pv.onclick = openPreview; el.appendChild(pv);
   const seg = document.createElement("div"); seg.className = "seg";
@@ -414,10 +413,10 @@ function renderNow() {
     html += `<b>Trip starts in ${fmtDur(TRIP_START - t)}</b><div class="sub">Day 1 begins ${fmtHM(TRIP_START, "SGT")} SGT, Fri 18 Sep · ${s.next.title}</div>`;
     target = ALL[0];
   } else if (s.phase === "post") {
-    html += `<b>Day 3 onwards isn't built yet</b><div class="sub">This build covers Day 1 and Day 2. The sleeper bus reached Sapa at 05:30 on 20 Sep.</div>`;
+    html += `<b>Trip complete</b><div class="sub">Landed at Changi on 28 Sep. The plan stays here for reference.</div>`;
   } else {
     const a = s.active, n = s.next;
-    const soon = n && (n.startAt - t) <= 10 * 60000 && n.leg && n.leg.mode !== "fly" && n.leg.mode !== "bus";
+    const soon = n && (n.startAt - t) <= 10 * 60000 && n.leg && !["fly", "bus", "boat"].includes(n.leg.mode);
     if (soon) {
       el.classList.add("leave");
       html += `<b>Leave now · ${n.place ? n.place.name : n.title}</b><div class="sub">${MODE_LABEL[n.leg.mode]} ${n.leg.dur || ""} · due ${fmtHM(n.startAt, "ICT")}, in ${fmtDur(n.startAt - t)}</div>`;
@@ -501,7 +500,7 @@ function render(opts = {}) {
       const end = document.createElement("div"); end.className = "end-card";
       end.innerHTML = day.n < DAYS.length
         ? `<b>End of Day ${day.n}</b><span>Continue to Day ${day.n + 1}</span><button class="btn solid" data-next="${day.n}">Day ${day.n + 1} →</button>`
-        : `<b>Built so far: Days 1–2</b><span>Days 3 to 11 (Sapa, Hạ Long, Hội An, Đà Nẵng) follow in the next build.</span>`;
+        : `<b>Home</b><span>Land at Changi 16:55 SGT. That's the trip.</span>`;
       reel.appendChild(end);
       const nd = end.querySelector("[data-next]");
       if (nd) nd.onclick = () => showDay(DAYS[day.n], { scrollTo: DAYS[day.n].stops[0].id });
@@ -662,6 +661,10 @@ function openPreview() {
       <button class="btn" data-pv="2026-09-19T12:00">Day 2 · lunch</button>
       <button class="btn" data-pv="2026-09-19T17:45">Day 2 · free time before market</button>
       <button class="btn" data-pv="2026-09-19T22:50">Day 2 · waiting for the bus</button>
+      <button class="btn" data-pv="2026-09-20T07:35">Day 3 · Fansipan morning</button>
+      <button class="btn" data-pv="2026-09-23T10:30">Day 6 · on the way to Hạ Long</button>
+      <button class="btn" data-pv="2026-09-25T15:00">Day 8 · Hội An afternoon</button>
+      <button class="btn" data-pv="2026-09-26T20:50">Day 9 · Dragon Bridge</button>
     </div>`);
   const apply = (v) => { const [d, hm] = v.split("T"); simOffset = mk(d, hm, "ICT").getTime() - Date.now(); try { localStorage.setItem("vn.simOffset", String(simOffset)); } catch (e) {} closeSheet(); tick(true); };
   document.getElementById("pv-set").onclick = () => apply(document.getElementById("pv-input").value);
@@ -683,31 +686,43 @@ const ROAD_STYLE = {
   p: { w: [0,      0,      0.6,    1.2,    2], color: "#A89578", dash: "4 4" },
 };
 const zBand = (z) => z <= 12 ? 0 : z <= 14 ? 1 : z === 15 ? 2 : z === 16 ? 3 : 4;
+/* Map areas load on demand: only the regions under the current view are fetched and drawn, so a phone never parses the whole country. */
+const areaState = {}; // id -> "loading" | "done" | "missing"
+let baseGroup = null;
+const areaBounds = (a) => L.latLngBounds([a.bbox[0], a.bbox[1]], [a.bbox[2], a.bbox[3]]);
 function ensureMap() {
   if (map) return;
-  map = L.map("map", { zoomControl: true, attributionControl: true, tap: false, preferCanvas: true, minZoom: 10, maxZoom: 19 }).setView([21.03, 105.85], 15);
+  map = L.map("map", { zoomControl: true, attributionControl: true, tap: false, preferCanvas: true, minZoom: 8, maxZoom: 19 }).setView([21.03, 105.85], 15);
   map.attributionControl.setPrefix("").addAttribution("Map data © OpenStreetMap contributors");
-  const baseGroup = L.layerGroup().addTo(map);
+  baseGroup = L.layerGroup().addTo(map);
   base.labels = L.layerGroup().addTo(map);
   layers = L.layerGroup().addTo(map);
-  Promise.all(PLAN.AREAS.map(a => fetch(`data/map-${a.id}.json`).then(r => r.ok ? r.json() : null).catch(() => null))).then(datas => {
-    datas.filter(Boolean).forEach(d => {
-      d.green.forEach(g => L.polygon(g, { stroke: false, fillColor: "#CDE1BD", fillOpacity: 1, interactive: false }).addTo(baseGroup));
-      d.water.forEach(g => L.polygon(g, { stroke: false, fillColor: "#A9CBE3", fillOpacity: 1, interactive: false }).addTo(baseGroup));
-      d.aero.forEach(x => L.polyline(x.g, { color: "#C9C5BC", weight: x.k === "runway" ? 10 : 3, interactive: false }).addTo(baseGroup));
-      d.rail.forEach(x => L.polyline(x.g, x.k === "river" ? { color: "#A9CBE3", weight: 4, interactive: false } : { color: "#8A8A8A", weight: 2, dashArray: "6 4", interactive: false }).addTo(baseGroup));
-      ["p", "d", "c", "b", "a"].forEach(c => d.roads.filter(r => r.c === c).forEach(r => {
-        const st = ROAD_STYLE[c];
-        const l = L.polyline(r.g, { color: st.color, weight: st.w[zBand(map.getZoom())], dashArray: st.dash || null, lineCap: "round", lineJoin: "round", interactive: false }).addTo(baseGroup);
-        base.roads[c].push(l);
-        if (r.n) base.named.push({ n: r.n, c, g: r.g });
-      }));
-      base.places.push(...(d.places || []));
-    });
-    restyleBase(); renderLabels();
-  });
   map.on("zoomend", () => { restyleBase(); renderLabels(); });
-  map.on("moveend", renderLabels);
+  map.on("moveend", () => { loadAreasFor(map.getBounds()); renderLabels(); });
+}
+function loadAreasFor(bounds) {
+  const padded = bounds.pad(0.3);
+  const order = { full: 0, wide: 1, corridor: 2 };
+  PLAN.AREAS.filter(a => !areaState[a.id] && areaBounds(a).intersects(padded)).sort((x, y) => order[x.detail] - order[y.detail]).forEach(a => {
+    areaState[a.id] = "loading";
+    fetch(`data/map-${a.id}.json`).then(r => r.ok ? r.json() : null).then(d => {
+      if (!d) { areaState[a.id] = "missing"; return; }
+      drawArea(d); areaState[a.id] = "done"; restyleBase(); renderLabels();
+    }).catch(() => { areaState[a.id] = "missing"; });
+  });
+}
+function drawArea(d) {
+  d.green.forEach(g => L.polygon(g, { stroke: false, fillColor: "#CDE1BD", fillOpacity: 1, interactive: false }).addTo(baseGroup));
+  d.water.forEach(g => L.polygon(g, { stroke: false, fillColor: "#A9CBE3", fillOpacity: 1, interactive: false }).addTo(baseGroup));
+  d.aero.forEach(x => L.polyline(x.g, { color: "#C9C5BC", weight: x.k === "runway" ? 10 : 3, interactive: false }).addTo(baseGroup));
+  d.rail.forEach(x => L.polyline(x.g, x.k === "river" ? { color: "#A9CBE3", weight: 4, interactive: false } : { color: "#8A8A8A", weight: 2, dashArray: "6 4", interactive: false }).addTo(baseGroup));
+  ["p", "d", "c", "b", "a"].forEach(c => d.roads.filter(r => r.c === c).forEach(r => {
+    const st = ROAD_STYLE[c];
+    const l = L.polyline(r.g, { color: st.color, weight: st.w[zBand(map.getZoom())], dashArray: st.dash || null, lineCap: "round", lineJoin: "round", interactive: false }).addTo(baseGroup);
+    base.roads[c].push(l);
+    if (r.n) base.named.push({ n: r.n, c, g: r.g });
+  }));
+  base.places.push(...(d.places || []));
 }
 function restyleBase() {
   const b = zBand(map.getZoom());
@@ -743,7 +758,7 @@ function openMap(day, stopId, option) {
   const t = now();
   const stop = stopId ? day.stops.find(s => s.id === stopId) : null;
   const bounds = [];
-  const style = { walk: { color: "#2F4F86", weight: 4, opacity: 0.85 }, grab: { color: "#2F4F86", weight: 4, opacity: 0.85, dashArray: "6 7" } };
+  const style = { walk: { color: "#2F4F86", weight: 4, opacity: 0.85 }, grab: { color: "#2F4F86", weight: 4, opacity: 0.85, dashArray: "6 7" }, car: { color: "#2F4F86", weight: 4, opacity: 0.85, dashArray: "6 7" } };
   // legs of the day
   day.stops.forEach((s, i) => {
     const prev = day.stops[i - 1];
@@ -798,7 +813,7 @@ function openMap(day, stopId, option) {
     : stop && stop.place ? G.maps(stop.place) : (dayRouteUrl(day) || "#");
   document.getElementById("m-day").hidden = !stop;
   document.getElementById("m-day").onclick = () => openMap(day, null);
-  setTimeout(() => { map.invalidateSize(); if (bounds.length) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 17 }); }, 60);
+  setTimeout(() => { map.invalidateSize(); if (bounds.length) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 17 }); loadAreasFor(map.getBounds()); }, 60);
 }
 function closeMap() { document.getElementById("msheet").hidden = true; document.body.style.overflow = ""; }
 document.getElementById("m-close").onclick = closeMap;
