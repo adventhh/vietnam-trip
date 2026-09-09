@@ -65,6 +65,12 @@ const PLAN = (() => {
                 tip: "Low stools at the crossroads are the scene; the bars with signs charge more. Craft beer at the corner taprooms." },
     HKOFFICE: { name: "HK Buslines office", addr: "70 Nguyễn Hữu Huân", lat: 21.0328984, lng: 105.8543668,
                 tip: "Two minutes from the hotel. If the weekend pedestrian zone blocks the shuttle, this is the obvious meeting point; they'll tell you on WhatsApp the day before." },
+    XOIYEN:    { name: "Xôi Yến", addr: "35B Nguyễn Hữu Huân", lat: 21.0338, lng: 105.8546, approx: true,
+                hours: "About 06:00 – 23:00 daily", price: "30 – 60k VND", vi: "Xôi Yến, 35B Nguyễn Hữu Huân",
+                tip: "Hanoi's best-known sticky rice: xôi xéo (turmeric sticky rice, mung bean, fried shallots) with braised pork or a fried egg. Two minutes from the hotel, next to Cà Phê Giảng." },
+    PHOBATDAN: { name: "Phở Gia Truyền Bát Đàn", addr: "49 Bát Đàn", lat: 21.0332, lng: 105.8455, approx: true,
+                hours: "About 06:00 – 10:00 and 18:00 – 20:30", price: "50 – 70k VND", vi: "Phở Gia Truyền, 49 Bát Đàn",
+                tip: "The queue-and-carry-your-own-bowl phở, one of the two most famous in the Old Quarter. Cash, no seating comfort, worth it once. 300 m from Hanoi Marvellous." },
 
     /* ---- Sapa (20–22 Sep) ---- */
     PISTACHIO: { name: "Pistachio Hotel Sapa", addr: "Tổ 5, Thác Bạc street", lat: 22.335752, lng: 103.838737, approx: true,
@@ -435,6 +441,18 @@ const PLAN = (() => {
       title: "Hanoi: lake stroll, Bà Triệu, Le BHappy, Vincom, then the overnight bus",
       short: "Hanoi walk day",
       stops: [
+        {
+          id: "d2-breakfast", start: "08:15", end: "09:15", kind: "food",
+          title: "Breakfast two minutes from the hotel",
+          place: P.HOTEL1,
+          body: ["If the hotel breakfast is included, take it. Otherwise Nguyễn Hữu Huân, one street east, has the two best morning stops in the Old Quarter side by side."],
+          options: [
+            { role: "primary", place: P.XOIYEN, desc: "Turmeric sticky rice heaped with mung bean and fried shallots, with braised pork or an egg. The Hanoi breakfast.", xhs: "Xoi Yen 河内糯米饭" },
+            { role: "alt", place: P.GIANG, desc: "Egg coffee at the source, next door. Take it now if you'd rather have Loading T later.", xhs: "Cafe Giang 河内鸡蛋咖啡" },
+            { role: "alt", place: P.PHO10, desc: "Beef phở from 06:00 if you didn't make it last night." },
+            { role: "snack", place: P.BANHMI25, desc: "Bánh mì from 07:00, five minutes north, for the walk.", xhs: "Banh Mi 25 河内" },
+          ],
+        },
         {
           id: "d2-lake", start: "09:30", end: "10:15", kind: "walk",
           title: "Hoàn Kiếm Lake stroll to north Phố Bà Triệu",
@@ -822,8 +840,9 @@ const PLAN = (() => {
           id: "d6-pickup", start: "07:30", end: "08:30", kind: "transit",
           title: "Cruise shuttle pick-up at Hanoi Marvellous",
           place: P.MARVELLOUS,
-          body: ["Be in the lobby from 07:30. Amanda's published Old Quarter window is 07:45 – 08:30 and they confirm the exact time the evening before. Soft bags are easier than hard shells on the tender later."],
+          body: ["Be in the lobby from 07:30. Amanda's published Old Quarter window is 07:45 – 08:30 and they confirm the exact time the evening before. Soft bags are easier than hard shells on the tender later. Breakfast: the hotel from 06:30, or one of the two below before 07:15."],
           options: [
+            { role: "primary", place: P.PHOBATDAN, from: P.MARVELLOUS, desc: "Famous carry-your-own-bowl phở 300 m away, from 06:00. Queue moves fast; cash.", xhs: "Pho Bat Dan 河内" },
             { role: "snack", place: P.BANHMI25, from: P.MARVELLOUS, desc: "Opens 07:00, 570 m away: the breakfast bánh mì if you're up early. Bánh giò is a Hanoi street snack too, so get it here, not at the rest stop.", xhs: "Banh Mi 25 河内" },
           ],
           booking: "Klook",
@@ -976,6 +995,17 @@ const PLAN = (() => {
       title: "Hội An: tailors at opening, Ancient Town, rooftop light, dumplings, dinner and collection",
       short: "Hội An full day",
       stops: [
+        {
+          id: "d8-breakfast", start: "07:15", end: "07:50", kind: "food",
+          title: "Breakfast on the north bank",
+          place: P.LANTANA,
+          body: ["Hotel breakfast if it's included, or a local one on the way to the tailor. Mì Quảng is a morning dish here."],
+          options: [
+            { role: "primary", place: P.COSAU, desc: "Quán Cô Sáu on Trần Hưng Đạo, 450 m from the hotel: turmeric noodles with pork, shrimp, quail egg and a sesame cracker.", xhs: "mi Quang Hoi An 会安广南面" },
+            { role: "alt", place: P.CONGHA, desc: "Coconut coffee 300 m away, no bridge to cross.", xhs: "Cong Caphe Hoi An" },
+            { role: "alt", place: P.CITRONELLA, desc: "Old-house café on the quiet lane 60 m west of the Japanese Bridge." },
+          ],
+        },
         {
           id: "d8-tailor", start: "08:00", end: "09:00", kind: "shop",
           title: "Tailor measurement, express order",
@@ -1355,6 +1385,63 @@ const PLAN = (() => {
     ["Booking", "Tailor: Yaly Signature or Bebe 1", "25 Sep, 08:00", "In person", 0, false, "24-h express; linen and cotton only"],
   ];
 
+  /* ---------- Essentials sheet ---------- */
+  const ESSENTIALS = {
+    rateDefault: 19500, // VND per 1 SGD; editable in the app, stored on the phone
+    cash: [
+      "Notes are polymer and colour-coded: 10k red-brown, 20k blue, 50k pink, 100k green, 200k orange-red, 500k blue-turquoise. The two blues (20k and 500k) are the classic mix-up; check the zeros.",
+      "ATMs: Vietcombank, VPBank and TPBank give up to 5 million VND a withdrawal with the lowest fees; airport ATMs are fine. Say no to 'dynamic currency conversion' and pay in VND.",
+      "Card works at hotels, malls, chain cafés, Sun World and the tailors. Everything else on this trip is cash: markets, street food, xe ôm, Cát Cát, Moana, boat counters, most taxis.",
+      "Tipping isn't expected. Round up taxis; 50 – 100k for a good spa or a driver who waited.",
+    ],
+    emergency: [
+      ["Police", "113"], ["Fire", "114"], ["Ambulance", "115"],
+      ["Singapore Embassy, Hanoi (41-43 Trần Phú, Ba Đình)", "+84 24 3848 9168"],
+      ["MFA Singapore 24 h duty office", "+65 6379 8800"],
+      ["Grab in-app safety centre", "Use the shield icon during a ride"],
+    ],
+    phrases: [
+      ["Thank you", "Cảm ơn"], ["How much?", "Bao nhiêu tiền?"], ["The bill, please", "Tính tiền"], ["Too expensive", "Đắt quá"],
+      ["No chilli", "Không ớt"], ["No coriander", "Không rau mùi"], ["No ice", "Không đá"], ["Vegetarian", "Ăn chay"],
+      ["Takeaway", "Mang về"], ["Water", "Nước suối"], ["Toilet?", "Nhà vệ sinh ở đâu?"], ["Stop here", "Dừng ở đây"],
+      ["Wait for me, please", "Chờ tôi một chút"], ["Delicious", "Ngon quá"], ["Hotel", "Khách sạn"], ["Airport", "Sân bay"],
+    ],
+    weather: [
+      "Hanoi 18 – 19 Sep: 26 – 33 °C, humid, afternoon showers possible.",
+      "Sapa 20 – 22 Sep: 16 – 19 °C mornings, 22 – 25 °C afternoons, 10 – 15 °C at the Fansipan summit. One of the wettest months; rain closes the coaster and fogs the view cafés. Terraces are golden.",
+      "Hạ Long 23 – 24 Sep: 26 – 31 °C; the sundeck is breezy at night.",
+      "Hội An and Đà Nẵng 24 – 28 Sep: 25 – 33 °C, start of the rainy season; a short heavy shower most afternoons, swim only between the beach flags.",
+    ],
+    packing: [
+      "Plug adapter: Vietnam is 220 V (same as Singapore) but sockets are type A/C, not the Singapore three-pin. One universal adapter each.",
+      "Light rain jacket or a compact umbrella, and a warm layer for Sapa mornings and the summit.",
+      "Mosquito repellent (evenings by the river in Hội An), sunscreen, a hat for the boat and the beach.",
+      "Soft-sided bags board the cruise tender more easily than hard shells.",
+      "Copies of passports on the phone; the cruise and hotels check them. Vietnam's e-visa or visa exemption printout if applicable.",
+      "Motion-sickness tablets for the Sapa pass and the bay if either of you is prone.",
+    ],
+    before: [
+      { id: "bags-pistachio", day: 3, text: "Email Pistachio Hotel to confirm they hold bags from 05:30 on 20 Sep and to arrange the Alpine Coaster and Moana car." },
+      { id: "fansipan", day: 3, text: "Buy the Fansipan combo tickets online the night of 19 Sep (1,370,000 VND each); 20 Sep is the last day before maintenance." },
+      { id: "absinthe", day: 4, text: "Book the Absinthe afternoon tea for 21 Sep 16:30 on +84 214 362 9999 ext. 6426 and ask the price." },
+      { id: "hk-reconfirm", day: 5, text: "Reconfirm the HK Buslines Sapa pick-up time on WhatsApp on 21 Sep." },
+      { id: "amanda", day: 6, text: "Give Hanoi Marvellous reception a mobile number so Amanda's evening call on 22 Sep reaches you; confirm the private car back on 24 Sep is with the driver, not the group shuttle." },
+      { id: "lantana-car", day: 7, text: "Pre-book Lantana's airport car (USD 18) for the 24 Sep 20:30 pick-up: festival-night traffic." },
+      { id: "morning-glory", day: 8, text: "Book Morning Glory for 19:30 on 25 Sep if that's the dinner choice; it's Mid-Autumn day." },
+      { id: "sala", day: 9, text: "Message Sala Danang Beach about the 10:15 bag drop on 26 Sep." },
+      { id: "ba-duong", day: 10, text: "Check facebook.com/Banhxeobaduong the week before for a September closure." },
+      { id: "cash", day: 1, text: "Withdraw VND at Nội Bài or the first Old Quarter ATM; Sapa and the markets are cash." },
+      { id: "esim", day: 1, text: "Install the eSIM before leaving Singapore so Grab works at the Hanoi kerb." },
+    ],
+    scams: [
+      "Airport: only get into the car whose plate matches the Grab app; ignore anyone on foot holding a Grab sign.",
+      "Taxis: Mai Linh and Vinasun are the metered brands; in Sapa most cars have no meter, so agree the fare first.",
+      "'Closed today, I'll take you somewhere better' is always a lie; the place is open.",
+      "Hội An: buy the Ancient Town ticket at a booth, the lantern boat at the official counter, never from promenade touts.",
+      "Shoe-shine and 'free' fruit-basket photos on the shoulder pole end in a demand for money; a polite 'không, cảm ơn' and keep walking.",
+    ],
+  };
+
   /* ---------- Route requests shared by the build script and the page ---------- */
   const costingFor = (mode) => (mode === "walk" ? "pedestrian" : (mode === "grab" || mode === "car") ? "auto" : null);
   const routeKey = (a, b, costing) => `${a.key}>${b.key}:${costing}`;
@@ -1370,6 +1457,6 @@ const PLAN = (() => {
     return [...out.values()];
   }
 
-  return { P, AREAS, DAYS, LEDGER, PROVIDER, costingFor, routeKey, routeRequests };
+  return { P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, costingFor, routeKey, routeRequests };
 })();
 if (typeof module !== "undefined") module.exports = PLAN;

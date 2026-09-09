@@ -1,37 +1,59 @@
-// Service worker: caches the whole app (page, fonts, map tiles, routes) so it works with no connection.
+// Service worker: caches the whole app (page, fonts, map data, routes) so it works with no connection.
 // The build script rewrites VERSION; a new version replaces the old cache on next load.
-const VERSION = "20260909T004040";
+const VERSION = "20260909T010453";
 const CACHE = "vn-trip-" + VERSION;
+const LIST = "./data/precache.json";
 
 async function broadcast(msg) {
-  const cs = await self.clients.matchAll({ includeUncontrolled: true });
+  const cs = await self.clients.matchAll({ includeUncontrolled: true, type: "window" });
   cs.forEach(c => c.postMessage(msg));
 }
 
-self.addEventListener("install", (e) => {
-  e.waitUntil((async () => {
-    const cache = await caches.open(CACHE);
-    let files = ["./index.html"];
-    try {
-      const res = await fetch("./data/precache.json?v=" + VERSION, { cache: "no-cache" });
-      files = (await res.json()).files;
-    } catch (err) {}
-    const total = files.length;
-    let done = 0;
-    const CHUNK = 24;
-    for (let i = 0; i < files.length; i += CHUNK) {
-      await Promise.all(files.slice(i, i + CHUNK).map(async (f) => {
-        try {
+async function readList() {
+  try {
+    const res = await fetch(LIST + "?v=" + VERSION, { cache: "no-cache" });
+    if (res.ok) { const j = await res.json(); const c = await caches.open(CACHE); await c.put(LIST, new Response(JSON.stringify(j), { headers: { "Content-Type": "application/json" } })); return j; }
+  } catch (err) {}
+  const c = await caches.open(CACHE);
+  const hit = await c.match(LIST);
+  return hit ? hit.json() : { files: ["./index.html"] };
+}
+
+async function cacheAll() {
+  const cache = await caches.open(CACHE);
+  const list = await readList();
+  const files = list.files.filter(f => f !== LIST);
+  const total = files.length;
+  let done = 0, failed = 0;
+  const CHUNK = 8;
+  for (let i = 0; i < files.length; i += CHUNK) {
+    await Promise.all(files.slice(i, i + CHUNK).map(async (f) => {
+      try {
+        const existing = await cache.match(f);
+        if (!existing) {
           const r = await fetch(f, { cache: "no-cache" });
-          if (r.ok) await cache.put(f, r);
-        } catch (err) {}
-        done++;
-      }));
-      broadcast({ type: "progress", done, total });
-    }
-    broadcast({ type: "ready", version: VERSION, total });
-    await self.skipWaiting();
-  })());
+          if (r.ok) await cache.put(f, r); else failed++;
+        }
+      } catch (err) { failed++; }
+      done++;
+    }));
+    broadcast({ type: "progress", done, total, failed });
+  }
+  broadcast({ type: "ready", version: VERSION, total, failed });
+  return { total, failed };
+}
+
+async function status() {
+  const cache = await caches.open(CACHE);
+  const keys = await cache.keys();
+  const hit = await cache.match(LIST);
+  const list = hit ? await hit.json() : null;
+  const total = list ? list.files.filter(f => f !== LIST).length : null;
+  return { type: "status", cached: keys.filter(r => !r.url.endsWith("precache.json")).length, total, version: VERSION };
+}
+
+self.addEventListener("install", (e) => {
+  e.waitUntil((async () => { await cacheAll(); await self.skipWaiting(); })());
 });
 
 self.addEventListener("activate", (e) => {
@@ -51,7 +73,7 @@ self.addEventListener("fetch", (e) => {
     if (hit) return hit;
     try {
       const res = await fetch(e.request);
-      if (res.ok) cache.put(e.request, res.clone());
+      if (res.ok && !url.pathname.endsWith("precache.json")) cache.put(e.request, res.clone());
       return res;
     } catch (err) {
       if (e.request.mode === "navigate") return (await cache.match("./index.html")) || Response.error();
@@ -61,7 +83,6 @@ self.addEventListener("fetch", (e) => {
 });
 
 self.addEventListener("message", (e) => {
-  if (e.data === "status") {
-    caches.open(CACHE).then(c => c.keys()).then(keys => e.source.postMessage({ type: "status", cached: keys.length, version: VERSION }));
-  }
+  if (e.data === "status") status().then(s => e.source.postMessage(s));
+  if (e.data === "recache") cacheAll().then(() => status()).then(s => e.source.postMessage(s));
 });
