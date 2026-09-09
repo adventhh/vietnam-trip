@@ -14,13 +14,14 @@
 <link rel="stylesheet" href="assets/fonts/fonts.local.css">
 <link rel="stylesheet" href="assets/leaflet/leaflet.css">
 <style>
+  /* Flag palette: đỏ sao vàng. --indigo is the red, --lantern the gold, --celadon the bronze used for "done" and snacks. Names kept so the code reads the same. */
   :root {
-    --bg: #EEF1EC; --surface: #FFFFFF; --surface-2: #E3E8E1; --surface-3: #D6DDD4;
-    --ink: #1A2230; --ink-2: #5A6472; --ink-3: #8A94A1; --line: #CBD3CA;
-    --indigo: #2F4F86; --indigo-soft: #DCE5F5; --indigo-ink: #FFFFFF;
-    --lantern: #E4572E; --lantern-soft: #FBE3DA;
-    --celadon: #5E8F78; --celadon-soft: #DCEAE2;
-    --shadow: 0 10px 30px rgba(26, 34, 48, 0.12);
+    --bg: #FAF6F0; --surface: #FFFFFF; --surface-2: #F1EBE2; --surface-3: #E3DACC;
+    --ink: #231F1C; --ink-2: #5E5751; --ink-3: #928A82; --line: #DDD4C8;
+    --indigo: #DA251D; --indigo-soft: #FBE3E0; --indigo-ink: #FFFFFF;
+    --lantern: #E8AE00; --lantern-soft: #FFF1BF;
+    --celadon: #8A6D2F; --celadon-soft: #F3E9D2;
+    --shadow: 0 10px 30px rgba(60, 30, 20, 0.14);
     --display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
     --body: "Be Vietnam Pro", "Helvetica Neue", Arial, system-ui, sans-serif;
     --mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
@@ -29,21 +30,21 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #11161D; --surface: #1A212B; --surface-2: #232C38; --surface-3: #2D3846;
-      --ink: #E9ECF0; --ink-2: #A3ACB9; --ink-3: #6F7A88; --line: #2E3946;
-      --indigo: #8FB0EE; --indigo-soft: #24344F; --indigo-ink: #0F1622;
-      --lantern: #FF7A52; --lantern-soft: #3D2419;
-      --celadon: #7FB89C; --celadon-soft: #1F3329;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+      --bg: #17130F; --surface: #221D18; --surface-2: #2C2620; --surface-3: #3A322A;
+      --ink: #F2ECE4; --ink-2: #B7ADA2; --ink-3: #7E756C; --line: #3C342C;
+      --indigo: #FF6A60; --indigo-soft: #4A1F1B; --indigo-ink: #1A0B09;
+      --lantern: #FFCD00; --lantern-soft: #4A3B00;
+      --celadon: #D2A85A; --celadon-soft: #3B2F18;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #11161D; --surface: #1A212B; --surface-2: #232C38; --surface-3: #2D3846;
-    --ink: #E9ECF0; --ink-2: #A3ACB9; --ink-3: #6F7A88; --line: #2E3946;
-    --indigo: #8FB0EE; --indigo-soft: #24344F; --indigo-ink: #0F1622;
-    --lantern: #FF7A52; --lantern-soft: #3D2419;
-    --celadon: #7FB89C; --celadon-soft: #1F3329;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --bg: #17130F; --surface: #221D18; --surface-2: #2C2620; --surface-3: #3A322A;
+    --ink: #F2ECE4; --ink-2: #B7ADA2; --ink-3: #7E756C; --line: #3C342C;
+    --indigo: #FF6A60; --indigo-soft: #4A1F1B; --indigo-ink: #1A0B09;
+    --lantern: #FFCD00; --lantern-soft: #4A3B00;
+    --celadon: #D2A85A; --celadon-soft: #3B2F18;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
   }
 
   * { box-sizing: border-box; }
@@ -84,7 +85,7 @@
   .toolbar::-webkit-scrollbar { display: none; }
   .tab { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 500; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto; }
   .tab .n { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
-  .tab[aria-selected="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  .tab[aria-selected="true"] { background: var(--indigo); color: var(--indigo-ink); border-color: var(--indigo); }
   .tab[aria-selected="true"] .n { color: inherit; opacity: 0.7; }
   .tab.ghost { color: var(--ink-3); border-style: dashed; }
   .tab.util { margin-left: auto; }
@@ -110,10 +111,14 @@
   .now.pre { border-left-color: var(--indigo); }
   .now.pre .dot { background: var(--indigo); animation: none; }
   .now.pre .jump { border-color: var(--indigo); color: var(--indigo); }
-  .now.leave { background: var(--lantern); border-color: var(--lantern); color: #fff; }
-  .now.leave .dot { background: #fff; }
-  .now.leave .text .sub { color: rgba(255,255,255,0.85); }
-  .now.leave .jump { border-color: #fff; color: #fff; }
+  .now.leave { background: var(--lantern); border-color: var(--lantern); color: #231F1C; }
+  .now.leave .dot { background: #231F1C; }
+  .now.leave .text .sub { color: rgba(35,31,28,0.8); }
+  .now.leave .jump { border-color: #231F1C; color: #231F1C; }
+  .now .jump { color: var(--indigo); border-color: var(--indigo); }
+  .now .dot { background: var(--indigo); }
+  .now { border-left-color: var(--indigo); }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--indigo) 50%, transparent); } 100% { box-shadow: 0 0 0 12px transparent; } }
   @media (prefers-reduced-motion: reduce) { .now .dot { animation: none; } }
 
   /* ---------- Day heading + route strip ---------- */
@@ -153,6 +158,59 @@
   .card { flex: 0 0 var(--card-w); scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 16px; position: relative; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.2s, box-shadow 0.2s; }
   .card.past { opacity: 0.72; }
   .card.active { border-color: var(--lantern); box-shadow: var(--shadow); }
+  .card h2 { cursor: pointer; }
+  .card .open { position: absolute; right: 12px; top: 12px; width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface); display: flex; align-items: center; justify-content: center; color: var(--indigo); }
+  .card .open svg { width: 16px; height: 16px; }
+  .card.hasimg .open { top: 12px; background: rgba(255,255,255,0.92); color: #DA251D; border: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+  .card.hasimg .card-top { padding-right: 36px; }
+  .slides { position: relative; margin: -14px -16px 2px; border-radius: 10px 10px 0 0; overflow: hidden; background: var(--surface-2); }
+  .slides .track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .slides .track::-webkit-scrollbar { display: none; }
+  .slides .track img { flex: 0 0 100%; width: 100%; height: 150px; object-fit: cover; scroll-snap-align: start; display: block; cursor: pointer; }
+  .slides .cap { position: absolute; left: 10px; bottom: 8px; max-width: 70%; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.7); pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .dots { position: absolute; right: 10px; bottom: 10px; display: flex; gap: 5px; pointer-events: none; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid #fff; background: transparent; box-shadow: 0 0 3px rgba(0,0,0,0.5); transition: background 0.2s; }
+  .dots i.on { background: #fff; }
+  .dots.dark i { border-color: var(--ink); box-shadow: none; }
+  .dots.dark i.on { background: var(--ink); }
+
+  /* ---------- Detail page ---------- */
+  .detail { position: fixed; inset: 0; z-index: 55; background: var(--bg); overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+  .dbody { overflow-x: clip; }
+  .detail[hidden] { display: none; }
+  .hero { position: relative; height: 46vh; min-height: 260px; max-height: 520px; background: var(--surface-3); }
+  .hero .track { display: flex; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .hero .track::-webkit-scrollbar { display: none; }
+  .hero .track img { flex: 0 0 100%; width: 100%; height: 100%; object-fit: cover; scroll-snap-align: start; display: block; }
+  .hero .shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 35%, rgba(0,0,0,0) 45%, rgba(20,10,5,0.78) 100%); pointer-events: none; }
+  .hero .back { position: absolute; left: 12px; top: calc(12px + env(safe-area-inset-top, 0px)); width: 40px; height: 40px; border-radius: 50%; border: 0; background: rgba(255,255,255,0.92); color: #231F1C; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+  .hero .back svg { width: 20px; height: 20px; }
+  .hero .titles { position: absolute; left: 20px; right: 20px; bottom: 22px; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+  .hero .titles .eyebrow { color: rgba(255,255,255,0.85); }
+  .hero .titles h2 { font-family: var(--display); font-weight: 800; font-size: clamp(28px, 6.5vw, 44px); line-height: 1.02; letter-spacing: -0.02em; margin: 6px 0 0; text-wrap: balance; }
+  .hero .titles h2 em { font-style: normal; color: transparent; -webkit-text-stroke: 1.5px #fff; }
+  .hero .dots { left: 20px; right: auto; bottom: 8px; }
+  .hero.noimg { height: auto; min-height: 0; background: var(--indigo); padding: calc(64px + env(safe-area-inset-top, 0px)) 0 0; }
+  .hero.noimg .titles { position: static; padding: 0 20px 22px; }
+  .hero.noimg .shade { display: none; }
+  .dbody { padding: 18px 20px calc(30px + var(--safe-b)); max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .dbody p { margin: 0; color: var(--ink-2); font-size: 15px; max-width: 65ch; }
+  .dbody p.warn { color: var(--indigo); font-weight: 500; }
+  .dbody .actions { margin-top: 2px; }
+  .dbody h3 { font-family: var(--display); font-size: 18px; margin: 14px 0 0; letter-spacing: -0.01em; }
+  .orow { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px 2px 14px; margin: 0 -20px; padding-left: 20px; padding-right: 20px; scrollbar-width: none; }
+  .orow::-webkit-scrollbar { display: none; }
+  .ocard { flex: 0 0 min(74vw, 280px); scroll-snap-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+  .ocard .slides { margin: 0; border-radius: 0; }
+  .ocard .slides .track img { height: 170px; }
+  .ocard .noimg { height: 90px; background: var(--indigo-soft); display: flex; align-items: center; justify-content: center; color: var(--indigo); font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .ocard .ob { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .ocard .ob b { font-family: var(--display); font-size: 16px; line-height: 1.15; }
+  .ocard .ob .h { font-family: var(--mono); font-size: 11px; color: var(--ink-2); }
+  .ocard .ob p { font-size: 13px; color: var(--ink-2); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .ocard .ob .actions { margin-top: auto; padding-top: 6px; }
+  .ocard.picked { border-color: var(--indigo); }
+  .credit { font-family: var(--mono); font-size: 10px; color: var(--ink-3); }
   .card .progress { position: absolute; left: 0; right: 0; top: -1px; height: 3px; border-radius: 10px 10px 0 0; background: var(--surface-3); overflow: hidden; }
   .card .progress i { display: block; height: 100%; background: var(--lantern); width: 0; transition: width 0.6s; }
   .card .progress.done i { background: var(--celadon); width: 100%; }
@@ -355,6 +413,8 @@
 
 <div class="hint">Swipe sideways to move through the day · tap any option for hours, phone and links · "Map" on a card shows the offline map with the route</div>
 
+<div class="detail" id="detail" hidden></div>
+
 <nav class="bottombar" id="bottombar">
   <button id="bb-now"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Now</button>
   <button id="bb-map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Map</button>
@@ -445,8 +505,36 @@ try { picks = JSON.parse(localStorage.getItem("vn.picks") || "{}"); } catch (e) 
 let viewMode = "days";
 try { viewMode = localStorage.getItem("vn.view") === "flow" ? "flow" : "days"; } catch (e) {}
 let currentDay = null, focusStopId = null;
-let ROUTES = {};
+let ROUTES = {}, IMAGES = {};
 fetch("data/routes.json").then(r => r.json()).then(j => { ROUTES = j; }).catch(() => {});
+const imagesReady = fetch("data/images.json").then(r => r.json()).then(j => { IMAGES = j; }).catch(() => {});
+function picsOf(p) { return (p && p.key && IMAGES[p.key]) || []; }
+function picsForStop(s) {
+  const out = [], seen = new Set();
+  const add = (p, label) => picsOf(p).forEach(im => { if (!seen.has(im.src)) { seen.add(im.src); out.push({ ...im, label }); } });
+  // options first (primary, then alternatives, then snacks) so a food stop leads with the food, then the stop's own place
+  ["primary", "alt", "snack"].forEach(role => (s.options || []).filter(o => o.role === role && o.place).forEach(o => add(o.place, o.name)));
+  if (s.place) add(s.place, s.place.name);
+  if (s.grabTo) add(s.grabTo, s.grabTo.name);
+  return out.slice(0, 7);
+}
+function slidesHtml(pics, cls, h) {
+  if (!pics.length) return "";
+  return `<div class="slides ${cls || ""}"><div class="track">${pics.map(im => `<img src="${im.src}" alt="${(im.label || "").replace(/"/g, "&quot;")}" loading="lazy" decoding="async">`).join("")}</div>
+    <span class="cap"></span><div class="dots">${pics.map((_, i) => `<i class="${i === 0 ? "on" : ""}"></i>`).join("")}</div></div>`;
+}
+function bindSlides(root, pics) {
+  root.querySelectorAll(".slides").forEach(sl => {
+    const track = sl.querySelector(".track"), dots = sl.querySelectorAll(".dots i"), cap = sl.querySelector(".cap");
+    const list = sl.picList || pics || [];
+    const setCap = (i) => { if (cap) cap.textContent = list[i] ? (list[i].label || "") : ""; };
+    setCap(0);
+    track.addEventListener("scroll", () => {
+      const i = Math.round(track.scrollLeft / track.clientWidth);
+      dots.forEach((d, k) => d.classList.toggle("on", k === i)); setCap(i);
+    }, { passive: true });
+  });
+}
 
 function situation() {
   const t = now();
@@ -607,9 +695,12 @@ function placeInfoHtml(p, full) {
 
 function renderCard(s) {
   const c = document.createElement("article"); c.className = "card"; c.dataset.stop = s.id;
-  let html = `<div class="progress"><i></i></div>
+  const pics = picsForStop(s);
+  if (pics.length) c.classList.add("hasimg");
+  let html = `<div class="progress"><i></i></div>${slidesHtml(pics)}
+    <button class="open" data-open="${s.id}" aria-label="Open ${s.title}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg></button>
     <div class="card-top"><span class="time">${s.start}<span class="tz">${s.tzStart || "ICT"}</span> – ${s.end}<span class="tz">${s.tzEnd || (s.tzStart && s.tzStart !== "ICT" ? "ICT" : "")}</span></span><span class="kind ${s.kind}">${s.kind}</span></div>
-    <h2>${s.title}</h2>`;
+    <h2 data-open="${s.id}">${s.title}</h2>`;
   if (s.leg) html += `<div class="leg-line"><span class="m">${MODE_LABEL[s.leg.mode]}</span>${s.leg.dur || ""}${s.leg.dist ? " · " + s.leg.dist : ""}</div>`;
   (s.body || []).forEach(p => html += `<p>${p}</p>`);
   if (s.warn) html += `<p class="warn">${s.warn}</p>`;
@@ -637,8 +728,70 @@ function renderCard(s) {
   c.innerHTML = html;
   c.querySelectorAll("[data-opt]").forEach(b => b.onclick = () => { const [idx, role] = b.dataset.opt.split("|"); openOption(s, s.options.filter(o => o.role === role)[Number(idx)]); });
   const mb = c.querySelector("[data-map]"); if (mb) mb.onclick = () => openMap(s.day, s.id);
+  c.querySelectorAll("[data-open]").forEach(el => el.onclick = () => openDetail(s));
+  c.querySelectorAll(".slides img").forEach(im => im.onclick = () => openDetail(s));
+  bindSlides(c, pics);
   return c;
 }
+
+/* ======================= DETAIL PAGE ======================= */
+const detailEl = document.getElementById("detail");
+function openDetail(s) {
+  const pics = picsForStop(s);
+  const title = s.title.replace(/:\s*(.+)$/, ": <em>$1</em>");
+  let html = `<div class="hero ${pics.length ? "" : "noimg"}">
+    ${pics.length ? `<div class="track">${pics.map(im => `<img src="${im.src}" alt="">`).join("")}</div><div class="shade"></div>` : ""}
+    <button class="back" id="d-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="titles"><span class="eyebrow">Day ${s.day.n} · ${s.start} – ${s.end} · ${s.kind}</span><h2>${title}</h2></div>
+    ${pics.length > 1 ? `<div class="dots">${pics.map((_, i) => `<i class="${i === 0 ? "on" : ""}"></i>`).join("")}</div>` : ""}
+  </div><div class="dbody">`;
+  if (pics.length) html += `<span class="credit" id="d-cap">${pics[0].label || ""}${pics[0].credit ? ` · photo ${pics[0].credit.artist || "Wikimedia Commons"}, ${pics[0].credit.license || ""}` : ""}</span>`;
+  if (s.leg) html += `<div class="leg-line"><span class="m">${MODE_LABEL[s.leg.mode]}</span>${s.leg.dur || ""}${s.leg.dist ? " · " + s.leg.dist : ""}</div>`;
+  (s.body || []).forEach(p => html += `<p>${p}</p>`);
+  if (s.warn) html += `<p class="warn">${s.warn}</p>`;
+  const ownsPlace = s.place && !(s.options || []).some(o => o.place === s.place);
+  if (ownsPlace) html += placeInfoHtml(s.place, true);
+  if (s.place && s.place.vi && ownsPlace) html += `<div class="driver"><small>Show the driver</small>${s.place.vi}</div>`;
+  html += `<div class="actions">`;
+  if (s.place && s.place !== P.SIN) html += `<button class="btn solid" id="d-map">${ICON.map}Map &amp; route</button>`;
+  if (s.place) html += `<a class="btn" href="${G.maps(s.place)}" target="_blank" rel="noopener">${ICON.maps}Google Maps</a>`;
+  if (s.grabTo) html += `<a class="btn grab" href="${G.grab(s.grabTo)}">${ICON.car}Grab to ${s.grabTo.name.split(" ").slice(0, 3).join(" ")}</a>`;
+  if (s.booking && PROVIDER[s.booking]) html += `<a class="btn" href="${PROVIDER[s.booking]}" target="_blank" rel="noopener">${ICON.link}${s.booking} booking</a>`;
+  (s.links || []).forEach(l => html += `<a class="btn" href="${l.href}" target="_blank" rel="noopener">${ICON.link}${l.label}</a>`);
+  html += `</div>`;
+  const groups = {};
+  (s.options || []).forEach(o => (groups[o.role] = groups[o.role] || []).push(o));
+  ["primary", "alt", "snack"].forEach(role => {
+    if (!groups[role]) return;
+    html += `<h3>${ROLE_LABEL[role]}</h3><div class="orow">`;
+    groups[role].forEach((o, idx) => {
+      const op = picsOf(o.place), key = s.id + ":" + o.name;
+      html += `<div class="ocard ${picks[key] ? "picked" : ""}" data-ocard="${idx}|${role}">
+        ${op.length ? slidesHtml(op.map(im => ({ ...im, label: o.name }))) : `<div class="noimg">${o.place ? "no photo yet" : "street cart"}</div>`}
+        <div class="ob"><b>${o.name}</b>${o.hours ? `<span class="h">${o.hours.split(/ \(|·/)[0]}</span>` : (o.addr ? `<span class="h">${o.addr}</span>` : "")}<p>${o.desc || ""}</p>
+        <div class="actions"><button class="btn solid" data-more="${idx}|${role}">Read more</button>${o.place ? `<button class="btn" data-omap="${idx}|${role}">${ICON.map}Map</button>` : ""}</div></div></div>`;
+    });
+    html += `</div>`;
+  });
+  html += `</div>`;
+  detailEl.innerHTML = html; detailEl.hidden = false; detailEl.scrollTop = 0; document.body.style.overflow = "hidden";
+  document.getElementById("d-back").onclick = closeDetail;
+  const dm = document.getElementById("d-map"); if (dm) dm.onclick = () => openMap(s.day, s.id);
+  const findOpt = (v) => { const [idx, role] = v.split("|"); return s.options.filter(o => o.role === role)[Number(idx)]; };
+  detailEl.querySelectorAll("[data-more]").forEach(b => b.onclick = () => openOption(s, findOpt(b.dataset.more)));
+  detailEl.querySelectorAll("[data-omap]").forEach(b => b.onclick = () => openMap(s.day, s.id, findOpt(b.dataset.omap)));
+  const heroTrack = detailEl.querySelector(".hero .track");
+  if (heroTrack) {
+    const dots = detailEl.querySelectorAll(".hero .dots i"), cap = document.getElementById("d-cap");
+    heroTrack.addEventListener("scroll", () => {
+      const i = Math.round(heroTrack.scrollLeft / heroTrack.clientWidth);
+      dots.forEach((d, k) => d.classList.toggle("on", k === i));
+      const im = pics[i]; if (cap && im) cap.textContent = (im.label || "") + (im.credit ? ` · photo ${im.credit.artist || "Wikimedia Commons"}, ${im.credit.license || ""}` : "");
+    }, { passive: true });
+  }
+  bindSlides(detailEl);
+}
+function closeDetail() { detailEl.hidden = true; if (document.getElementById("msheet").hidden) document.body.style.overflow = ""; }
 
 /* ======================= STATE UPDATES ======================= */
 function updateStates() {
@@ -683,8 +836,8 @@ function openSheet(html) { sheetBody.innerHTML = html; sheet.classList.add("open
 function closeSheet() { sheet.classList.remove("open"); backdrop.classList.remove("open"); }
 backdrop.onclick = closeSheet; document.getElementById("sheet-close").onclick = closeSheet;
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") { closeSheet(); closeMap(); }
-  if (sheet.classList.contains("open") || !document.getElementById("msheet").hidden) return;
+  if (e.key === "Escape") { if (sheet.classList.contains("open")) closeSheet(); else if (!document.getElementById("msheet").hidden) closeMap(); else closeDetail(); }
+  if (sheet.classList.contains("open") || !document.getElementById("msheet").hidden || !detailEl.hidden) return;
   if (e.key === "ArrowRight") nudge(1); if (e.key === "ArrowLeft") nudge(-1);
 });
 
@@ -758,6 +911,11 @@ try { checks = JSON.parse(localStorage.getItem("vn.checks") || "{}"); } catch (e
 const fmtVND = (v) => Math.round(v).toLocaleString("en-US");
 const fmtSGD = (v) => (Math.round(v * 100) / 100).toFixed(2);
 
+function photoCredits() {
+  const seen = new Map();
+  Object.values(IMAGES).flat().forEach(im => { if (im.credit && im.credit.file && !seen.has(im.credit.file)) seen.set(im.credit.file, im.credit); });
+  return [...seen.values()].map(c => `${c.file.replace(/^File:/, "")} · ${c.artist || "unknown"} · ${c.license || ""}${c.url ? ` · <a href="${c.url}" target="_blank" rel="noopener">source</a>` : ""}`);
+}
 function phoneDirectory() {
   const rows = [], seen = new Set();
   DAYS.forEach(day => day.stops.forEach(s => {
@@ -788,6 +946,8 @@ function openEssentials() {
     <h4>Pack</h4><ul>${ESS.packing.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Scams to wave off</h4><ul>${ESS.scams.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Time</h4><ul><li>Vietnam is one hour behind Singapore all trip. Flight times on the cards are local at each end.</li></ul>
+    <h4>Photo credits</h4><ul>${photoCredits().map(c => `<li>${c}</li>`).join("") || "<li>No downloaded photos yet.</li>"}</ul>
+    <h4>Your own photos</h4><ul><li>Drop a screenshot into the repo's img folder named after the place, e.g. <span class="mono">BHAPPY-u1.jpg</span>, <span class="mono">MIST-u2.jpg</span>, rebuild, push. Your photos appear first in that place's slideshow.</li></ul>
     <h4>Offline data</h4><div class="cache" id="cache-box"><span id="cache-text">Checking…</span><button class="btn" id="cache-refresh">Refresh offline data</button><div class="bar"><i id="cache-bar"></i></div></div>
   </div>`;
   openSheet(html);
@@ -816,7 +976,7 @@ function openMore() {
   document.getElementById("cache-refresh").onclick = () => { requestRecache(); document.getElementById("cache-text").textContent = "Refreshing…"; };
   renderCacheBox();
 }
-document.getElementById("bb-now").onclick = () => { closeSheet(); closeMap(); tick(true); };
+document.getElementById("bb-now").onclick = () => { closeSheet(); closeMap(); closeDetail(); tick(true); };
 document.getElementById("bb-map").onclick = () => { closeSheet(); openMap(currentDay || DAYS[0], focusStopId); };
 document.getElementById("bb-book").onclick = () => { closeMap(); openLedger(); };
 document.getElementById("bb-ess").onclick = () => { closeMap(); openEssentials(); };
@@ -908,7 +1068,8 @@ function openMap(day, stopId, option) {
   const t = now();
   const stop = stopId ? day.stops.find(s => s.id === stopId) : null;
   const bounds = [];
-  const style = { walk: { color: "#2F4F86", weight: 4, opacity: 0.85 }, grab: { color: "#2F4F86", weight: 4, opacity: 0.85, dashArray: "6 7" }, car: { color: "#2F4F86", weight: 4, opacity: 0.85, dashArray: "6 7" } };
+  const RED = "#DA251D", GOLD = "#E8AE00", BRONZE = "#8A6D2F";
+  const style = { walk: { color: RED, weight: 4, opacity: 0.85 }, grab: { color: RED, weight: 4, opacity: 0.85, dashArray: "6 7" }, car: { color: RED, weight: 4, opacity: 0.85, dashArray: "6 7" } };
   // legs of the day
   day.stops.forEach((s, i) => {
     const prev = day.stops[i - 1];
@@ -917,7 +1078,7 @@ function openMap(day, stopId, option) {
     if (!costing) return;
     const coords = routeCoords(prev.place, s.place, costing);
     const hot = stop && s === stop;
-    const line = L.polyline(coords, hot ? { color: "#E4572E", weight: 6, opacity: 0.95, dashArray: s.leg.mode === "grab" ? "6 7" : null } : style[s.leg.mode]).addTo(layers);
+    const line = L.polyline(coords, hot ? { color: GOLD, weight: 6, opacity: 0.95, dashArray: s.leg.mode === "walk" ? null : "6 7" } : (style[s.leg.mode] || style.grab)).addTo(layers);
     line.bindPopup(`<b>${MODE_LABEL[s.leg.mode]} to ${s.place.name}</b><span class="h">${routeMeta(prev.place, s.place, costing)}</span>`);
     if (hot || !stop) bounds.push(...coords);
   });
@@ -926,7 +1087,7 @@ function openMap(day, stopId, option) {
     if (!s.grabTo || !s.place) return;
     const coords = routeCoords(s.place, s.grabTo, "auto");
     const hot = stop && s === stop;
-    L.polyline(coords, hot ? { color: "#E4572E", weight: 6, opacity: 0.95, dashArray: "6 7" } : style.grab).addTo(layers)
+    L.polyline(coords, hot ? { color: GOLD, weight: 6, opacity: 0.95, dashArray: "6 7" } : style.grab).addTo(layers)
       .bindPopup(`<b>Grab to ${s.grabTo.name}</b><span class="h">${routeMeta(s.place, s.grabTo, "auto")}</span>`);
     if (hot) bounds.push(...coords);
   });
@@ -946,7 +1107,7 @@ function openMap(day, stopId, option) {
     const hot = option && o === option;
     if (from && from !== o.place) {
       const coords = routeCoords(from, o.place, "pedestrian");
-      L.polyline(coords, { color: hot ? "#E4572E" : "#5E8F78", weight: hot ? 5 : 3, opacity: 0.9, dashArray: "3 6" }).addTo(layers)
+      L.polyline(coords, { color: hot ? GOLD : BRONZE, weight: hot ? 5 : 3, opacity: 0.9, dashArray: "3 6" }).addTo(layers)
         .bindPopup(`<b>Walk to ${o.place.name}</b><span class="h">${routeMeta(from, o.place, "pedestrian")}</span>`);
       if (hot) bounds.push(...coords);
     }
@@ -965,7 +1126,7 @@ function openMap(day, stopId, option) {
   document.getElementById("m-day").onclick = () => openMap(day, null);
   setTimeout(() => { map.invalidateSize(); if (bounds.length) map.fitBounds(bounds, { padding: [40, 40], maxZoom: 17 }); loadAreasFor(map.getBounds()); }, 60);
 }
-function closeMap() { document.getElementById("msheet").hidden = true; document.body.style.overflow = ""; }
+function closeMap() { document.getElementById("msheet").hidden = true; if (detailEl.hidden) document.body.style.overflow = ""; }
 document.getElementById("m-close").onclick = closeMap;
 document.getElementById("m-locate").onclick = () => {
   if (!navigator.geolocation) { alert("Location isn't available in this browser."); return; }
@@ -1039,6 +1200,7 @@ function tick(jump) {
   updateStates();
 }
 tick(true);
+imagesReady.then(() => { if (Object.keys(IMAGES).length) render({ scrollTo: focusStopId }); });
 setInterval(() => tick(false), 30000);
 document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(false); });
 </script>

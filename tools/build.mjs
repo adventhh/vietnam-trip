@@ -4,6 +4,7 @@ import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { spawnSync } from "node:child_process";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
@@ -156,6 +157,86 @@ async function buildVector() {
   }
 }
 
+/* ---------------- photos (Wikimedia Commons, free licences; your own files img/<KEY>-u*.jpg come first) ---------------- */
+const IMG_DIR = path.join(ROOT, "img");
+const BAD_TITLE = /map|logo|flag|diagram|icon|screenshot|banner|coat of arms|seal|emblem|plan\b|chart|poster/i;
+const stripHtml = (s) => String(s || "").replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+async function commonsSearch(q) {
+  const u = "https://commons.wikimedia.org/w/api.php?action=query&generator=search&gsrsearch=" + encodeURIComponent(q + " filetype:bitmap") +
+    "&gsrnamespace=6&gsrlimit=8&prop=imageinfo&iiprop=url|extmetadata|mime|size&iiurlwidth=640&format=json";
+  let r = null;
+  for (let attempt = 0; attempt < 4; attempt++) {
+    r = await fetch(u, { headers: { "User-Agent": UA } });
+    if (r.ok) break;
+    const wait = r.status === 429 ? 15000 * (attempt + 1) : 4000;
+    console.log(`  commons ${r.status} for "${q}", waiting ${wait / 1000}s`);
+    await sleep(wait);
+  }
+  if (!r || !r.ok) return [];
+  const j = await r.json();
+  return Object.values((j.query || {}).pages || {})
+    .map(p => ({ title: p.title, info: (p.imageinfo || [])[0] }))
+    .filter(x => x.info && /image\/(jpeg|png)/.test(x.info.mime) && x.info.width >= 500 && x.info.height >= 300 && !BAD_TITLE.test(x.title))
+    .filter(x => x.info.width / x.info.height < 2.6 && x.info.height / x.info.width < 1.6);
+}
+async function buildImages() {
+  fs.mkdirSync(IMG_DIR, { recursive: true });
+  const creditsPath = path.join(ROOT, "data", "credits.json");
+  const credits = fs.existsSync(creditsPath) ? JSON.parse(fs.readFileSync(creditsPath, "utf8")) : {};
+  const images = {};
+  const MAX = 3, PER_QUERY = 2;
+  let fetched = 0, kept = 0;
+  const seenFiles = new Set();
+  for (const [key, queries] of Object.entries(PLAN.PICS)) {
+    const own = fs.readdirSync(IMG_DIR).filter(f => new RegExp(`^${key}-u\\d+\\.(jpe?g|png|webp)$`, "i").test(f)).sort();
+    const auto = fs.readdirSync(IMG_DIR).filter(f => new RegExp(`^${key}-c\\d+\\.(jpe?g|png)$`, "i").test(f)).sort();
+    const list = own.map(f => ({ src: "img/" + f, own: true }));
+    if (auto.length && !args.has("--refresh-images")) {
+      auto.forEach(f => list.push({ src: "img/" + f, credit: credits["img/" + f] || null }));
+    } else if (queries && queries.length) {
+      let n = 0;
+      for (const q of queries) {
+        if (n >= MAX) break;
+        let results = [];
+        try { results = await commonsSearch(q); } catch (e) { console.log("image search failed", key, q, e.message); }
+        let took = 0;
+        for (const x of results) {
+          if (n >= MAX || took >= PER_QUERY) break;
+          if (seenFiles.has(x.title)) continue;
+          try {
+            const r = await fetch(x.info.thumburl, { headers: { "User-Agent": UA } });
+            if (!r.ok) continue;
+            const ext = /png/.test(x.info.mime) ? "png" : "jpg";
+            const file = `${key}-c${n + 1}.${ext}`;
+            fs.writeFileSync(path.join(IMG_DIR, file), Buffer.from(await r.arrayBuffer()));
+            const m = x.info.extmetadata || {};
+            credits["img/" + file] = { file: x.title, artist: stripHtml(m.Artist && m.Artist.value), license: stripHtml(m.LicenseShortName && m.LicenseShortName.value), url: x.info.descriptionurl };
+            list.push({ src: "img/" + file, credit: credits["img/" + file] });
+            seenFiles.add(x.title); n++; took++; fetched++;
+          } catch (e) {}
+          await sleep(400);
+        }
+        await sleep(700);
+      }
+    }
+    if (list.length) { images[key] = list; kept += list.length; }
+  }
+  // re-encode to phone-sized JPEGs (max 640 px wide, quality 72) so the offline bundle stays small
+  const shrink = spawnSync("python", [path.join(ROOT, "tools", "shrink_images.py")], { encoding: "utf8" });
+  if (shrink.stdout) process.stdout.write(shrink.stdout);
+  if (shrink.status !== 0) console.log("shrink_images.py failed:", shrink.stderr);
+  // png files may have become jpg
+  for (const k of Object.keys(images)) images[k] = images[k].map(im => {
+    const jpg = im.src.replace(/\.png$/i, ".jpg");
+    if (jpg !== im.src && fs.existsSync(path.join(ROOT, jpg))) { if (credits[im.src]) { credits[jpg] = credits[im.src]; delete credits[im.src]; } return { ...im, src: jpg }; }
+    return im;
+  });
+  fs.writeFileSync(creditsPath, JSON.stringify(credits, null, 1));
+  fs.writeFileSync(path.join(ROOT, "data", "images.json"), JSON.stringify(images));
+  const bytes = fs.readdirSync(IMG_DIR).reduce((a, f) => a + fs.statSync(path.join(IMG_DIR, f)).size, 0);
+  console.log(`images: ${kept} in use across ${Object.keys(images).length} places, ${fetched} downloaded now, ${(bytes / 1048576).toFixed(1)} MB in img/`);
+}
+
 /* ---------------- slim the big-area files: drop points that don't change the line (Douglas–Peucker) ---------------- */
 function rdp(pts, tol) {
   if (pts.length < 3) return pts;
@@ -199,9 +280,9 @@ function walk(dir, base = "") {
   return out;
 }
 function buildPrecache() {
-  const files = ["index.html", "manifest.webmanifest", "data/plan.js", "data/routes.json",
+  const files = ["index.html", "manifest.webmanifest", "data/plan.js", "data/routes.json", "data/images.json", "data/credits.json",
     ...PLAN.AREAS.map(a => `data/map-${a.id}.json`),
-    ...walk("assets").filter(f => !f.endsWith("fonts.css")), ...walk("icons")]
+    ...walk("assets").filter(f => !f.endsWith("fonts.css")), ...walk("icons"), ...(fs.existsSync(path.join(ROOT, "img")) ? walk("img") : [])]
     .filter(f => fs.existsSync(path.join(ROOT, f)));
   const version = new Date().toISOString().replace(/[-:]/g, "").slice(0, 15);
   let bytes = 0; for (const f of files) bytes += fs.statSync(path.join(ROOT, f)).size;
@@ -219,5 +300,6 @@ await buildFonts();
 await buildRoutes();
 await buildVector();
 slimMaps();
+if (!args.has("--skip-images")) await buildImages();
 buildPrecache();
 console.log(`done in ${((Date.now() - t0) / 1000).toFixed(0)} s`);

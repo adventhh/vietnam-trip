@@ -1442,6 +1442,50 @@ const PLAN = (() => {
     ],
   };
 
+  /* ---------- Photo search terms per place (Wikimedia Commons, free licences). Your own screenshots go in img/<KEY>-u1.jpg, -u2.jpg … and take priority. ---------- */
+  const PICS = {
+    SIN: ["Changi Airport Terminal 1"], HAN: ["Noi Bai International Airport terminal 2"],
+    HOTEL1: ["Hàng Bạc street Hanoi", "Hanoi Old Quarter street"], LAKE: ["Hoan Kiem Lake Turtle Tower"],
+    PHO10: ["Phở bò Hà Nội", "Pho 10 Ly Quoc Su"], PHOTHIN: ["Phở Thìn", "Phở bò tái"], KEM: ["Kem Tràng Tiền"], CHE: ["Chè sen", "Chè Việt Nam"],
+    GIANG: ["Cà phê trứng", "Café Giảng"], LOADINGT: ["Egg coffee Hanoi", "Hanoi French villa"], HANGKHAY: ["Hoan Kiem Lake Hanoi"],
+    BHAPPY: ["Croissant", "Pain au chocolat"], ALLDAY: ["Espresso coffee cup"], HUONGLIEN: ["Bún chả", "Bún chả Hương Liên"],
+    BATRIEU_S: ["Phố Bà Triệu Hà Nội"], VINCOM: ["Vincom Center Bà Triệu"], CATHEDRAL: ["St. Joseph's Cathedral Hanoi"],
+    TAMTHUONG: ["Nem chua rán"], TRACHANH: ["Trà chanh", "Nhà Thờ street Hanoi"], HANGDAO: ["Hanoi night market Hang Dao", "Hanoi Old Quarter night"],
+    TAHIEN: ["Ta Hien street Hanoi", "Bia hơi"], XOIYEN: ["Xôi xéo", "Xôi Yến"], PHOBATDAN: ["Phở Bát Đàn", "Phở bò"],
+    PISTACHIO: ["Sa Pa town", "Sa Pa valley view"], PHOGA: ["Phở gà"], SUNPLAZA: ["Fansipan cable car", "Fansipan summit"],
+    CONSUI: ["Cốn sủi", "Sa Pa noodles"], COASTER: ["Alpine coaster Sapa", "Alpine coaster"], APHU: ["Lẩu cá hồi", "Salmon hotpot Sapa"],
+    HOTPOTC: ["Lẩu cá tầm", "Sapa hotpot"], SAPANM: ["Sapa night market", "Sa Pa market"], STONECHURCH: ["Sapa Stone Church", "Nhà thờ đá Sa Pa"],
+    CATCAT: ["Cat Cat village", "Cát Cát waterfall"], OQUYHO: ["Cơm lam", "Thịt lợn nướng"], DAOSCARE: ["Red Dao herbal bath", "Tắm lá thuốc"],
+    ABSINTHE: ["Hotel de la Coupole Sapa", "Afternoon tea"], MOANA: ["Moana Sapa", "Sa Pa mountains"], SAPALAKE: ["Sapa Lake", "Hồ Sa Pa"],
+    LEGECKO: ["Le Gecko Sapa", "Sapa cafe"], MIST: ["Sa Pa clouds", "Mường Hoa valley"], VIETTREK: ["Muong Hoa valley", "Sapa terraces"],
+    SKYVIEW: ["Fansipan mountain view"], WHITECLOUD: ["Sapa cafe view", "Fansipan"], FANTERRACE: ["Mường Hoa valley"],
+    BAGCHOC: ["Pain au chocolat", "Bakery pastries"], FRENCHBAKERY: ["Brownie", "Chocolate tart"], CONGSAPA: ["Cộng Cà Phê", "Cà phê cốt dừa"],
+    SAPADAYMKT: ["Chợ Sa Pa", "Sa Pa market"], MARVELLOUS: ["Hanoi Old Quarter street", "Đường Thành"],
+    CHACA_TL: ["Chả cá Lã Vọng", "Chả cá Thăng Long"], CHACA_LV: ["Chả cá Lã Vọng"], TRANQUIL: ["Cà phê Hà Nội", "Bookshop cafe"],
+    ALCHEMIST: ["Cocktail bar"], CAFEPHOCO: ["Cafe Pho Co Hanoi", "Hoan Kiem Lake aerial"], BANHMI25: ["Bánh mì Hà Nội", "Bánh mì 25"],
+    DACKIM: ["Bún chả Đắc Kim", "Bún chả"], TUANCHAU: ["Tuan Chau marina", "Tuần Châu"], V52: ["Bánh đậu xanh Hải Dương"],
+    HALONGBAY: ["Ha Long Bay", "Halong Bay cruise"], MAROU: ["Maison Marou", "Marou chocolate"], BLACKBIRD: ["Blackbird Coffee Hanoi", "Espresso"],
+    BMPHOHUE: ["Bánh mì"], ORIBERRY: ["West Lake Hanoi", "Hồ Tây"], HANT1: ["Noi Bai Airport Terminal 1"], DAD_T1: ["Da Nang International Airport"],
+    LANTANA: ["Hoi An Ancient Town lanterns night"], BEBE1: ["Hoi An tailor", "Tailoring Hoi An"], YALY_SIG: ["Yaly Couture", "Hoi An tailor shop"],
+    YALY_EX: ["Yaly Couture Hoi An"], CHUACAU: ["Japanese Covered Bridge Hoi An", "Chùa Cầu"], TICKETBOOTH: ["Hoi An Ancient Town street"],
+    TANKY: ["Tan Ky old house", "Nhà cổ Tấn Ký"], FUJIAN: ["Phuc Kien Assembly Hall Hoi An", "Hội quán Phúc Kiến"], ROSIES: ["Hoi An cafe courtyard"],
+    COCOBOX: ["Cocobox Hoi An", "Fruit juice"], NUOCMOT: ["Mót Hội An", "Nước Mót"], MADAMKHANH: ["Madam Khanh banh mi", "Bánh mì Hội An"],
+    BMPHUONG: ["Bánh mì Phượng"], FAIFO: ["Faifo Coffee Hoi An", "Hoi An rooftop view"], WHITEROSE: ["Bánh bao bánh vạc", "White rose dumplings"],
+    BOATPIER: ["Hoi An lantern boat", "Thu Bon river lanterns"], BALEWELL: ["Bánh xèo", "Nem lụi"], MORNINGGLORY: ["Morning Glory restaurant Hoi An", "Vietnamese cuisine Hoi An"],
+    HA_NM: ["Hoi An night market Nguyen Hoang", "Hoi An lanterns"], TRUNGBAC: ["Cao lầu"], CAOLAUTHANH: ["Cao lầu Hội An"], COSAU: ["Mì Quảng"],
+    CONGHA: ["Cộng Cà Phê"], CITRONELLA: ["Hoi An old house yellow"], ROASTERY: ["Hoi An Roastery"], THECHEF: ["Hoi An rooftops"],
+    REACHINGOUT: ["Reaching Out Tea House"], BMBANGA: ["Bánh mì"], ANHOIBRIDGE: ["An Hoi bridge Hoi An", "Hoi An riverside night"],
+    CAMNAMBRIDGE: ["Cẩm Nam bridge", "Thu Bồn river Hội An"], SALA: ["My Khe Beach Da Nang"], CONMARKET: ["Chợ Cồn Đà Nẵng", "Bánh tráng cuốn thịt heo"],
+    MIQUANG1A: ["Mì Quảng"], DNCATHEDRAL: ["Da Nang Cathedral"], TRINH: ["Cà phê bơ", "Avocado coffee"], NAMHOUSE: ["Nam House Cafe Da Nang", "Vintage cafe Vietnam"],
+    HANMARKET: ["Han Market Da Nang", "Chợ Hàn"], BMCOTIEN: ["Bánh mì"], CONGDN: ["Cộng Cà Phê", "Han River Da Nang"],
+    LINHUNG: ["Linh Ung Pagoda Son Tra", "Lady Buddha Da Nang"], STMARINA: ["Son Tra peninsula", "Da Nang bay"], NAMDANH: ["Ốc hương xào me", "Tôm tít rang muối"],
+    BEMAN: ["Hải sản Đà Nẵng", "Grilled oysters Vietnam"], AMYPARADISE: ["Da Nang bay sunset"], DRAGON: ["Dragon Bridge Da Nang fire", "Cầu Rồng"],
+    XLIII: ["43 Factory Coffee Roaster", "Pour-over coffee"], HIDEOUT: ["Smoothie bowl"], KEMBOCOVAN: ["Kem bơ", "Avocado ice cream"],
+    BAXEO: ["Bánh xèo miền Trung", "Bánh xèo"], CHELIEN: ["Chè sầu riêng", "Chè"], MYKHE: ["My Khe Beach"], SUMSPA: ["Foot massage"],
+    ALACARTE: ["Da Nang beach aerial", "Mỹ Khê"], DREAMER: ["Da Nang cafe"], SEVENBRIDGES: ["Craft beer"], LOCALBEANS: ["Roasted coffee beans"],
+    DAD_T2: ["Da Nang International Airport terminal"],
+  };
+
   /* ---------- Route requests shared by the build script and the page ---------- */
   const costingFor = (mode) => (mode === "walk" ? "pedestrian" : (mode === "grab" || mode === "car") ? "auto" : null);
   const routeKey = (a, b, costing) => `${a.key}>${b.key}:${costing}`;
@@ -1457,6 +1501,6 @@ const PLAN = (() => {
     return [...out.values()];
   }
 
-  return { P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, costingFor, routeKey, routeRequests };
+  return { P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, PICS, costingFor, routeKey, routeRequests };
 })();
 if (typeof module !== "undefined") module.exports = PLAN;

@@ -17,6 +17,7 @@ Offline-capable trip companion for 18–28 September 2026. A single web page wit
 | `manifest.webmanifest`, `icons/` | Home-screen app metadata and icons. |
 | `tools/build.mjs` | Rebuilds fonts, routes, map data and the cache list. |
 | `tools/make_icons.py` | Regenerates the icons. |
+| `img/` | Photos shown on the cards. `KEY-c1.jpg` files are downloaded from Wikimedia Commons by the build (credits in `data/credits.json`). Add your own as `KEY-u1.jpg`, `KEY-u2.jpg` … where KEY is the place key in `plan.js` (e.g. `BHAPPY-u1.jpg`); they appear first. |
 | `tools/research/` | Per-region research behind the plan (verified hours, addresses, pins, sources) and the plan-affecting findings. Not shipped to the phone. |
 
 ## Rebuilding after editing the plan
@@ -25,7 +26,7 @@ Offline-capable trip companion for 18–28 September 2026. A single web page wit
 node tools/build.mjs
 ```
 
-Only missing routes and map areas are downloaded, so re-runs are fast. Add `--refresh-maps` to refetch map data that already exists. Commit and push; phones pick up the new version the next time they open the app with a connection.
+Only missing routes, map areas and photos are downloaded, so re-runs are fast. `--skip-images` skips the photo step; `--refresh-images` refetches Commons photos. Add `--refresh-maps` to refetch map data that already exists. Commit and push; phones pick up the new version the next time they open the app with a connection.
 
 ## Deploying to GitHub Pages
 
