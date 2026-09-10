@@ -1,9 +1,17 @@
-"""Generates the home-screen icons: indigo tile, lantern-orange dot, celadon ring. Run: python tools/make_icons.py"""
+"""Generates the home-screen icons from the theme colours.
+Run: python tools/make_icons.py [accent live done ground]   (hex colours; the build passes META.theme.light automatically)"""
 from PIL import Image, ImageDraw
-import os
+import os, sys
 
 ROOT = os.path.join(os.path.dirname(__file__), "..")
-INDIGO, LANTERN, CELADON, PAPER = (47, 79, 134), (228, 87, 46), (94, 143, 120), (238, 241, 236)
+def hexrgb(h, default):
+    h = (h or "").lstrip("#")
+    return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4)) if len(h) == 6 else default
+args = sys.argv[1:] + [None] * 4
+INDIGO = hexrgb(args[0], (218, 37, 29))     # accent: the tile
+LANTERN = hexrgb(args[1], (232, 174, 0))    # live: the "now" dot
+CELADON = hexrgb(args[2], (138, 109, 47))   # done: the first stop
+PAPER = hexrgb(args[3], (250, 246, 240))    # ground: the route line
 
 def make(size, path, rounded):
     s = 4  # supersample

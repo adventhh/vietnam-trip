@@ -1,7 +1,7 @@
 // Service worker: caches the whole app (page, fonts, map data, routes) so it works with no connection.
 // The build script rewrites VERSION; a new version replaces the old cache on next load.
-const VERSION = "20260909T014425";
-const CACHE = "vn-trip-" + VERSION;
+const VERSION = "20260909T063442";
+const CACHE = "trip-" + VERSION;
 const LIST = "./data/precache.json";
 
 async function broadcast(msg) {
@@ -59,7 +59,7 @@ self.addEventListener("install", (e) => {
 self.addEventListener("activate", (e) => {
   e.waitUntil((async () => {
     const keys = await caches.keys();
-    await Promise.all(keys.filter(k => k.startsWith("vn-trip-") && k !== CACHE).map(k => caches.delete(k)));
+    await Promise.all(keys.filter(k => k.startsWith("trip-") && k !== CACHE).map(k => caches.delete(k)));
     await self.clients.claim();
   })());
 });

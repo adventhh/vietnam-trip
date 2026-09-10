@@ -2,9 +2,39 @@
    Edit this file to change the plan, then run `node tools/build.mjs` to refresh routes, map data and the offline cache list. */
 const PLAN = (() => {
 
+  /* ---------- Trip metadata: everything the page shows that is specific to this trip ---------- */
+  const META = {
+    title: "Vietnam Master Plan",
+    subtitle: "18 – 28 SEP 2026 · HANOI → SAPA → HẠ LONG → HỘI AN → ĐÀ NẴNG",
+    shortName: "Vietnam",
+    tzTrip: { name: "ICT", offset: 7 },   // where the trip happens
+    tzHome: { name: "SGT", offset: 8 },   // where the travellers live
+    currency: { code: "VND", symbol: "₫", name: "Vietnamese đồng", home: "SGD", homeSymbol: "S$", homeName: "Singapore dollars", rateDefault: 19500, decimals: 0, quick: [20000, 50000, 100000, 200000, 500000, 1000000] },
+    driverField: "vi",                     // which place field holds the local-language line to show a driver
+    theme: {                               // flag palette; the page, manifest, icons and map lines all read these
+      light: { accent: "#DA251D", accentSoft: "#FBE3E0", live: "#E8AE00", liveSoft: "#FFF1BF", done: "#8A6D2F", doneSoft: "#F3E9D2", ground: "#FAF6F0" },
+      dark:  { accent: "#FF6A60", accentSoft: "#4A1F1B", live: "#FFCD00", liveSoft: "#4A3B00", done: "#D2A85A", doneSoft: "#3B2F18", ground: "#17130F" },
+    },
+    fonts: { families: ["Bricolage Grotesque", "Be Vietnam Pro", "IBM Plex Mono"], subsets: ["latin", "latin-ext", "vietnamese"] },
+    timeNote: "Vietnam is one hour behind Singapore all trip. Flight times on the cards are local at each end.",
+    endCard: { title: "Home", text: "Land at Changi 16:55 SGT. That's the trip." },
+    endNote: "Landed at Changi on 28 Sep. The plan stays here for reference.",
+    presets: [
+      { at: "2026-09-18T20:40", label: "Day 1 · landed, in the Grab" },
+      { at: "2026-09-18T21:22", label: "Day 1 · leave for supper" },
+      { at: "2026-09-19T12:00", label: "Day 2 · lunch" },
+      { at: "2026-09-19T17:45", label: "Day 2 · free time before market" },
+      { at: "2026-09-19T22:50", label: "Day 2 · waiting for the bus" },
+      { at: "2026-09-20T07:35", label: "Day 3 · Fansipan morning" },
+      { at: "2026-09-23T10:30", label: "Day 6 · on the way to Hạ Long" },
+      { at: "2026-09-25T15:00", label: "Day 8 · Hội An afternoon" },
+      { at: "2026-09-26T20:50", label: "Day 9 · Dragon Bridge" },
+    ],
+  };
+
   /* ---------- Places. Every pin was checked against OpenStreetMap or the venue's own site. ---------- */
   const P = {
-    SIN:      { name: "Changi Airport Terminal 1", addr: "Scoot departs from Terminal 1", lat: 1.3625, lng: 103.9903,
+    SIN:      { name: "Changi Airport Terminal 1", addr: "Scoot departs from Terminal 1", lat: 1.3625, lng: 103.9903, offmap: true,
                 tip: "Scoot check-in closes 60 min before departure. Automated bag drop is at rows 5–6." },
     HAN:      { name: "Nội Bài International Airport, Terminal 2", addr: "Terminal 2 = international arrivals", lat: 21.2188925, lng: 105.8044596,
                 tip: "Grab pick-up is on the arrivals level outside T2, past pillar 14 (follow the ride-hailing signs). Airport surcharge 15–25k VND shows in the app. Ignore anyone on foot holding a Grab sign; only match the plate on the car." },
@@ -1501,6 +1531,6 @@ const PLAN = (() => {
     return [...out.values()];
   }
 
-  return { P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, PICS, costingFor, routeKey, routeRequests };
+  return { META, P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, PICS, costingFor, routeKey, routeRequests };
 })();
 if (typeof module !== "undefined") module.exports = PLAN;

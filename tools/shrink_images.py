@@ -1,4 +1,4 @@
-"""Re-encodes every photo in img/ to a phone-sized JPEG (max 640 px wide, quality 72). PNGs become JPGs. Safe to re-run."""
+"""Re-encodes every photo in img/ to a phone-sized JPEG (max 560 px wide, quality 68). PNGs become JPGs. Safe to re-run."""
 from PIL import Image, ImageOps
 import os
 

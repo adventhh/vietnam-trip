@@ -10,7 +10,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(import.meta.url);
 const PLAN = require(path.join(ROOT, "data", "plan.js"));
 const args = new Set(process.argv.slice(2));
-const UA = "vietnam-trip-offline-planner/1.0 (personal offline trip app, small area, one-off download)";
+const UA = "trip-itinerary-app/1.0 (personal offline trip app; small one-off downloads)";
 const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 const t0 = Date.now();
 
@@ -19,8 +19,9 @@ async function buildFonts() {
   const cssPath = path.join(ROOT, "assets", "fonts", "fonts.css");
   if (!fs.existsSync(cssPath)) { console.log("fonts: assets/fonts/fonts.css missing, skipping"); return; }
   const css = fs.readFileSync(cssPath, "utf8");
-  const KEEP = new Set(["Bricolage Grotesque", "Be Vietnam Pro", "IBM Plex Mono"]);
-  const SUBSETS = new Set(["latin", "latin-ext", "vietnamese"]);
+  const F = PLAN.META.fonts || {};
+  const KEEP = new Set(F.families || ["Bricolage Grotesque", "Be Vietnam Pro", "IBM Plex Mono"]);
+  const SUBSETS = new Set(F.subsets || ["latin", "latin-ext", "vietnamese"]);
   const blocks = [...css.matchAll(/\/\*\s*([a-z-]+)\s*\*\/\s*@font-face\s*\{([^}]*)\}/g)];
   let out = "", n = 0, bytes = 0;
   for (const [, subset, body] of blocks) {
@@ -41,6 +42,7 @@ async function buildFonts() {
   }
   fs.writeFileSync(path.join(ROOT, "assets", "fonts", "fonts.local.css"), out);
   console.log(`fonts: ${n} faces, ${(bytes / 1024).toFixed(0)} KB`);
+  if (n === 0) console.log("fonts: WARNING no faces kept. META.fonts.families must match the families in assets/fonts/fonts.css exactly, and the css must be fetched with a browser user agent (new_trip.py does this).");
 }
 
 /* ---------------- routes (Valhalla on the OSM demo server) ---------------- */
@@ -221,7 +223,7 @@ async function buildImages() {
     }
     if (list.length) { images[key] = list; kept += list.length; }
   }
-  // re-encode to phone-sized JPEGs (max 640 px wide, quality 72) so the offline bundle stays small
+  // re-encode to phone-sized JPEGs (max 560 px wide, quality 68) so the offline bundle stays small
   const shrink = spawnSync("python", [path.join(ROOT, "tools", "shrink_images.py")], { encoding: "utf8" });
   if (shrink.stdout) process.stdout.write(shrink.stdout);
   if (shrink.status !== 0) console.log("shrink_images.py failed:", shrink.stderr);
@@ -279,7 +281,20 @@ function walk(dir, base = "") {
   }
   return out;
 }
+function buildManifest() {
+  const th = (PLAN.META.theme || {}).light || {};
+  const m = { name: PLAN.META.title, short_name: PLAN.META.shortName || PLAN.META.title, description: PLAN.META.subtitle, start_url: "./index.html", scope: "./", display: "standalone", orientation: "portrait", background_color: th.ground || "#FAF6F0", theme_color: th.accent || "#DA251D",
+    icons: [{ src: "icons/icon-192.png", sizes: "192x192", type: "image/png" }, { src: "icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" }] };
+  fs.writeFileSync(path.join(ROOT, "manifest.webmanifest"), JSON.stringify(m, null, 2) + "\n");
+}
+function buildIcons() {
+  const th = (PLAN.META.theme || {}).light || {};
+  const r = spawnSync("python", [path.join(ROOT, "tools", "make_icons.py"), th.accent || "#DA251D", th.live || "#E8AE00", th.done || "#8A6D2F", th.ground || "#FAF6F0"], { encoding: "utf8" });
+  if (r.status !== 0) console.log("make_icons.py failed:", r.stderr); else process.stdout.write(r.stdout);
+}
 function buildPrecache() {
+  buildManifest();
+  buildIcons();
   const files = ["index.html", "manifest.webmanifest", "data/plan.js", "data/routes.json", "data/images.json", "data/credits.json",
     ...PLAN.AREAS.map(a => `data/map-${a.id}.json`),
     ...walk("assets").filter(f => !f.endsWith("fonts.css")), ...walk("icons"), ...(fs.existsSync(path.join(ROOT, "img")) ? walk("img") : [])]

@@ -391,10 +391,10 @@
 
 <header class="top">
   <div class="top-row">
-    <div class="brand">Vietnam Master Plan<small>18 – 28 SEP 2026 · HANOI → SAPA → HẠ LONG → HỘI AN → ĐÀ NẴNG</small></div>
+    <div class="brand">Trip<small></small></div>
     <div class="clocks">
-      <span><span class="zone">ICT</span><b id="clock-ict">--:--</b></span>
-      <span><span class="zone">SGT</span><b id="clock-sgt">--:--</b></span>
+      <span><span class="zone" id="zone-trip"></span><b id="clock-ict">--:--</b></span>
+      <span><span class="zone" id="zone-home"></span><b id="clock-sgt">--:--</b></span>
       <span class="sim" id="sim-flag" hidden>PREVIEW</span>
       <span class="status" id="status">Loading</span>
     </div>
@@ -446,8 +446,26 @@
 <script src="assets/leaflet/leaflet.js"></script>
 <script>
 /* ======================= DATA ======================= */
-const { P, DAYS, LEDGER, PROVIDER, costingFor, routeKey } = PLAN;
-const TZ = { ICT: 7, SGT: 8 };
+const { META, P, DAYS, LEDGER, PROVIDER, costingFor, routeKey } = PLAN;
+const SLUG = (META.shortName || META.title).toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const LS = (k) => SLUG + "." + k;          // localStorage keys are per trip, so two trips on one phone don't share picks
+const DRIVER = META.driverField || "vi";   // which place field holds the local-language line to show a driver
+const THEME = META.theme || {};
+function applyTheme() {
+  const dark = document.documentElement.dataset.theme === "dark" || (document.documentElement.dataset.theme !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  const t = Object.assign({}, THEME.light || {}, dark ? (THEME.dark || {}) : {});
+  const map = { accent: "--indigo", accentSoft: "--indigo-soft", accentInk: "--indigo-ink", live: "--lantern", liveSoft: "--lantern-soft", done: "--celadon", doneSoft: "--celadon-soft", ground: "--bg", surface: "--surface", ink: "--ink" };
+  Object.entries(map).forEach(([k, v]) => { if (t[k]) document.documentElement.style.setProperty(v, t[k]); else document.documentElement.style.removeProperty(v); });
+}
+applyTheme(); matchMedia("(prefers-color-scheme: dark)").addEventListener("change", applyTheme);
+const TRIP_TZ = META.tzTrip.name, HOME_TZ = META.tzHome.name;
+const TZ = { [TRIP_TZ]: META.tzTrip.offset, [HOME_TZ]: META.tzHome.offset };
+document.title = META.title;
+document.querySelector(".brand").innerHTML = `${META.title}<small>${META.subtitle}</small>`;
+document.getElementById("zone-trip").textContent = TRIP_TZ;
+document.getElementById("zone-home").textContent = HOME_TZ;
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const fmtDate = (iso, withYear) => { const [y, m, d] = iso.split("-").map(Number); return `${d} ${MONTHS[m - 1]}${withYear ? " " + y : ""}`; };
 const ll = (p) => p.lat + "," + p.lng;
 const G = {
   maps: (p) => "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(ll(p)),
@@ -462,7 +480,7 @@ const G = {
   wa: (n) => "https://wa.me/" + n.replace(/[^\d]/g, ""),
 };
 const ROLE_LABEL = { primary: "Primary pick", alt: "Alternatives", snack: "Along the way" };
-const MODE_LABEL = { walk: "Walk", grab: "Grab", car: "Car", bus: "Bus", fly: "Flight", boat: "Boat" };
+const MODE_LABEL = Object.assign({ walk: "Walk", grab: "Grab", car: "Car", taxi: "Taxi", bus: "Bus", fly: "Flight", boat: "Boat", ferry: "Ferry", rail: "Train", train: "Train", metro: "Metro", tram: "Tram", funicular: "Funicular", cable: "Cable car" }, META.modes || {});
 const ICON = {
   maps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s7-7.1 7-12a7 7 0 1 0-14 0c0 4.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
   car: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 13l2-5h14l2 5v6H3z"/><circle cx="7" cy="16" r="1.5"/><circle cx="17" cy="16" r="1.5"/></svg>',
@@ -476,11 +494,11 @@ const ICON = {
 function mk(dateStr, hm, tz) {
   const [y, mo, d] = dateStr.split("-").map(Number);
   const [h, m] = hm.split(":").map(Number);
-  return new Date(Date.UTC(y, mo - 1, d, h - TZ[tz || "ICT"], m));
+  return new Date(Date.UTC(y, mo - 1, d, h - TZ[tz || TRIP_TZ], m));
 }
 DAYS.forEach(day => day.stops.forEach(s => {
-  s.startAt = mk(day.date, s.start, s.tzStart || "ICT");
-  s.endAt = mk(s.endDate || day.date, s.end, s.tzEnd || "ICT");
+  s.startAt = mk(day.date, s.start, s.tzStart || TRIP_TZ);
+  s.endAt = mk(s.endDate || day.date, s.end, s.tzEnd || TRIP_TZ);
   s.day = day;
   (s.options || []).forEach(o => { if (o.place) { o.name = o.name || o.place.name; o.addr = o.addr || o.place.addr; o.hours = o.hours || o.place.hours; } });
 }));
@@ -488,7 +506,7 @@ const ALL = DAYS.flatMap(d => d.stops);
 const TRIP_START = ALL[0].startAt;
 const BUILT_END = ALL[ALL.length - 1].endAt;
 let simOffset = 0;
-try { simOffset = Number(localStorage.getItem("vn.simOffset") || 0) || 0; } catch (e) {}
+try { simOffset = Number(localStorage.getItem(LS("simOffset")) || 0) || 0; } catch (e) {}
 const now = () => new Date(Date.now() + simOffset);
 function fmtHM(d, tz) { const t = new Date(d.getTime() + TZ[tz] * 3600e3); return String(t.getUTCHours()).padStart(2, "0") + ":" + String(t.getUTCMinutes()).padStart(2, "0"); }
 function fmtDur(ms) {
@@ -501,9 +519,9 @@ function fmtDur(ms) {
 
 /* ======================= STATE ======================= */
 let picks = {};
-try { picks = JSON.parse(localStorage.getItem("vn.picks") || "{}"); } catch (e) {}
+try { picks = JSON.parse(localStorage.getItem(LS("picks")) || "{}"); } catch (e) {}
 let viewMode = "days";
-try { viewMode = localStorage.getItem("vn.view") === "flow" ? "flow" : "days"; } catch (e) {}
+try { viewMode = localStorage.getItem(LS("view")) === "flow" ? "flow" : "days"; } catch (e) {}
 let currentDay = null, focusStopId = null;
 let ROUTES = {}, IMAGES = {};
 fetch("data/routes.json").then(r => r.json()).then(j => { ROUTES = j; }).catch(() => {});
@@ -565,7 +583,7 @@ function renderTabs() {
   seg.querySelectorAll("button").forEach(b => b.onclick = () => setView(b.dataset.view));
   el.appendChild(seg);
 }
-function setView(v) { if (v === viewMode) return; viewMode = v; try { localStorage.setItem("vn.view", v); } catch (e) {} render({ scrollTo: focusStopId }); }
+function setView(v) { if (v === viewMode) return; viewMode = v; try { localStorage.setItem(LS("view"), v); } catch (e) {} render({ scrollTo: focusStopId }); }
 
 /* ======================= NOW STRIP ======================= */
 function renderNow() {
@@ -575,22 +593,22 @@ function renderNow() {
   let html = '<span class="dot"></span><div class="text">';
   let target = null;
   if (s.phase === "pre") {
-    html += `<b>Trip starts in ${fmtDur(TRIP_START - t)}</b><div class="sub">Day 1 begins ${fmtHM(TRIP_START, "SGT")} SGT, Fri 18 Sep · ${s.next.title}</div>`;
+    html += `<b>Trip starts in ${fmtDur(TRIP_START - t)}</b><div class="sub">Day 1 begins ${fmtHM(TRIP_START, ALL[0].tzStart || TRIP_TZ)} ${ALL[0].tzStart || TRIP_TZ}, ${DAYS[0].dow.slice(0, 3)} ${fmtDate(DAYS[0].date)} · ${s.next.title}</div>`;
     target = ALL[0];
   } else if (s.phase === "post") {
-    html += `<b>Trip complete</b><div class="sub">Landed at Changi on 28 Sep. The plan stays here for reference.</div>`;
+    html += `<b>Trip complete</b><div class="sub">${META.endNote}</div>`;
   } else {
     const a = s.active, n = s.next;
     const soon = n && (n.startAt - t) <= 10 * 60000 && n.leg && !["fly", "bus", "boat"].includes(n.leg.mode);
     if (soon) {
       el.classList.add("leave");
-      html += `<b>Leave now · ${n.place ? n.place.name : n.title}</b><div class="sub">${MODE_LABEL[n.leg.mode]} ${n.leg.dur || ""} · due ${fmtHM(n.startAt, "ICT")}, in ${fmtDur(n.startAt - t)}</div>`;
+      html += `<b>Leave now · ${n.place ? n.place.name : n.title}</b><div class="sub">${MODE_LABEL[n.leg.mode]} ${n.leg.dur || ""} · due ${fmtHM(n.startAt, TRIP_TZ)}, in ${fmtDur(n.startAt - t)}</div>`;
       target = n;
     } else if (s.inside) {
-      html += `<b>Now · Day ${a.day.n} · ${a.title}</b><div class="sub">${fmtDur(a.endAt - t)} left` + (n ? ` · next ${fmtHM(n.startAt, "ICT")} ${n.title}` : "") + `</div>`;
+      html += `<b>Now · Day ${a.day.n} · ${a.title}</b><div class="sub">${fmtDur(a.endAt - t)} left` + (n ? ` · next ${fmtHM(n.startAt, TRIP_TZ)} ${n.title}` : "") + `</div>`;
       target = a;
     } else {
-      html += `<b>Free time until ${fmtHM(n.startAt, "ICT")}</b><div class="sub">Just finished ${a.title} · next: ${n.title} in ${fmtDur(n.startAt - t)}</div>`;
+      html += `<b>Free time until ${fmtHM(n.startAt, TRIP_TZ)}</b><div class="sub">Just finished ${a.title} · next: ${n.title} in ${fmtDur(n.startAt - t)}</div>`;
       target = n;
     }
   }
@@ -608,13 +626,13 @@ function dayPlaces(day) {
   return pts;
 }
 function dayRouteUrl(day) {
-  const pts = dayPlaces(day).filter(p => p !== P.SIN);
+  const pts = dayPlaces(day).filter(p => !p.offmap);
   return pts.length < 2 ? null : G.dir(pts[0], pts[pts.length - 1], "walking", pts.slice(1, -1).slice(0, 9));
 }
 function dayHeadHtml(day) {
   const routeUrl = dayRouteUrl(day);
   return `<h1>Day ${day.n} · ${day.title}</h1>
-      <span class="date">${day.dow} ${Number(day.date.split("-")[2])} Sep 2026</span>
+      <span class="date">${day.dow} ${fmtDate(day.date, true)}</span>
       <span class="hbtns"><button class="pill solid" data-daymap="${day.id}">Day map</button>${routeUrl ? `<a class="pill" href="${routeUrl}" target="_blank" rel="noopener">Google Maps</a>` : ""}</span>`;
 }
 function bindDayHead() { const b = document.querySelector("[data-daymap]"); if (b) b.onclick = () => openMap(DAYS.find(d => d.id === b.dataset.daymap), null); }
@@ -641,7 +659,7 @@ function render(opts = {}) {
       dm.innerHTML = `<span class="pin"></span><span class="lbl">DAY ${day.n}</span><span class="t">${day.date.slice(5).replace("-", "/")}</span>`;
       dm.onclick = () => scrollToStop(day.stops[0].id, true); track.appendChild(dm);
       const dc = document.createElement("div"); dc.className = "day-card";
-      dc.innerHTML = `<span class="eyebrow">${day.dow} ${Number(day.date.split("-")[2])} Sep</span><b>Day ${day.n}</b><span>${day.short}</span>`;
+      dc.innerHTML = `<span class="eyebrow">${day.dow} ${fmtDate(day.date)}</span><b>Day ${day.n}</b><span>${day.short}</span>`;
       reel.appendChild(dc);
     }
     day.stops.forEach((s, i) => {
@@ -665,7 +683,7 @@ function render(opts = {}) {
       const end = document.createElement("div"); end.className = "end-card";
       end.innerHTML = day.n < DAYS.length
         ? `<b>End of Day ${day.n}</b><span>Continue to Day ${day.n + 1}</span><button class="btn solid" data-next="${day.n}">Day ${day.n + 1} →</button>`
-        : `<b>Home</b><span>Land at Changi 16:55 SGT. That's the trip.</span>`;
+        : `<b>${META.endCard.title}</b><span>${META.endCard.text}</span>`;
       reel.appendChild(end);
       const nd = end.querySelector("[data-next]");
       if (nd) nd.onclick = () => showDay(DAYS[day.n], { scrollTo: DAYS[day.n].stops[0].id });
@@ -699,7 +717,7 @@ function renderCard(s) {
   if (pics.length) c.classList.add("hasimg");
   let html = `<div class="progress"><i></i></div>${slidesHtml(pics)}
     <button class="open" data-open="${s.id}" aria-label="Open ${s.title}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 5l7 7-7 7"/></svg></button>
-    <div class="card-top"><span class="time">${s.start}<span class="tz">${s.tzStart || "ICT"}</span> – ${s.end}<span class="tz">${s.tzEnd || (s.tzStart && s.tzStart !== "ICT" ? "ICT" : "")}</span></span><span class="kind ${s.kind}">${s.kind}</span></div>
+    <div class="card-top"><span class="time">${s.start}<span class="tz">${s.tzStart || TRIP_TZ}</span> – ${s.end}<span class="tz">${s.tzEnd || (s.tzStart && s.tzStart !== TRIP_TZ ? TRIP_TZ : "")}</span></span><span class="kind ${s.kind}">${s.kind}</span></div>
     <h2 data-open="${s.id}">${s.title}</h2>`;
   if (s.leg) html += `<div class="leg-line"><span class="m">${MODE_LABEL[s.leg.mode]}</span>${s.leg.dur || ""}${s.leg.dist ? " · " + s.leg.dist : ""}</div>`;
   (s.body || []).forEach(p => html += `<p>${p}</p>`);
@@ -719,7 +737,7 @@ function renderCard(s) {
     html += `</div></div>`;
   });
   html += `<div class="actions">`;
-  if (s.place && s.place !== P.SIN) html += `<button class="btn solid" data-map="${s.id}">${ICON.map}Map</button>`;
+  if (s.place && !s.place.offmap) html += `<button class="btn solid" data-map="${s.id}">${ICON.map}Map</button>`;
   if (s.place) html += `<a class="btn" href="${G.maps(s.place)}" target="_blank" rel="noopener">${ICON.maps}Google Maps</a>`;
   if (s.grabTo) html += `<a class="btn grab" href="${G.grab(s.grabTo)}">${ICON.car}Grab to ${s.grabTo.name.split(" ").slice(0, 3).join(" ")}</a>`;
   if (s.booking && PROVIDER[s.booking]) html += `<a class="btn" href="${PROVIDER[s.booking]}" target="_blank" rel="noopener">${ICON.link}${s.booking} booking</a>`;
@@ -751,9 +769,9 @@ function openDetail(s) {
   if (s.warn) html += `<p class="warn">${s.warn}</p>`;
   const ownsPlace = s.place && !(s.options || []).some(o => o.place === s.place);
   if (ownsPlace) html += placeInfoHtml(s.place, true);
-  if (s.place && s.place.vi && ownsPlace) html += `<div class="driver"><small>Show the driver</small>${s.place.vi}</div>`;
+  if (s.place && s.place[DRIVER] && ownsPlace) html += `<div class="driver"><small>Show the driver</small>${s.place[DRIVER]}</div>`;
   html += `<div class="actions">`;
-  if (s.place && s.place !== P.SIN) html += `<button class="btn solid" id="d-map">${ICON.map}Map &amp; route</button>`;
+  if (s.place && !s.place.offmap) html += `<button class="btn solid" id="d-map">${ICON.map}Map &amp; route</button>`;
   if (s.place) html += `<a class="btn" href="${G.maps(s.place)}" target="_blank" rel="noopener">${ICON.maps}Google Maps</a>`;
   if (s.grabTo) html += `<a class="btn grab" href="${G.grab(s.grabTo)}">${ICON.car}Grab to ${s.grabTo.name.split(" ").slice(0, 3).join(" ")}</a>`;
   if (s.booking && PROVIDER[s.booking]) html += `<a class="btn" href="${PROVIDER[s.booking]}" target="_blank" rel="noopener">${ICON.link}${s.booking} booking</a>`;
@@ -847,7 +865,7 @@ function openOption(stop, o) {
     <div class="meta"><span>Day ${stop.day.n} · ${stop.start} – ${stop.end}</span>${!p && o.addr ? `<span>${o.addr}</span>` : ""}</div>
     <p>${o.desc || ""}</p>`;
   if (p) html += placeInfoHtml(p, true);
-  if (p && p.vi) html += `<div class="driver"><small>Show the driver</small>${p.vi}</div>`;
+  if (p && p[DRIVER]) html += `<div class="driver"><small>Show the driver</small>${p[DRIVER]}</div>`;
   if (p && p.approx) html += `<p class="warn">Pin is approximate (within about 50 m). Check the shopfront number when you arrive.</p>`;
   html += `<div class="actions">`;
   if (p) html += `<button class="btn solid" id="opt-map">${ICON.map}Map &amp; route</button>`;
@@ -859,7 +877,7 @@ function openOption(stop, o) {
   const om = document.getElementById("opt-map"); if (om) om.onclick = () => { closeSheet(); openMap(stop.day, stop.id, o); };
   document.getElementById("pick-btn").onclick = () => {
     if (picks[key]) delete picks[key]; else picks[key] = 1;
-    try { localStorage.setItem("vn.picks", JSON.stringify(picks)); } catch (e) {}
+    try { localStorage.setItem(LS("picks"), JSON.stringify(picks)); } catch (e) {}
     document.querySelectorAll(`.card[data-stop="${stop.id}"] [data-opt]`).forEach(b => { const [idx, role] = b.dataset.opt.split("|"); const opt = stop.options.filter(x => x.role === role)[Number(idx)]; b.classList.toggle("picked", !!picks[stop.id + ":" + opt.name]); });
     document.getElementById("pick-btn").textContent = picks[key] ? "Unpick" : "Pick this one";
   };
@@ -881,34 +899,26 @@ function openLedger() {
 }
 
 function openPreview() {
-  const local = new Date(now().getTime() + 7 * 3600e3).toISOString().slice(0, 16);
-  openSheet(`<span class="eyebrow">Preview time · Indochina time</span><h3>Test the page at a moment in the trip</h3>
-    <p>Before 18 September the page shows a countdown. Set a preview time to see how it tracks the day. The preview keeps ticking from the moment you set, and it sticks on this device until you switch back to live.</p>
+  const local = new Date(now().getTime() + META.tzTrip.offset * 3600e3).toISOString().slice(0, 16);
+  openSheet(`<span class="eyebrow">Preview time · ${TRIP_TZ}</span><h3>Test the page at a moment in the trip</h3>
+    <p>Before the trip starts the page shows a countdown. Set a preview time to see how it tracks the day. The preview keeps ticking from the moment you set, and it sticks on this device until you switch back to live.</p>
     <div class="preview-row"><input type="datetime-local" id="pv-input" value="${local}"><button class="btn solid" id="pv-set">Preview</button><button class="btn" id="pv-live">Back to live</button></div>
-    <div class="presets">
-      <button class="btn" data-pv="2026-09-18T20:40">Day 1 · landed, in the Grab</button>
-      <button class="btn" data-pv="2026-09-18T21:22">Day 1 · leave for supper</button>
-      <button class="btn" data-pv="2026-09-19T12:00">Day 2 · lunch</button>
-      <button class="btn" data-pv="2026-09-19T17:45">Day 2 · free time before market</button>
-      <button class="btn" data-pv="2026-09-19T22:50">Day 2 · waiting for the bus</button>
-      <button class="btn" data-pv="2026-09-20T07:35">Day 3 · Fansipan morning</button>
-      <button class="btn" data-pv="2026-09-23T10:30">Day 6 · on the way to Hạ Long</button>
-      <button class="btn" data-pv="2026-09-25T15:00">Day 8 · Hội An afternoon</button>
-      <button class="btn" data-pv="2026-09-26T20:50">Day 9 · Dragon Bridge</button>
-    </div>`);
-  const apply = (v) => { const [d, hm] = v.split("T"); simOffset = mk(d, hm, "ICT").getTime() - Date.now(); try { localStorage.setItem("vn.simOffset", String(simOffset)); } catch (e) {} closeSheet(); tick(true); };
+    <div class="presets">${META.presets.map(p => `<button class="btn" data-pv="${p.at}">${p.label}</button>`).join("")}</div>`);
+  const apply = (v) => { const [d, hm] = v.split("T"); simOffset = mk(d, hm, TRIP_TZ).getTime() - Date.now(); try { localStorage.setItem(LS("simOffset"), String(simOffset)); } catch (e) {} closeSheet(); tick(true); };
   document.getElementById("pv-set").onclick = () => apply(document.getElementById("pv-input").value);
-  document.getElementById("pv-live").onclick = () => { simOffset = 0; try { localStorage.removeItem("vn.simOffset"); } catch (e) {} closeSheet(); tick(true); };
+  document.getElementById("pv-live").onclick = () => { simOffset = 0; try { localStorage.removeItem(LS("simOffset")); } catch (e) {} closeSheet(); tick(true); };
   sheetBody.querySelectorAll("[data-pv]").forEach(b => b.onclick = () => apply(b.dataset.pv));
 }
 
 /* ======================= ESSENTIALS ======================= */
 const ESS = PLAN.ESSENTIALS;
-let rate = ESS.rateDefault;
-try { rate = Number(localStorage.getItem("vn.rate")) || ESS.rateDefault; } catch (e) {}
+const CUR = META.currency;
+let rate = CUR.rateDefault;
+try { rate = Number(localStorage.getItem(LS("rate"))) || CUR.rateDefault; } catch (e) {}
 let checks = {};
-try { checks = JSON.parse(localStorage.getItem("vn.checks") || "{}"); } catch (e) {}
-const fmtVND = (v) => Math.round(v).toLocaleString("en-US");
+try { checks = JSON.parse(localStorage.getItem(LS("checks")) || "{}"); } catch (e) {}
+const CUR_DP = CUR.decimals == null ? 0 : CUR.decimals;
+const fmtVND = (v) => (Math.round(v * 10 ** CUR_DP) / 10 ** CUR_DP).toLocaleString("en-US", { minimumFractionDigits: CUR_DP, maximumFractionDigits: CUR_DP });
 const fmtSGD = (v) => (Math.round(v * 100) / 100).toFixed(2);
 
 function photoCredits() {
@@ -926,16 +936,16 @@ function phoneDirectory() {
 }
 
 function openEssentials() {
-  const quick = [20000, 50000, 100000, 200000, 500000, 1000000];
+  const quick = CUR.quick;
   const dir = phoneDirectory();
   let html = `<span class="eyebrow">Essentials</span><h3>Money, numbers, words, checklist</h3><div class="ess">
-    <h4>VND ⇄ SGD</h4>
+    <h4>${CUR.code} ⇄ ${CUR.home}</h4>
     <div class="conv">
-      <div><label>Vietnamese đồng</label><input id="cv-vnd" type="text" inputmode="numeric" placeholder="100,000"></div>
+      <div><label>${CUR.name}</label><input id="cv-vnd" type="text" inputmode="decimal" placeholder="${fmtVND(CUR.quick[2] || 100)}"></div>
       <div class="eq">=</div>
-      <div><label>Singapore dollars</label><input id="cv-sgd" type="text" inputmode="decimal" placeholder="5.13"></div>
+      <div><label>${CUR.homeName}</label><input id="cv-sgd" type="text" inputmode="decimal" placeholder="${fmtSGD((CUR.quick[2] || 100) / CUR.rateDefault)}"></div>
     </div>
-    <div class="rate"><div><label>Rate · VND per 1 SGD (edit to today's rate)</label><input id="cv-rate" type="text" inputmode="numeric" value="${fmtVND(rate)}"></div><button class="btn" id="cv-reset">Reset</button></div>
+    <div class="rate"><div><label>Rate · ${CUR.code} per 1 ${CUR.home} (edit to today's rate)</label><input id="cv-rate" type="text" inputmode="decimal" value="${rate}"></div><button class="btn" id="cv-reset">Reset</button></div>
     <div class="quick" id="cv-quick"></div>
     <h4>Cash</h4><ul>${ESS.cash.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Before you go</h4><div class="checks" id="checks">${ESS.before.map(b => `<label class="${checks[b.id] ? "done" : ""}"><input type="checkbox" data-chk="${b.id}" ${checks[b.id] ? "checked" : ""}><span>${b.text}</span><span class="d">D${b.day}</span></label>`).join("")}</div>
@@ -945,7 +955,7 @@ function openEssentials() {
     <h4>Weather</h4><ul>${ESS.weather.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Pack</h4><ul>${ESS.packing.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Scams to wave off</h4><ul>${ESS.scams.map(t => `<li>${t}</li>`).join("")}</ul>
-    <h4>Time</h4><ul><li>Vietnam is one hour behind Singapore all trip. Flight times on the cards are local at each end.</li></ul>
+    <h4>Time</h4><ul><li>${META.timeNote}</li></ul>
     <h4>Photo credits</h4><ul>${photoCredits().map(c => `<li>${c}</li>`).join("") || "<li>No downloaded photos yet.</li>"}</ul>
     <h4>Your own photos</h4><ul><li>Drop a screenshot into the repo's img folder named after the place, e.g. <span class="mono">BHAPPY-u1.jpg</span>, <span class="mono">MIST-u2.jpg</span>, rebuild, push. Your photos appear first in that place's slideshow.</li></ul>
     <h4>Offline data</h4><div class="cache" id="cache-box"><span id="cache-text">Checking…</span><button class="btn" id="cache-refresh">Refresh offline data</button><div class="bar"><i id="cache-bar"></i></div></div>
@@ -953,14 +963,14 @@ function openEssentials() {
   openSheet(html);
   const vnd = document.getElementById("cv-vnd"), sgd = document.getElementById("cv-sgd"), rt = document.getElementById("cv-rate");
   const num = (s) => Number(String(s).replace(/[^\d.]/g, "")) || 0;
-  const renderQuick = () => { document.getElementById("cv-quick").innerHTML = quick.map(v => `<div><b>${fmtVND(v)} ₫</b><span>S$${fmtSGD(v / rate)}</span></div>`).join(""); };
+  const renderQuick = () => { document.getElementById("cv-quick").innerHTML = quick.map(v => `<div><b>${fmtVND(v)} ${CUR.symbol}</b><span>${CUR.homeSymbol}${fmtSGD(v / rate)}</span></div>`).join(""); };
   vnd.oninput = () => { sgd.value = vnd.value ? fmtSGD(num(vnd.value) / rate) : ""; };
   sgd.oninput = () => { vnd.value = sgd.value ? fmtVND(num(sgd.value) * rate) : ""; };
   vnd.onblur = () => { if (vnd.value) vnd.value = fmtVND(num(vnd.value)); };
-  rt.onchange = () => { rate = num(rt.value) || ESS.rateDefault; rt.value = fmtVND(rate); try { localStorage.setItem("vn.rate", String(rate)); } catch (e) {} renderQuick(); vnd.oninput(); };
-  document.getElementById("cv-reset").onclick = () => { rt.value = fmtVND(ESS.rateDefault); rt.onchange(); };
+  rt.onchange = () => { rate = num(rt.value) || CUR.rateDefault; rt.value = String(rate); try { localStorage.setItem(LS("rate"), String(rate)); } catch (e) {} renderQuick(); vnd.oninput(); };
+  document.getElementById("cv-reset").onclick = () => { rt.value = String(CUR.rateDefault); rt.onchange(); };
   renderQuick();
-  document.querySelectorAll("[data-chk]").forEach(c => c.onchange = () => { checks[c.dataset.chk] = c.checked ? 1 : 0; try { localStorage.setItem("vn.checks", JSON.stringify(checks)); } catch (e) {} c.parentElement.classList.toggle("done", c.checked); });
+  document.querySelectorAll("[data-chk]").forEach(c => c.onchange = () => { checks[c.dataset.chk] = c.checked ? 1 : 0; try { localStorage.setItem(LS("checks"), JSON.stringify(checks)); } catch (e) {} c.parentElement.classList.toggle("done", c.checked); });
   document.getElementById("cache-refresh").onclick = () => { requestRecache(); document.getElementById("cache-text").textContent = "Refreshing…"; };
   renderCacheBox();
 }
@@ -972,7 +982,7 @@ function openMore() {
   </div>`);
   sheetBody.querySelectorAll("[data-v]").forEach(b => b.onclick = () => { closeSheet(); setView(b.dataset.v); });
   document.getElementById("more-preview").onclick = openPreview;
-  const ml = document.getElementById("more-live"); if (ml) ml.onclick = () => { simOffset = 0; try { localStorage.removeItem("vn.simOffset"); } catch (e) {} closeSheet(); tick(true); };
+  const ml = document.getElementById("more-live"); if (ml) ml.onclick = () => { simOffset = 0; try { localStorage.removeItem(LS("simOffset")); } catch (e) {} closeSheet(); tick(true); };
   document.getElementById("cache-refresh").onclick = () => { requestRecache(); document.getElementById("cache-text").textContent = "Refreshing…"; };
   renderCacheBox();
 }
@@ -1057,6 +1067,8 @@ function renderLabels() {
     seen.add(r.n); count++;
   });
 }
+// a place is off the map when it is flagged, or lies outside every map area (a home airport, say); such places never drive the map bounds
+function offMap(p) { if (!p) return true; if (p.offmap) return true; return !PLAN.AREAS.some(a => p.lat >= a.bbox[0] && p.lat <= a.bbox[2] && p.lng >= a.bbox[1] && p.lng <= a.bbox[3]); }
 function routeCoords(a, b, costing) { const r = ROUTES[routeKey(a, b, costing)]; return r ? r.coords : [[a.lat, a.lng], [b.lat, b.lng]]; }
 function routeMeta(a, b, costing) { const r = ROUTES[routeKey(a, b, costing)]; return r ? `${r.km} km · ${r.min} min` : "straight line (route not downloaded)"; }
 function pinIcon(cls, text) { return L.divIcon({ className: "", html: `<div class="${cls}">${text || ""}</div>`, iconSize: cls === "stop-pin" ? [26, 26] : [14, 14], iconAnchor: cls.startsWith("stop-pin") ? [13, 13] : [7, 7] }); }
@@ -1068,12 +1080,12 @@ function openMap(day, stopId, option) {
   const t = now();
   const stop = stopId ? day.stops.find(s => s.id === stopId) : null;
   const bounds = [];
-  const RED = "#DA251D", GOLD = "#E8AE00", BRONZE = "#8A6D2F";
+  const RED = (THEME.light || {}).accent || "#DA251D", GOLD = (THEME.light || {}).live || "#E8AE00", BRONZE = (THEME.light || {}).done || "#8A6D2F";
   const style = { walk: { color: RED, weight: 4, opacity: 0.85 }, grab: { color: RED, weight: 4, opacity: 0.85, dashArray: "6 7" }, car: { color: RED, weight: 4, opacity: 0.85, dashArray: "6 7" } };
   // legs of the day
   day.stops.forEach((s, i) => {
     const prev = day.stops[i - 1];
-    if (!s.leg || !prev || !prev.place || !s.place || prev.place === s.place) return;
+    if (!s.leg || !prev || !prev.place || !s.place || prev.place === s.place || offMap(prev.place) || offMap(s.place)) return;
     const costing = costingFor(s.leg.mode);
     if (!costing) return;
     const coords = routeCoords(prev.place, s.place, costing);
@@ -1094,7 +1106,7 @@ function openMap(day, stopId, option) {
   // stop pins
   let n = 0; const seen = new Set();
   day.stops.forEach(s => {
-    if (!s.place || s.place === P.SIN || seen.has(s.place)) return;
+    if (!s.place || offMap(s.place) || seen.has(s.place)) return;
     seen.add(s.place); n++;
     const cls = "stop-pin" + (stop && s === stop ? " hot" : (t >= s.endAt ? " past" : ""));
     L.marker([s.place.lat, s.place.lng], { icon: pinIcon(cls, n), zIndexOffset: 500 }).addTo(layers).bindPopup(popupHtml(s.place));
@@ -1116,7 +1128,7 @@ function openMap(day, stopId, option) {
     else if (!option) bounds.push([o.place.lat, o.place.lng]);
   });
   document.getElementById("m-title").textContent = option ? option.name : (stop ? stop.title : `Day ${day.n} route`);
-  document.getElementById("m-sub").textContent = option ? `walk from ${(option.from || stop.place).name}` : (stop ? `${stop.start} – ${stop.end} · ${stop.place ? stop.place.name : ""}` : `${day.dow} ${Number(day.date.split("-")[2])} Sep · ${dayPlaces(day).length} stops`);
+  document.getElementById("m-sub").textContent = option ? `walk from ${(option.from || stop.place).name}` : (stop ? `${stop.start} – ${stop.end} · ${stop.place ? stop.place.name : ""}` : `${day.dow} ${fmtDate(day.date)} · ${dayPlaces(day).length} stops`);
   const gm = document.getElementById("m-gmaps");
   const prevStop = stop ? day.stops[day.stops.indexOf(stop) - 1] : null;
   gm.href = option ? G.dir(option.from || stop.place, option.place, "walking")
@@ -1181,15 +1193,15 @@ window.addEventListener("online", applyCacheState);
 
 const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
 const standalone = window.navigator.standalone === true || matchMedia("(display-mode: standalone)").matches;
-let hintDismissed = false; try { hintDismissed = !!localStorage.getItem("vn.installHint"); } catch (e) {}
+let hintDismissed = false; try { hintDismissed = !!localStorage.getItem(LS("installHint")); } catch (e) {}
 if (isIOS && !standalone && !hintDismissed) document.getElementById("install").hidden = false;
-document.getElementById("install-x").onclick = () => { document.getElementById("install").hidden = true; try { localStorage.setItem("vn.installHint", "1"); } catch (e) {} };
+document.getElementById("install-x").onclick = () => { document.getElementById("install").hidden = true; try { localStorage.setItem(LS("installHint"), "1"); } catch (e) {} };
 
 /* ======================= TICK ======================= */
 function tick(jump) {
   const t = now();
-  document.getElementById("clock-ict").textContent = fmtHM(t, "ICT");
-  document.getElementById("clock-sgt").textContent = fmtHM(t, "SGT");
+  document.getElementById("clock-ict").textContent = fmtHM(t, TRIP_TZ);
+  document.getElementById("clock-sgt").textContent = fmtHM(t, HOME_TZ);
   document.getElementById("sim-flag").hidden = !simOffset;
   renderNow();
   if (jump) {
