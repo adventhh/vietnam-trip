@@ -161,3 +161,118 @@ valhalla1.openstreetmap.de, overpass-api.de or commons.wikimedia.org). The app d
 new legs draw as straight lines labelled "route not downloaded" and new places show no photo. Run
 `node tools/build.mjs` on a connected machine to fill both in. No new map area is needed: every new
 pin falls inside an existing `AREAS` bbox.
+
+---
+---
+
+# Second round — puppets, coconut boats, Bà Nà
+
+Decisions taken on the shortlist from the "what's touristy and missing" audit.
+
+**Dropped by request:** Marble Mountains, Hỏa Lò Prison, Mường Hoa / Tả Van.
+**Ad hoc, not scheduled:** Bảy Mẫu basket boats.
+**Added:** water puppets, Bà Nà Hills.
+
+---
+
+## Fansipan — yes, 20 Sep, and it has to be
+
+Confirmed unchanged: Day 3, Sunday 20 Sep, 07:30 – 11:30, the combo up from Sun Plaza. It is the last
+operating day before the 21 – 27 Sep maintenance shutdown, so there is no second chance that week —
+which is also why the Monday Sapa day never had a cable car in it.
+
+## Heaven's Gate — there are three, and the plan already has one
+
+Worth separating, because the name is reused:
+
+| | Where | In the plan? |
+| --- | --- | --- |
+| **Moana Sapa's Cổng Trời** | 3 km SE of Sapa, a Bali-style replica gate over an infinity deck | **Yes** — Day 4, 14:45 – 16:15 |
+| **Hàm Rồng's Cổng Trời** | Top of the Hàm Rồng stairs, behind the Stone Church | Only as the bit to *skip*: the gardens below it are the alt on Day 4 |
+| **Ô Quý Hồ Cổng Trời** | The real pass, 12 – 15 km west on QL4D, 120k, drive-up | **No** |
+
+So the photo gate people mean is already scheduled. The mountain pass is not, and it is the only one
+of the three that is nowhere near anything else in the plan — it pairs with Thác Bạc (70k) and the
+Rồng Mây glass bridge (400 – 500k) as a 4-hour western loop, 500 – 800k for the car.
+
+## Water puppets — Day 2, the 20:00 show
+
+Thăng Long Water Puppet Theatre, 57B Đinh Tiên Hoàng, at the lake's north-east corner. Shows 15:00,
+16:10, 17:20, 18:30, 20:00; about 50 minutes; 100 – 200k by row, cheaper from the theatre than from
+resellers.
+
+Every other slot was blocked: Friday they land at 19:15, Tuesday the Sapa bus arrives 18:00 into a
+19:30 chả cá booking, Thursday is a flight day. Saturday's 20:00 is the only show that fits a day
+they are already in the Old Quarter for.
+
+It costs the night market 75 minutes (18:40 – 19:45 instead of 18:40 – 21:00), which is the cheapest
+thing on that evening to shorten — and the walk back to Tạ Hiện goes through the market anyway.
+Geometry checked against the map data: Hàng Đào → theatre 286 m straight (~400 m walk, 6 min),
+theatre → Tạ Hiện 424 m straight (~600 m, 8 min). The 22:45 bus pick-up is untouched.
+
+**Booking is not optional.** Saturday evening shows are the ones tour groups fill first. Added to the
+before-you-go checklist and to the ledger.
+Sources: https://nhahatmuaroithanglong.vn/en/ticket-book/ · https://viet-go.com/en/attractions/thang-long-water-puppet-theatre-guide
+
+## Coconut basket boats — pinned, not scheduled
+
+Bảy Mẫu coconut forest, Cẩm Thanh: 15.87500, 108.37417 (Wikipedia), boat docks along Nguyễn Phan Vinh
+near the Cẩm Thanh bridge, 7 km east of the Ancient Town. 07:00 – 18:00, last boat 17:00,
+**80 – 100k a head at the waterside station** — the touts on the approach road quote 150 – 400k for
+the identical 50-minute ride. Net-throwing and crab-fishing only run before about 16:30.
+
+Left as an option on Day 9's breakfast stop rather than a scheduled stop, because that 07:00 – 08:45
+window before the 09:30 car is genuinely the only gap the trip has for it. New `hoian-camthanh` map
+area added so the pin has streets under it.
+Sources: https://en.wikipedia.org/wiki/B%E1%BA%A3y_M%E1%BA%ABu_Coconut_Forest ·
+https://danangtohoian.com/bay-mau-coconut-forest-basket-boat-price-2026-hoi-an-guide/
+
+## Bà Nà Hills — Day 10, replacing the rest day
+
+**2026 facts.** 1,000,000 VND adult. Since 1 Jan 2026 one ticket is valid **3 consecutive days** with
+unlimited cable car rides inside 72 hours — which matters here, because it means a fogged-out Sunday
+can be retried on Monday morning. Park 08:00 – 22:00, last ascent 21:30; some rides shut 16:00 – 17:00
+while the French Village and Beer Plaza run to 22:00. Funiculars between the three levels are free
+with the ticket. There are **no buggies**; free wheelchairs are at customer service inside the main gate.
+
+**Why Sunday 27 Sep.** The only day with room. Saturday is the Hội An transfer plus the Dragon Bridge
+show; Monday is the 13:10 flight. The plan's own Day 10 note already said Bà Nà "would replace this
+whole day", and that is what has happened: XLIII, bánh xèo Bà Dưỡng and the beach afternoon come out,
+the evening survives intact.
+
+**Why 07:15.** Arriving at 10:00 is peak everything — deck, queues, buffet. Depart Sala 07:15, at the
+gate 08:15, on the Golden Bridge by about 08:45, ahead of the coaches. Down at 15:00 before the
+top-station queue builds from 16:00, back at Sala 16:15, two hours spare before the 18:30 rooftop.
+
+**Car, not Grab.** Grab runs about USD 14 each way, but some checkpoints pass only tourist and private
+cars, and the return is 40 km down a mountain road on a Sunday afternoon. Sala booking a car that
+waits (~700 – 900k round trip) is the version that cannot strand you. Added to the ledger.
+
+**Two honest warnings, both in the app.** Sunday is the busiest day of the week, and late September is
+the wet season at 1,487 m — the bridge view can be a whiteout, with no weather refund. And it is
+stairs and slopes between attractions once you are up: this is the one day that breaks the trip's
+no-strenuous rule, deliberately.
+
+**The pin is approximate and says so.** Verified coordinate available is the Golden Bridge itself,
+15.9989 / 107.9953, which is what `BANA` uses. The Suối Mơ base station, where a car actually drops
+you, has no coordinate I could verify from a reliable source, and the road does not reach the summit.
+So the place tip tells you to type "Sun World Ba Na Hills" into Grab rather than trusting the pin —
+the same handling the plan already uses for Năm Đảnh. Worth replacing with the real base-station
+coordinate once someone has it.
+Sources: https://junglebosstours.com/explorer/tourism-blog/ba-na-hills-ticket-booking ·
+https://hoiandaytrip.com/ba-na-hills-tickets/ · https://hoiandaytrip.com/ba-na-hills-wheelchair/ ·
+https://vecaptreobana.com/en/ba-na-hills-opening-hours/ ·
+https://powertraveller.com/golden-bridge-ba-na-hills-early-morning-to-avoid-crowds/ ·
+https://danangtransfer.vn/en/grab-from-da-nang-to-ba-na-hills-and-vice-versa/ ·
+https://www.latlong.net/place/golden-bridge-bana-hills-vietnam-30749.html
+
+### Knock-ons
+
+- **XLIII Coffee moved to Day 11.** It opens 06:30 and roasts its own beans, so it now doubles as the
+  beans-for-home stop on the last morning — one trip instead of two.
+- **Bánh xèo Bà Dưỡng** kept as an option on the ride home, for an early dinner instead of the rooftop.
+- **Sum Spa** kept in the 16:15 – 18:15 rest window, where it is now more useful than it was.
+- **Budget left to the owner** by request. The `d10` line in `BUDGET` is marked STALE in the file: the
+  tickets and the car are new and large, and the beach/spa afternoon it was costed against is gone.
+- Two new map areas (`hoian-camthanh`, `danang-bana`) have no data files until the next
+  `node tools/build.mjs`. The app 404s them silently and draws the pins without streets.

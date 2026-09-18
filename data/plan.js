@@ -29,6 +29,7 @@ const PLAN = (() => {
       { at: "2026-09-23T10:30", label: "Day 6 · on the way to Hạ Long" },
       { at: "2026-09-25T15:00", label: "Day 8 · Hội An afternoon" },
       { at: "2026-09-26T20:50", label: "Day 9 · Dragon Bridge" },
+      { at: "2026-09-27T08:45", label: "Day 10 · Golden Bridge before the crowds" },
     ],
   };
 
@@ -110,6 +111,10 @@ const PLAN = (() => {
     TRAINLD:   { name: "Train street, Ngõ 224 Lê Duẩn", addr: "Alley 224 Lê Duẩn, south of Hanoi railway station", lat: 21.0165, lng: 105.8413, approx: true,
                 hours: "Cafés from about 08:00", price: "Drink 30 – 50k VND", vi: "Phố đường tàu, ngõ 224 Lê Duẩn, Hà Nội",
                 tip: "The quiet half of train street: barely policed, friendly owners, no sales pressure, and a clear view straight down the line. 2.5 km south of the Old Quarter, so it's a Grab rather than a walk. This is the fallback if Trần Phú is shut to you." },
+    PUPPETS:   { name: "Thăng Long Water Puppet Theatre", addr: "57B Đinh Tiên Hoàng, north-east corner of the lake", lat: 21.0317, lng: 105.8533, approx: true,
+                hours: "Shows 15:00 · 16:10 · 17:20 · 18:30 · 20:00, about 50 minutes", price: "100 – 200k VND by seat; the box office is cheaper than the resellers",
+                vi: "Nhà hát Múa rối Thăng Long, 57B Đinh Tiên Hoàng, Hoàn Kiếm",
+                tip: "Weekend evening shows sell out to tour groups, so book ahead at nhahatmuaroithanglong.vn. Rows 1 – 3 catch the splashes; the middle of the house is the better seat. The chèo band and singers sit at the side of the pool, not in a pit." },
     P4P_HN:    { name: "Pizza 4P's Bảo Khánh", addr: "11B ngõ Bảo Khánh, Hoàn Kiếm", lat: 21.0311, lng: 105.8502, approx: true,
                 hours: "10:30 – 23:00 daily · last order 22:30", vi: "Pizza 4P's Bảo Khánh, 11B ngõ Bảo Khánh, Hoàn Kiếm",
                 tip: "The Old Quarter branch, in the alley off the lake's west side: 400 m from Hoàn Kiếm Legend, 500 m from Hanoi Marvellous. Burrata and mozzarella from their own Đà Lạt farm; half-and-half pizzas mean you get two. Book on the 4P's app or site, it fills from 18:30. Tràng Tiền (43 Tràng Tiền) is the other central one." },
@@ -325,6 +330,11 @@ const PLAN = (() => {
     CAMNAMBRIDGE:{ name: "Cẩm Nam Bridge", addr: "East end of Bạch Đằng", lat: 15.87554, lng: 108.33314,
                 vi: "Cầu Cẩm Nam", tip: "Wider river, no crowd, best 17:30 – 18:30. 350 m from Bebe 1." },
 
+    COCONUT:   { name: "Bảy Mẫu coconut forest, basket boats", addr: "Boat docks on Nguyễn Phan Vinh, Cẩm Thanh, 7 km east of the Ancient Town", lat: 15.875, lng: 108.37417, approx: true,
+                hours: "07:00 – 18:00 · last boat 17:00", price: "80 – 100k VND a head at the boat station, forest entry included",
+                vi: "Rừng dừa Bảy Mẫu, bến thúng Cẩm Thanh, Hội An",
+                tip: "Deliberately not scheduled — go when a morning opens up. Walk down to a waterside boat station and pay there: the touts on the approach road quote 150 – 400k for the same 50-minute ride. The net-throwing and crab-fishing bits only run before about 16:30. Cash." },
+
     /* ---- Đà Nẵng (26–28 Sep) ---- */
     SALA:      { name: "Sala Danang Beach Hotel", addr: "36-38 Lâm Hoành, one block behind the beach road", lat: 16.0621113, lng: 108.2451665,
                 hours: "Check-in 14:00 · check-out 12:00", vi: "Khách sạn Sala Danang Beach, 36-38 Lâm Hoành, Phước Mỹ, Sơn Trà",
@@ -399,6 +409,10 @@ const PLAN = (() => {
     LOCALBEANS:{ name: "The Local Beans (Lê Hồng Phong)", addr: "56A Lê Hồng Phong, the branch nearest the airport", lat: 16.0641, lng: 108.2203, approx: true,
                 hours: "06:30 – 22:30 · Mon 06:30 – 21:45", phone: "+84 236 9999 972", vi: "The Local Beans, 56A Lê Hồng Phong",
                 tip: "All branches sell roasted beans retail. Also at 84 Châu Thị Vĩnh Tế (2.5 km from Sala) and 186-190 Phan Châu Trinh." },
+    BANA:      { name: "Sun World Bà Nà Hills", addr: "Hoà Ninh, Hoà Vang, about 40 km west of Mỹ Khê", lat: 15.9989, lng: 107.9953, approx: true,
+                hours: "08:00 – 22:00 · last ascent 21:30. Some rides shut 16:00 – 17:00; the French Village and Beer Plaza run to 22:00", price: "1,000,000 VND adult. Since 1 Jan 2026 one ticket is valid 3 consecutive days with unlimited cable car rides",
+                vi: "Sun World Bà Nà Hills, xã Hoà Ninh, huyện Hoà Vang, Đà Nẵng",
+                tip: "Type 'Sun World Ba Na Hills' into Grab instead of dropping a pin: the pin here is the Golden Bridge on the summit, and the road only reaches the Suối Mơ base station below it. Better, have Sala book a car that waits — some checkpoints pass only tourist and private cars, and it is 40 km home. The funiculars between the levels are free with the ticket, there are no buggies, and free wheelchairs are at customer service inside the main gate." },
     P4P_DN:    { name: "Pizza 4P's Indochina Riverside", addr: "Level 2, Indochina Riverside Towers, 74 Bạch Đằng, Hải Châu", lat: 16.0704, lng: 108.2248, approx: true,
                 hours: "11:00 – 22:00 daily", vi: "Pizza 4P's Indochina, tầng 2, tòa Indochina Riverside, 74 Bạch Đằng, Hải Châu, Đà Nẵng",
                 tip: "The river-view branch, 150 m north of Cộng Cà Phê on Bạch Đằng; window tables look over the Hàn River to the Sơn Trà side. Burrata made at their own Đà Lạt farm, half-and-half pizzas. Book ahead for a window. The quieter Đà Nẵng branch is 8 Hoàng Văn Thụ, inland." },
@@ -419,8 +433,10 @@ const PLAN = (() => {
     { id: "hanoi-halong", label: "Hanoi to Hạ Long expressway", bbox: [20.800, 105.850, 21.100, 107.000], detail: "corridor" },
     { id: "halong", label: "Hạ Long and Tuần Châu", bbox: [20.850, 106.850, 21.050, 107.200], detail: "wide" },
     { id: "hoian-core", label: "Hội An Ancient Town", bbox: [15.862, 108.305, 15.895, 108.345], detail: "full" },
+    { id: "hoian-camthanh", label: "Cẩm Thanh and the Bảy Mẫu coconut forest", bbox: [15.865, 108.345, 15.892, 108.390], detail: "full" },
     { id: "danang-core", label: "Đà Nẵng centre, Mỹ Khê, Sơn Trà", bbox: [16.020, 108.190, 16.115, 108.290], detail: "full" },
     { id: "danang-hoian", label: "Đà Nẵng to Hội An coast road", bbox: [15.840, 108.170, 16.130, 108.360], detail: "wide" },
+    { id: "danang-bana", label: "Đà Nẵng west to Bà Nà Hills", bbox: [15.960, 107.940, 16.090, 108.200], detail: "wide" },
   ];
 
   const PROVIDER = {
@@ -486,7 +502,7 @@ const PLAN = (() => {
     },
     {
       id: "d2", n: 2, date: "2026-09-19", dow: "Saturday",
-      title: "Hanoi: lake stroll, Bà Triệu, Le BHappy, Vincom, train street, then the overnight bus",
+      title: "Hanoi: lake stroll, Bà Triệu, Vincom, train street, water puppets, then the overnight bus",
       short: "Hanoi walk day",
       stops: [
         {
@@ -595,11 +611,11 @@ const PLAN = (() => {
           ],
         },
         {
-          id: "d2-market", start: "18:40", end: "21:00", kind: "market",
+          id: "d2-market", start: "18:40", end: "19:45", kind: "market",
           title: "Hanoi weekend night market",
           leg: { mode: "walk", dur: "14 min", dist: "1.1 km" },
           place: P.HANGDAO,
-          body: ["North-east out of the rail lane and onto Hàng Đào and Hàng Ngang for silk scarves, local snacks and souvenirs. The market only gets good after 19:30, so the later start costs nothing."],
+          body: ["North-east out of the rail lane and onto Hàng Đào and Hàng Ngang for silk scarves, local snacks and souvenirs. An hour is enough to walk it and eat, and you come back through it after the show anyway."],
           options: [
             { role: "snack", name: "Bánh tráng nướng", addr: "Stalls along Hàng Đào / Hàng Ngang",
               desc: "'Vietnamese pizza': rice paper grilled over charcoal with egg, sausage, scallions and mayonnaise. 20–30k VND.", xhs: "Banh Trang Nuong 河内越南披萨" },
@@ -610,9 +626,20 @@ const PLAN = (() => {
           ],
         },
         {
+          id: "d2-puppets", start: "20:00", end: "20:55", kind: "view",
+          title: "Water puppets on the lake's north-east corner",
+          leg: { mode: "walk", dur: "6 min", dist: "400 m" },
+          place: P.PUPPETS,
+          body: ["Down Hàng Đào to the lake and round to 57B Đinh Tiên Hoàng. Eleven centuries of rice-paddy theatre done in a waist-deep pool: puppeteers stand behind the bamboo screen working the rods underwater, with a live chèo band, drums and a đàn bầu at the side. Fifty minutes, no interval, English synopsis on the seat."],
+          warn: "This is a Saturday 20:00 show, the one slot the tour groups fill first. Book it before you fly. Rows 1 – 3 get wet.",
+          options: [
+            { role: "primary", place: P.PUPPETS, desc: "100 – 200k a seat by row. Buy from the theatre rather than a reseller.", xhs: "Thang Long water puppet Hanoi 河内水上木偶" },
+          ],
+        },
+        {
           id: "d2-tahien", start: "21:00", end: "22:30", kind: "drinks",
           title: "Tạ Hiện beers, then collect stored luggage",
-          leg: { mode: "walk", dur: "3 min", dist: "250 m" },
+          leg: { mode: "walk", dur: "8 min", dist: "600 m" },
           place: P.TAHIEN,
           body: ["Craft beers around the edge of Tạ Hiện or a quiet iced tea by the lake. The hotel is a 5-minute walk south-east; be back by 22:30 to collect the stored bags."],
         },
@@ -1222,6 +1249,8 @@ const PLAN = (() => {
             { role: "primary", place: P.CONGHA, desc: "Opens early, no bridge to cross, back at the hotel for the 09:30 car.", xhs: "Cong Caphe Hoi An" },
             { role: "alt", place: P.CITRONELLA, desc: "Quiet heritage lane 60 m west of the Japanese Bridge, same old-house look, a fraction of the crowd." },
             { role: "alt", place: P.COSAU, desc: "Mì Quảng on Trần Hưng Đạo, a morning dish: turmeric noodles, pork, shrimp, quail egg, sesame cracker. Before 12:00 or the broth is gone.", xhs: "mi Quang Hoi An 会安广南面" },
+            { role: "alt", place: P.COCONUT, from: P.LANTANA,
+              desc: "The basket boats, if you want them: boats run from 07:00 and it's 7 km east, so an 07:00 – 08:45 round trip is the one window the trip leaves for it. Pay at the waterside station, never the touts on the road.", xhs: "Bay Mau coconut forest Hoi An 会安椰子林" },
           ],
         },
         {
@@ -1322,54 +1351,48 @@ const PLAN = (() => {
     },
     {
       id: "d10", n: 10, date: "2026-09-27", dow: "Sunday",
-      title: "Đà Nẵng: glass-house coffee, bánh xèo, the beach, sundowners and Pizza 4P's on the river",
-      short: "Beach & pizza",
+      title: "Đà Nẵng: Bà Nà Hills and the Golden Bridge, then sundowners and Pizza 4P's on the river",
+      short: "Bà Nà Hills",
       stops: [
         {
-          id: "d10-breakfast", start: "09:00", end: "09:30", kind: "cafe",
-          title: "Breakfast on the way to the coffee",
-          leg: { mode: "grab", dur: "6 min", dist: "2 km" },
-          place: P.HIDEOUT,
-          body: ["Eggs and smoothie bowls 150 m from XLIII, so the pour-over isn't on an empty stomach."],
+          id: "d10-early", start: "06:45", end: "07:15", kind: "hotel",
+          title: "Early breakfast, then the car west",
+          place: P.SALA,
+          body: ["Sala's buffet if it has started, otherwise take something with you. Layers: the summit is 1,487 m and runs 10 °C cooler than the beach, and it is often wet up there when the coast is dry."],
+          warn: "Ask Sala the night before to have the car at the door for 07:15 and to wait at the base station. Grab can get you there, but some checkpoints pass only tourist and private cars, and finding a ride back down a 40 km mountain road at 15:00 on a Sunday is not a plan.",
+        },
+        {
+          id: "d10-bana", start: "08:15", end: "15:00", kind: "view",
+          title: "Sun World Bà Nà Hills and the Golden Bridge",
+          leg: { mode: "car", dur: "55 min", dist: "40 km" },
+          place: P.BANA,
+          body: ["Up on the record-holding cable car to a French hill station at 1,487 m: the Golden Bridge held up by the two stone hands, the French Village, Moon Castle, the flower gardens and the indoor Fantasy Park. Free funiculars run between the levels, so the cable cars and the trains do most of the climbing for you.", "Go straight to the Golden Bridge on arrival and photograph it before the coach groups land — by 10:00 the deck, the queues and the buffet are all at their worst. Everything else keeps."],
+          warn: "This is a Sunday, the busiest day of the week, and late September is the wet season: the summit sits in cloud often enough that the bridge view can be a whiteout. There is no refund for weather, and it is stairs and slopes between attractions once you are up there — this is the one strenuous day of the trip, by choice.",
           options: [
-            { role: "primary", place: P.HIDEOUT, desc: "07:30 – 22:00; Happy Heart in the same building is closed Sundays." },
-            { role: "alt", place: P.DREAMER, from: P.SALA, desc: "Camper-van-and-plants photo café 1 km from Sala; morning light is best.", xhs: "Dreamer Coffee Da Nang" },
+            { role: "primary", place: P.BANA, desc: "1,000,000 VND each; the 2026 ticket stays valid 3 days, so a fogged-out morning can be retried on the 28th before the flight if you are desperate.", xhs: "Ba Na Hills Golden Bridge 岘港巴拿山金桥" },
+          ],
+          booking: "Sun World online",
+        },
+        {
+          id: "d10-back", start: "15:00", end: "16:15", kind: "transit",
+          title: "Cable car down, car back to the coast",
+          place: P.BANA,
+          body: ["Last car down well before the crowd: queues at the top station build from 16:00. Back at Sala for about 16:15."],
+          options: [
+            { role: "alt", place: P.BAXEO, from: P.BANA,
+              desc: "Bánh xèo Bà Dưỡng is roughly on the way in, 09:30 – 21:00: an early dinner here instead of the rooftop if the mountain has left you hungry rather than tired. Check facebook.com/Banhxeobaduong the week before for a September closure.", xhs: "Banh Xeo Ba Duong Da Nang 岘港煎饼" },
           ],
         },
         {
-          id: "d10-xliii", start: "09:30", end: "12:00", kind: "cafe",
-          title: "XLIII Coffee, the glass house over the koi pond",
-          leg: { mode: "walk", dur: "2 min", dist: "150 m" },
-          place: P.XLIII,
-          body: ["Formerly 43 Factory, renamed not moved. Pour-overs from their own roastery in an architectural glass box; go early for light and seats."],
-          warn: "Bà Nà Hills (750k each, 50 minutes each way, and 2 – 3 hours on foot and stairs at the top) would replace this whole day; it doesn't fit the no-strenuous rule, so it isn't scheduled.",
+          id: "d10-rest", start: "16:15", end: "18:15", kind: "hotel",
+          title: "Shower, and the beach is five minutes away",
+          leg: { mode: "car", dur: "55 min", dist: "40 km" },
+          place: P.SALA,
+          body: ["Two hours back at the hotel. Mỹ Khê is a five-minute walk if there is anything left in your legs, and Sum Spa is 100 m down Lâm Hoành if there isn't."],
           options: [
-            { role: "primary", place: P.XLIII, desc: "06:30 – 22:30 daily.", xhs: "XLIII Coffee 43 Factory Da Nang 岘港咖啡" },
-            { role: "snack", place: P.KEMBOCOVAN, desc: "The famous avocado ice cream with toasted coconut and condensed milk, 1.3 km away at Bắc Mỹ An market until 18:00. Cash.", xhs: "Kem Bo Co Van Da Nang 岘港牛油果冰淇淋" },
-          ],
-        },
-        {
-          id: "d10-banhxeo", start: "12:30", end: "14:00", kind: "food",
-          title: "Lunch: crispy turmeric pancakes at Bà Dưỡng",
-          leg: { mode: "grab", dur: "12 min", dist: "4.5 km" },
-          place: P.BAXEO,
-          body: ["Golden bánh xèo with shrimp, pork and bean sprouts, wrapped in rice paper with herbs and dipped in the pork-liver peanut sauce; nem lụi skewers on the side. Grab drops at the alley mouth on Hoàng Diệu, 60 m walk."],
-          warn: "It closed 21 – 26 Sep last year for a break. Check facebook.com/Banhxeobaduong the week before.",
-          options: [
-            { role: "primary", place: P.BAXEO, desc: "Michelin-listed, 20 – 55k, 09:30 – 21:00.", xhs: "Banh Xeo Ba Duong Da Nang 岘港煎饼" },
-            { role: "snack", place: P.CHELIEN, desc: "Durian coconut chè at the original Chè Liên, 250 m along Hoàng Diệu.", xhs: "Che Lien Da Nang 岘港榴莲甜汤" },
-          ],
-        },
-        {
-          id: "d10-beach", start: "14:30", end: "17:30", kind: "view",
-          title: "Mỹ Khê beach, loungers, foot massage",
-          leg: { mode: "grab", dur: "12 min", dist: "5 km" },
-          place: P.MYKHE,
-          body: ["Flat sand, loungers about 40k for the day, swim only between the flags (the rains start in late September). Then a foot reflexology on the hotel's own street."],
-          options: [
-            { role: "primary", place: P.MYKHE, desc: "Five minutes' walk from Sala." },
-            { role: "alt", place: P.SUMSPA, desc: "Foot reflexology 100 m from Sala, 08:30 – 23:00; book a 17:30 slot. Herbal Spa on Dương Đình Nghệ is the bigger name 1 km away.", xhs: "Sum Spa Da Nang" },
-            { role: "snack", place: P.ALACARTE, desc: "Lift to the 23rd floor for sea-view coffee over Mỹ Khê and Lady Buddha, 700 m from Sala.", xhs: "Rooftop A La Carte Da Nang 岘港天台" },
+            { role: "primary", place: P.MYKHE, desc: "Flat sand, loungers about 40k; swim only between the flags." },
+            { role: "alt", place: P.SUMSPA, desc: "Foot reflexology 100 m from Sala, 08:30 – 23:00. After Bà Nà this is the better of the two; book a 16:45 slot from the car.", xhs: "Sum Spa Da Nang" },
+            { role: "snack", place: P.KEMBOCOVAN, desc: "Avocado ice cream at Bắc Mỹ An market until 18:00, 2 km away. Cash.", xhs: "Kem Bo Co Van Da Nang 岘港牛油果冰淇淋" },
           ],
         },
         {
@@ -1377,7 +1400,7 @@ const PLAN = (() => {
           title: "Sundowners on the 23rd floor",
           leg: { mode: "walk", dur: "9 min", dist: "700 m" },
           place: P.ALACARTE,
-          body: ["Lift straight to the roof for a drink over the lit bay while the light goes. One hour only: the table downtown is at 19:45."],
+          body: ["Lift straight to the roof for a drink over the lit bay while the light goes, with the mountain you were standing on this morning off to the west. One hour only: the table downtown is at 19:45."],
           options: [
             { role: "primary", place: P.ALACARTE, desc: "Rooftop over the illuminated bay, 07:00 – 22:00, walking distance from Sala.", xhs: "Rooftop A La Carte Da Nang 岘港天台" },
             { role: "alt", place: P.SEVENBRIDGES, desc: "7 Bridges' Tân Trà brewery, 10 km south by Grab, if you want the craft beer instead. Call +84 378 377 771 before going; it doesn't combine with a 19:45 table downtown.", xhs: "7 Bridges Brewing Da Nang" },
@@ -1407,10 +1430,11 @@ const PLAN = (() => {
           id: "d11-morning", start: "08:30", end: "10:30", kind: "hotel",
           title: "Last breakfast, pack, check out",
           place: P.SALA,
-          body: ["Check-out is 12:00, so 10:30 is your own deadline. Beans for home from The Local Beans on the way; the Lê Hồng Phong branch is the least detour toward the airport."],
+          body: ["Check-out is 12:00, so 10:30 is your own deadline. This is also where XLIII Coffee lands now that Bà Nà has taken Sunday: it opens at 06:30 and roasts its own, so the last coffee and the beans for home are the same stop. The Local Beans on Lê Hồng Phong is the smaller detour if you'd rather sleep in."],
           options: [
-            { role: "snack", place: P.LOCALBEANS, from: P.SALA, desc: "Freshly roasted single-origin bags; opens 06:30 on a Monday.", xhs: "The Local Beans Da Nang" },
-            { role: "alt", place: P.DREAMER, from: P.SALA, desc: "A last photo coffee 1 km from the hotel if you skipped it yesterday." },
+            { role: "primary", place: P.XLIII, from: P.SALA, desc: "The glass house over the koi pond that Bà Nà displaced, 1.6 km away and open from 06:30. It is a roastery, so it doubles as the beans stop — one trip instead of two.", xhs: "XLIII Coffee 43 Factory Da Nang 岘港咖啡" },
+            { role: "snack", place: P.LOCALBEANS, from: P.SALA, desc: "Freshly roasted single-origin bags; opens 06:30 on a Monday. The nearer option if you skip XLIII.", xhs: "The Local Beans Da Nang" },
+            { role: "alt", place: P.DREAMER, from: P.SALA, desc: "A last photo coffee 1 km from the hotel." },
           ],
           booking: "Booking.com",
         },
@@ -1464,6 +1488,9 @@ const PLAN = (() => {
     ["Ticket", "Hội An Ancient Town ticket × 2", "25 Sep", "Booth, cash", 13.00, false, "120,000 VND each; not sold online"],
     ["Ticket", "Hoi An lantern boat", "24 Sep (festival night) or 25 Sep", "Official counter, An Hội bridge", 9.00, false, "150–170,000 VND per boat for 1–3 people"],
     ["Booking", "Tailor: Yaly Signature or Bebe 1", "25 Sep, 08:00", "In person", 0, false, "24-h express; linen and cotton only"],
+    ["Booking", "Thăng Long water puppets, 20:00 show × 2", "19 Sep", "nhahatmuaroithanglong.vn", 21.00, false, "100–200,000 VND each by row; weekend evening shows sell out"],
+    ["Ticket", "Sun World Bà Nà Hills × 2", "27 Sep", "Sun World online", 102.00, false, "1,000,000 VND each; the 2026 ticket runs 3 consecutive days"],
+    ["Transit", "Car to Bà Nà and back, waiting", "27 Sep, 07:15 – 16:15", "Sala reception", 40.00, false, "~700–900,000 VND for the round trip with the wait; Grab struggles on the return"],
   ];
 
 
@@ -1488,7 +1515,7 @@ const PLAN = (() => {
       d7:  { food: [600000, 1100000],  cash: [950000, 1250000],    note: "Three transfers in one day: Grab to Marou, Grab to Nội Bài, then the Đà Nẵng airport run. Lantern boat 150 – 170k a boat." },
       d8:  { food: [900000, 1400000],  cash: [240000, 450000],     note: "Ancient Town ticket 120k each, cash at the booth. The tailor is the real spend of the day and goes on card — keep it out of this." },
       d9:  { food: [1150000, 1900000], cash: [800000, 1050000],    note: "Seafood at Năm Đảnh is the big one, cash, priced by weight. Four Grabs including the 25 km run up from Hội An." },
-      d10: { food: [1450000, 2250000], cash: [1700000, 2500000],   note: "The foot reflexology is 650 – 990k EACH and dominates the cash line; drop it and this day halves. Pizza 4P's and XLIII both take card." },
+      d10: { food: [1450000, 2250000], cash: [1700000, 2500000],   note: "STALE — rewrite these two numbers for the Bà Nà day. Tickets are 1,000,000 each and the car with waiting is ~700 – 900k, but both usually go on card, and the mountain's food is priced like a theme park. Pizza 4P's takes card too." },
       d11: { food: [150000, 250000],   cash: [400000, 750000],     note: "Breakfast, the Grab to T2, and coffee beans for home." },
     },
   };
@@ -1532,6 +1559,7 @@ const PLAN = (() => {
       { id: "bags-pistachio", day: 3, text: "Email Pistachio Hotel to confirm they hold bags from 05:30 on 20 Sep and to arrange the Alpine Coaster and Moana car." },
       { id: "fansipan", day: 3, text: "Buy the Fansipan combo tickets online the night of 19 Sep (1,370,000 VND each); 20 Sep is the last day before maintenance." },
       { id: "trainstreet", day: 2, text: "Message a train street café on 18 Sep for 17:10 on Sat 19 Sep, two people: Cà Phê Ga Đông Dương on Facebook, Railway Cafe +84 917 301 111 or Coffee 74 +84 81 212 4488 on WhatsApp. Ask them for that day's train times." },
+      { id: "puppets", day: 2, text: "Book two seats for the 20:00 water puppet show on 19 Sep at nhahatmuaroithanglong.vn before you fly; the Saturday evening show goes to tour groups first. Not rows 1–3." },
       { id: "pumpkin-chicken", day: 4, text: "Phone Ô Quý Hồ on 0888 029 119 the morning of 21 Sep to pre-order the gà đen ủ bí ngô for 12:15; it steams for 40 – 50 minutes." },
       { id: "absinthe", day: 4, text: "Book the Absinthe afternoon tea for 21 Sep 16:30 on +84 214 362 9999 ext. 6426 and ask the price." },
       { id: "hk-reconfirm", day: 5, text: "Reconfirm the HK Buslines Sapa pick-up time on WhatsApp on 21 Sep." },
@@ -1540,6 +1568,8 @@ const PLAN = (() => {
       { id: "morning-glory", day: 8, text: "Book Morning Glory for 19:30 on 25 Sep if that's the dinner choice; it's Mid-Autumn day." },
       { id: "sala", day: 9, text: "Message Sala Danang Beach about the 10:15 bag drop on 26 Sep." },
       { id: "ba-duong", day: 10, text: "Check facebook.com/Banhxeobaduong the week before for a September closure." },
+      { id: "bana", day: 10, text: "Buy the two Bà Nà Hills tickets online for 27 Sep (1,000,000 VND each) and ask Sala to have a car at the door at 07:15 that waits at the base station until 15:00." },
+      { id: "bana-weather", day: 10, text: "Check the Bà Nà summit forecast on the evening of 26 Sep. The ticket is valid 3 days, so a whiteout Sunday can move to Monday morning before the 13:10 flight — but only if you decide early." },
       { id: "pizza4ps", day: 10, text: "Book a window table at Pizza 4P's Indochina Riverside for 19:45 on 27 Sep on the 4P's app or site." },
       { id: "cash", day: 1, text: "Withdraw VND at Nội Bài or the first Old Quarter ATM; Sapa and the markets are cash." },
       { id: "esim", day: 1, text: "Install the eSIM before leaving Singapore so Grab works at the Hanoi kerb." },
@@ -1564,6 +1594,7 @@ const PLAN = (() => {
     TAMTHUONG: ["Nem chua rán"], TRACHANH: ["Trà chanh", "Nhà Thờ street Hanoi"], HANGDAO: ["Hanoi night market Hang Dao", "Hanoi Old Quarter night"],
     TAHIEN: ["Ta Hien street Hanoi", "Bia hơi"], XOIYEN: ["Xôi xéo", "Xôi Yến"], PHOBATDAN: ["Phở Bát Đàn", "Phở bò"],
     TRAINST: ["Hanoi Train Street", "Hanoi train street cafe"], GADONGDUONG: ["Hanoi Train Street", "Cà phê trứng"], TRAINLD: ["Hanoi Train Street", "Railway Hanoi"],
+    PUPPETS: ["Múa rối nước", "Water puppetry Vietnam"],
     P4P_HN: ["Pizza margherita", "Wood-fired pizza oven"],
     PISTACHIO: ["Sa Pa town", "Sa Pa valley view"], PHOGA: ["Phở gà"], SUNPLAZA: ["Fansipan cable car", "Fansipan summit"],
     CONSUI: ["Cốn sủi", "Sa Pa noodles"], COASTER: ["Alpine coaster Sapa", "Alpine coaster"], APHU: ["Lẩu cá hồi", "Salmon hotpot Sapa"],
@@ -1588,7 +1619,7 @@ const PLAN = (() => {
     HA_NM: ["Hoi An night market Nguyen Hoang", "Hoi An lanterns"], TRUNGBAC: ["Cao lầu"], CAOLAUTHANH: ["Cao lầu Hội An"], COSAU: ["Mì Quảng"],
     CONGHA: ["Cộng Cà Phê"], CITRONELLA: ["Hoi An old house yellow"], ROASTERY: ["Hoi An Roastery"], THECHEF: ["Hoi An rooftops"],
     REACHINGOUT: ["Reaching Out Tea House"], BMBANGA: ["Bánh mì"], ANHOIBRIDGE: ["An Hoi bridge Hoi An", "Hoi An riverside night"],
-    CAMNAMBRIDGE: ["Cẩm Nam bridge", "Thu Bồn river Hội An"], SALA: ["My Khe Beach Da Nang"], CONMARKET: ["Chợ Cồn Đà Nẵng", "Bánh tráng cuốn thịt heo"],
+    CAMNAMBRIDGE: ["Cẩm Nam bridge", "Thu Bồn river Hội An"], COCONUT: ["Rừng dừa Bảy Mẫu", "Thúng chai"], SALA: ["My Khe Beach Da Nang"], CONMARKET: ["Chợ Cồn Đà Nẵng", "Bánh tráng cuốn thịt heo"],
     MIQUANG1A: ["Mì Quảng"], DNCATHEDRAL: ["Da Nang Cathedral"], TRINH: ["Cà phê bơ", "Avocado coffee"], NAMHOUSE: ["Nam House Cafe Da Nang", "Vintage cafe Vietnam"],
     HANMARKET: ["Han Market Da Nang", "Chợ Hàn"], BMCOTIEN: ["Bánh mì"], CONGDN: ["Cộng Cà Phê", "Han River Da Nang"],
     LINHUNG: ["Linh Ung Pagoda Son Tra", "Lady Buddha Da Nang"], STMARINA: ["Son Tra peninsula", "Da Nang bay"], NAMDANH: ["Ốc hương xào me", "Tôm tít rang muối"],
@@ -1596,7 +1627,7 @@ const PLAN = (() => {
     XLIII: ["43 Factory Coffee Roaster", "Pour-over coffee"], HIDEOUT: ["Smoothie bowl"], KEMBOCOVAN: ["Kem bơ", "Avocado ice cream"],
     BAXEO: ["Bánh xèo miền Trung", "Bánh xèo"], CHELIEN: ["Chè sầu riêng", "Chè"], MYKHE: ["My Khe Beach"], SUMSPA: ["Foot massage"],
     ALACARTE: ["Da Nang beach aerial", "Mỹ Khê"], DREAMER: ["Da Nang cafe"], SEVENBRIDGES: ["Craft beer"], LOCALBEANS: ["Roasted coffee beans"],
-    P4P_DN: ["Pizza margherita", "Han River Da Nang"],
+    P4P_DN: ["Pizza margherita", "Han River Da Nang"], BANA: ["Golden Bridge Da Nang", "Ba Na Hills"],
     DAD_T2: ["Da Nang International Airport terminal"],
   };
 
