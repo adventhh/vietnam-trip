@@ -1466,6 +1466,33 @@ const PLAN = (() => {
     ["Booking", "Tailor: Yaly Signature or Bebe 1", "25 Sep, 08:00", "In person", 0, false, "24-h express; linen and cotton only"],
   ];
 
+
+  /* ---------- Cash tracker. `seedExchanges` is what you changed money into VND; the app copies it
+     to the phone on first open and you edit it there, so changing it here only affects a fresh phone.
+     Per-day figures are VND for TWO PEOPLE, low – high, read off the prices on the cards in this file.
+     `food` is meals, snacks, coffee and drinks. `cash` is the other things you hand over notes for:
+     Grabs, taxis, on-site tickets. Anything already paid in SGD sits in the Bookings ledger instead. ---------- */
+  const BUDGET = {
+    seedExchanges: [
+      { id: "x1", label: "First exchange", home: 700, vnd: 14000000 },
+    ],
+    categories: ["Food", "Transport", "Tickets", "Shopping", "Other"],
+    cardNote: "Cards work at the hotels, the malls, chain cafés, Sun World, Pizza 4P's, XLIII, the rooftops and the tailors, so the big-ticket lines below often never touch your cash. Everything at a market, a street stall, a gate or on a xe ôm is notes.",
+    days: {
+      d1:  { food: [180000, 280000],   cash: [350000, 450000],     note: "The Grab in from Nội Bài is almost the whole cash line." },
+      d2:  { food: [980000, 1500000],  cash: [60000, 150000],      note: "Seven eating stops. Night-market shopping is on top and entirely up to you." },
+      d3:  { food: [930000, 1700000],  cash: [1100000, 1300000],   note: "Hotpot fish is priced per kg — agree the weight first, it is the swing factor. Coaster is ~350k each on the day; the Fansipan combo is card, online." },
+      d4:  { food: [1300000, 2000000], cash: [850000, 1700000],    note: "Pumpkin chicken 315k, Absinthe tea unpublished. Cát Cát 190k each is cash at the gate, and the herbal bath is 200k+ each if you keep it." },
+      d5:  { food: [620000, 1080000],  cash: [50000, 200000],      note: "Chả cá is a 176k set each. Quiet cash day: the buses are already paid." },
+      d6:  { food: [500000, 1200000],  cash: [0, 200000],          note: "The cruise is full board. Only breakfast in Hanoi, the rest stop, and the bar bill you settle on board — that one usually takes card." },
+      d7:  { food: [600000, 1100000],  cash: [950000, 1250000],    note: "Three transfers in one day: Grab to Marou, Grab to Nội Bài, then the Đà Nẵng airport run. Lantern boat 150 – 170k a boat." },
+      d8:  { food: [900000, 1400000],  cash: [240000, 450000],     note: "Ancient Town ticket 120k each, cash at the booth. The tailor is the real spend of the day and goes on card — keep it out of this." },
+      d9:  { food: [1150000, 1900000], cash: [800000, 1050000],    note: "Seafood at Năm Đảnh is the big one, cash, priced by weight. Four Grabs including the 25 km run up from Hội An." },
+      d10: { food: [1450000, 2250000], cash: [1700000, 2500000],   note: "The foot reflexology is 650 – 990k EACH and dominates the cash line; drop it and this day halves. Pizza 4P's and XLIII both take card." },
+      d11: { food: [150000, 250000],   cash: [400000, 750000],     note: "Breakfast, the Grab to T2, and coffee beans for home." },
+    },
+  };
+
   /* ---------- Essentials sheet ---------- */
   const ESSENTIALS = {
     rateDefault: 19500, // VND per 1 SGD; editable in the app, stored on the phone
@@ -1588,6 +1615,6 @@ const PLAN = (() => {
     return [...out.values()];
   }
 
-  return { META, P, AREAS, DAYS, LEDGER, PROVIDER, ESSENTIALS, PICS, costingFor, routeKey, routeRequests };
+  return { META, P, AREAS, DAYS, LEDGER, BUDGET, PROVIDER, ESSENTIALS, PICS, costingFor, routeKey, routeRequests };
 })();
 if (typeof module !== "undefined") module.exports = PLAN;

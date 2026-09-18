@@ -26,12 +26,27 @@ PLAN.DAYS.forEach((d, di) => {
     });
   });
 });
+const B = PLAN.BUDGET || {};
+PLAN.DAYS.forEach(d => {
+  const b = (B.days || {})[d.id];
+  if (!b) { bad.push(`BUDGET.days.${d.id}: missing`); return; }
+  ["food", "cash"].forEach(f => {
+    if (!Array.isArray(b[f]) || b[f].length !== 2) bad.push(`BUDGET.days.${d.id}.${f}: must be [low, high]`);
+    else if (!(b[f][0] <= b[f][1])) bad.push(`BUDGET.days.${d.id}.${f}: low is above high`);
+  });
+});
+(B.seedExchanges || []).forEach(x => { if (!(x.vnd > 0) || !(x.home > 0)) bad.push(`BUDGET.seedExchanges ${x.id}: home and vnd must both be above zero`); });
+if (!(B.categories || []).length) bad.push("BUDGET.categories: needs at least one");
+
 const dup = ids.filter((x, i) => ids.indexOf(x) !== i);
 if (dup.length) bad.push("duplicate stop ids: " + dup.join(", "));
 Object.entries(PLAN.P).forEach(([k, p]) => { if (typeof p.lat !== "number" || typeof p.lng !== "number") bad.push(`place ${k}: lat/lng missing`); });
 const missingPics = Object.keys(PLAN.P).filter(k => !(PLAN.PICS || {})[k]);
 
+const budLo = PLAN.DAYS.reduce((t, d) => t + ((B.days || {})[d.id] ? B.days[d.id].food[0] + B.days[d.id].cash[0] : 0), 0);
+const budHi = PLAN.DAYS.reduce((t, d) => t + ((B.days || {})[d.id] ? B.days[d.id].food[1] + B.days[d.id].cash[1] : 0), 0);
 console.log(`days ${PLAN.DAYS.length} · stops ${ids.length} · places ${Object.keys(PLAN.P).length} · route legs ${PLAN.routeRequests().length} · map areas ${PLAN.AREAS.length}`);
+console.log(`expected cash ${(budLo / 1e6).toFixed(2)}M – ${(budHi / 1e6).toFixed(2)}M VND · seeded exchange ${((B.seedExchanges || []).reduce((t, x) => t + x.vnd, 0) / 1e6).toFixed(2)}M`);
 if (missingPics.length) console.log("places without photo search terms:", missingPics.join(", "));
 if (bad.length) { console.log("PROBLEMS:\n" + bad.join("\n")); process.exit(1); }
 console.log("plan.js is consistent");

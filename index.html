@@ -333,6 +333,38 @@
   .quick div { background: var(--surface-2); border-radius: 6px; padding: 6px 8px; font-family: var(--mono); font-size: 12px; font-variant-numeric: tabular-nums; }
   .quick div b { display: block; font-weight: 500; color: var(--ink); }
   .quick div span { color: var(--ink-2); }
+  .wal-top { background: var(--surface-2); border-radius: 10px; padding: 12px 14px 10px; }
+  .wal-top .head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .wal-top label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); display: block; }
+  .wal-top .big { font-family: var(--mono); font-size: 26px; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; line-height: 1.15; }
+  .wal-top .big.low { color: var(--lantern); }
+  .wal-top .big.over { color: var(--indigo); }
+  .wal-top .side { text-align: right; font-family: var(--mono); font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .wal-bar { height: 6px; border-radius: 3px; background: var(--surface-3); overflow: hidden; margin: 10px 0 0; }
+  .wal-bar i { display: block; height: 100%; background: var(--celadon); transition: width 0.25s; }
+  .wal-bar i.low { background: var(--lantern); }
+  .wal-bar i.over { background: var(--indigo); }
+  .wal-add { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 10px; }
+  .wal-add input, .wal-add select { width: 100%; font: inherit; font-family: var(--mono); font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .wal-add .full { grid-column: 1 / -1; }
+  .wal-cats { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .wal-cats button { font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface-2); color: var(--ink-2); }
+  .wal-cats button.on { background: var(--indigo); border-color: var(--indigo); color: var(--indigo-ink); }
+  .wal-row { display: grid; grid-template-columns: 44px 1fr auto 26px; gap: 10px; align-items: baseline; padding: 8px 2px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .wal-row .d { font-family: var(--mono); font-size: 11px; color: var(--ink-3); }
+  .wal-row .amt { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .wal-row .sub { color: var(--ink-3); font-size: 12px; }
+  .wal-row .x, .wal-ex .x { border: 0; background: transparent; color: var(--ink-3); font-size: 18px; line-height: 1; padding: 0; }
+  .wal-ex { display: grid; grid-template-columns: 1fr 88px 118px 26px; gap: 8px; align-items: center; padding: 6px 0; }
+  .wal-ex input { width: 100%; font: inherit; font-family: var(--mono); font-size: 14px; padding: 7px 8px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface-2); color: var(--ink); font-variant-numeric: tabular-nums; }
+  .wal-ex input.txt { font-family: var(--body); }
+  .wal-hint { color: var(--ink-3); font-size: 12.5px; margin: 6px 0 0; }
+  .wal-empty { color: var(--ink-3); font-size: 13.5px; padding: 10px 2px; }
+  table.ledger tr.on td { background: var(--lantern-soft); }
+  table.wal-days { font-size: 12px; }
+  table.wal-days td, table.wal-days th { padding: 7px 3px; white-space: nowrap; }
+  table.wal-days td.day { font-size: 13px; }
+  table.wal-days td.cost.over { color: var(--indigo); font-weight: 600; }
   .kv { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: 13.5px; }
   .kv .k { color: var(--ink-2); }
   .kv .v { font-family: var(--mono); font-size: 13px; text-align: right; white-space: nowrap; }
@@ -353,6 +385,9 @@
     .bottombar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 30; display: flex; justify-content: space-around; background: var(--surface); border-top: 1px solid var(--line); padding: 6px 4px calc(6px + var(--safe-b)); }
     .bottombar button { flex: 1; border: 0; background: transparent; color: var(--ink-2); font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 4px 0; min-height: 48px; }
     .bottombar button svg { width: 20px; height: 20px; }
+    .bottombar button span { white-space: nowrap; }
+    @media (max-width: 460px) { .bottombar button { font-size: 9px; letter-spacing: 0.02em; } }
+    @media (max-width: 370px) { .bottombar button { font-size: 8.5px; letter-spacing: 0; } .bottombar button svg { width: 18px; height: 18px; } }
     .bottombar button.hot { color: var(--lantern); }
     .bottombar button.on { color: var(--indigo); }
     body { padding-bottom: calc(72px + var(--safe-b)); }
@@ -416,11 +451,12 @@
 <div class="detail" id="detail" hidden></div>
 
 <nav class="bottombar" id="bottombar">
-  <button id="bb-now"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Now</button>
-  <button id="bb-map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg>Map</button>
-  <button id="bb-book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>Bookings</button>
-  <button id="bb-ess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3M4 12h16"/></svg>Essentials</button>
-  <button id="bb-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg>More</button>
+  <button id="bb-now"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>Now</span></button>
+  <button id="bb-map"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3z"/><path d="M9 3v15M15 6v15"/></svg><span>Map</span></button>
+  <button id="bb-book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="15" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Bookings</span></button>
+  <button id="bb-wallet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2"/><rect x="3" y="7" width="18" height="12" rx="2"/><path d="M16 13h2"/></svg><span>Cash</span></button>
+  <button id="bb-ess"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16v13H4z"/><path d="M9 7V4h6v3M4 12h16"/></svg><span>Essentials</span></button>
+  <button id="bb-more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/></svg><span>More</span></button>
 </nav>
 
 <div class="backdrop" id="backdrop"></div>
@@ -576,6 +612,7 @@ function renderTabs() {
     el.appendChild(b);
   });
   const led = document.createElement("button"); led.className = "tab util"; led.textContent = "Bookings"; led.onclick = openLedger; el.appendChild(led);
+  const wal = document.createElement("button"); wal.className = "tab util"; wal.textContent = "Cash"; wal.onclick = openWallet; el.appendChild(wal);
   const ess = document.createElement("button"); ess.className = "tab util"; ess.textContent = "Essentials"; ess.onclick = openEssentials; el.appendChild(ess);
   const pv = document.createElement("button"); pv.className = "tab util" + (simOffset ? " live" : ""); pv.textContent = simOffset ? "Preview on" : "Preview time"; pv.onclick = openPreview; el.appendChild(pv);
   const seg = document.createElement("div"); seg.className = "seg";
@@ -947,6 +984,7 @@ function openEssentials() {
     </div>
     <div class="rate"><div><label>Rate · ${CUR.code} per 1 ${CUR.home} (edit to today's rate)</label><input id="cv-rate" type="text" inputmode="decimal" value="${rate}"></div><button class="btn" id="cv-reset">Reset</button></div>
     <div class="quick" id="cv-quick"></div>
+    <div class="actions"><button class="btn solid" id="cv-wallet">Open the cash tracker</button></div>
     <h4>Cash</h4><ul>${ESS.cash.map(t => `<li>${t}</li>`).join("")}</ul>
     <h4>Before you go</h4><div class="checks" id="checks">${ESS.before.map(b => `<label class="${checks[b.id] ? "done" : ""}"><input type="checkbox" data-chk="${b.id}" ${checks[b.id] ? "checked" : ""}><span>${b.text}</span><span class="d">D${b.day}</span></label>`).join("")}</div>
     <h4>Emergency</h4><div class="kv">${ESS.emergency.map(([k, v]) => `<span class="k">${k}</span><span class="v">${/^[+\d]/.test(v) ? `<a href="${G.tel(v)}">${v}</a>` : v}</span>`).join("")}</div>
@@ -969,6 +1007,7 @@ function openEssentials() {
   vnd.onblur = () => { if (vnd.value) vnd.value = fmtVND(num(vnd.value)); };
   rt.onchange = () => { rate = num(rt.value) || CUR.rateDefault; rt.value = String(rate); try { localStorage.setItem(LS("rate"), String(rate)); } catch (e) {} renderQuick(); vnd.oninput(); };
   document.getElementById("cv-reset").onclick = () => { rt.value = String(CUR.rateDefault); rt.onchange(); };
+  document.getElementById("cv-wallet").onclick = () => openWallet();
   renderQuick();
   document.querySelectorAll("[data-chk]").forEach(c => c.onchange = () => { checks[c.dataset.chk] = c.checked ? 1 : 0; try { localStorage.setItem(LS("checks"), JSON.stringify(checks)); } catch (e) {} c.parentElement.classList.toggle("done", c.checked); });
   document.getElementById("cache-refresh").onclick = () => { requestRecache(); document.getElementById("cache-text").textContent = "Refreshing…"; };
@@ -986,9 +1025,154 @@ function openMore() {
   document.getElementById("cache-refresh").onclick = () => { requestRecache(); document.getElementById("cache-text").textContent = "Refreshing…"; };
   renderCacheBox();
 }
+
+/* ======================= CASH WALLET =======================
+   What you changed into VND, what you have spent out of it, and what the days are expected to cost.
+   Lives on this phone only, like the picks. Seeded once from PLAN.BUDGET, then yours to edit. */
+const BUD = PLAN.BUDGET;
+const esc = (v) => String(v == null ? "" : v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+let wallet = null;
+try { wallet = JSON.parse(localStorage.getItem(LS("wallet")) || "null"); } catch (e) {}
+function seedWallet() { return { exchanges: BUD.seedExchanges.map(x => ({ ...x })), spends: [] }; }
+if (!wallet || !Array.isArray(wallet.exchanges)) wallet = seedWallet();
+if (!Array.isArray(wallet.spends)) wallet.spends = [];
+const saveWallet = () => { try { localStorage.setItem(LS("wallet"), JSON.stringify(wallet)); } catch (e) {} };
+const addUp = (list, f) => list.reduce((t, x) => t + (Number(f(x)) || 0), 0);
+const walIn = () => addUp(wallet.exchanges, x => x.vnd);
+const walOut = () => addUp(wallet.spends, x => x.amt);
+const dayBud = (id) => (BUD.days || {})[id] || { food: [0, 0], cash: [0, 0] };
+const spentOn = (id) => addUp(wallet.spends.filter(x => x.day === id), x => x.amt);
+const foodOn = (id) => addUp(wallet.spends.filter(x => x.day === id && x.cat === "Food"), x => x.amt);
+let walCat = BUD.categories[0];
+const walId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+/* Day table has five columns on a phone, so amounts go short: 980,000 -> 980k, 1,500,000 -> 1.5M. */
+const fmtK = (v) => v >= 1e6 ? (Math.round(v / 1e4) / 100).toString().replace(/\.0+$/, "") + "M" : (v >= 1000 ? Math.round(v / 1000) + "k" : String(Math.round(v)));
+
+function openWallet() {
+  const dayId = (currentDay || DAYS[0]).id;
+  let fl = 0, fh = 0, cl = 0, ch = 0;
+  DAYS.forEach(d => { const b = dayBud(d.id); fl += b.food[0]; fh += b.food[1]; cl += b.cash[0]; ch += b.cash[1]; });
+
+  let rows = "";
+  DAYS.forEach(d => {
+    const b = dayBud(d.id), got = spentOn(d.id), fgot = foodOn(d.id);
+    const exp = b.food[1] + b.cash[1];
+    rows += `<tr class="${d.id === dayId ? "on" : ""}"><td class="day"><b>D${d.n}</b> <span class="sub">${d.dow.slice(0, 3)} ${Number(d.date.slice(8))}</span></td>
+      <td class="cost">${fmtK(b.food[0])}–${fmtK(b.food[1])}</td>
+      <td class="cost">${fmtK(b.cash[0])}–${fmtK(b.cash[1])}</td>
+      <td class="cost ${got > exp ? "over" : ""}">${got ? fmtK(got) : "—"}${fgot ? `<br><span class="sub">food ${fmtK(fgot)}</span>` : ""}</td></tr>`;
+  });
+
+  const spends = wallet.spends.slice().sort((a, b) => (b.ts || 0) - (a.ts || 0));
+  const spendRows = spends.length ? spends.map(x => {
+    const d = DAYS.find(dd => dd.id === x.day);
+    return `<div class="wal-row"><span class="d">${d ? "D" + d.n : "—"}</span>
+      <span>${esc(x.note) || esc(x.cat)}${x.note ? `<br><span class="sub">${esc(x.cat)}</span>` : ""}</span>
+      <span class="amt">${fmtVND(x.amt)}</span>
+      <button class="x" data-del="${x.id}" aria-label="Delete">×</button></div>`;
+  }).join("") : `<div class="wal-empty">Nothing logged yet. Type an amount above and tap Add.</div>`;
+
+  const exRows = wallet.exchanges.map(x => `<div class="wal-ex">
+      <input class="txt" data-ex="${x.id}" data-f="label" value="${esc(x.label || "")}" placeholder="Where / when">
+      <input data-ex="${x.id}" data-f="home" inputmode="decimal" value="${x.home || ""}" placeholder="${CUR.home}">
+      <input data-ex="${x.id}" data-f="vnd" inputmode="decimal" value="${fmtVND(x.vnd || 0)}" placeholder="${CUR.code}">
+      <button class="x" data-exdel="${x.id}" aria-label="Delete">×</button>
+    </div>`).join("");
+
+  openSheet(`<span class="eyebrow">Cash tracker · ${CUR.code}</span><h3>What's left in the wallet</h3>
+    <div class="ess">
+      <div class="wal-top" id="wal-top"></div>
+      <div class="wal-add">
+        <input id="wal-amt" inputmode="decimal" placeholder="Amount in ${CUR.code}">
+        <button class="btn solid" id="wal-go">Add</button>
+        <input class="full" id="wal-note" placeholder="What was it? (optional)">
+        <select class="full" id="wal-day">${DAYS.map(d => `<option value="${d.id}" ${d.id === dayId ? "selected" : ""}>D${d.n} · ${d.dow} ${d.date.slice(8)} Sep · ${d.short}</option>`).join("")}</select>
+      </div>
+      <div class="wal-cats" id="wal-cats">${BUD.categories.map(c => `<button data-cat="${c}" class="${c === walCat ? "on" : ""}">${c}</button>`).join("")}</div>
+
+      <h4>Money changed</h4>
+      <div id="wal-ex">${exRows}</div>
+      <div class="actions"><button class="btn" id="wal-exadd">Add an exchange</button></div>
+      <p class="wal-hint">Edit any row and it saves as you go. The rate each row implies is shown in the summary above.</p>
+
+      <h4>Expected, day by day</h4>
+      <p>${CUR.code} for the two of you, low to high, taken from the prices on the cards. <b>Food</b> is meals, snacks and drinks; <b>other</b> is the rest of what you hand over notes for — Grabs, taxis, gate tickets. Anything already paid in ${CUR.home} is in Bookings instead.</p>
+      <div class="ledger-wrap"><table class="ledger wal-days"><thead><tr><th>Day</th><th style="text-align:right">Food</th><th style="text-align:right">Other</th><th style="text-align:right">Spent</th></tr></thead><tbody>${rows}</tbody></table></div>
+      <div class="total"><span>Food, whole trip</span><b>${fmtVND(fl)} – ${fmtVND(fh)}</b></div>
+      <div class="total" style="padding-top:4px"><span>Other cash</span><span>${fmtVND(cl)} – ${fmtVND(ch)}</span></div>
+      <div class="total" style="padding-top:4px"><span>Expected cash out</span><b>${fmtVND(fl + cl)} – ${fmtVND(fh + ch)}</b></div>
+      <p class="wal-hint">${BUD.cardNote}</p>
+      <p class="wal-hint" id="wal-verdict"></p>
+
+      <h4>Logged</h4>
+      <div id="wal-list">${spendRows}</div>
+      <div class="actions"><button class="btn" id="wal-clear">Clear everything</button></div>
+    </div>`);
+
+  const num = (v) => Number(String(v).replace(/[^\d.]/g, "")) || 0;
+  const redraw = () => { const sc = sheetBody.scrollTop; openWallet(); sheetBody.scrollTop = sc; };
+
+  function paintTop() {
+    const inn = walIn(), out = walOut(), left = inn - out;
+    const pct = inn > 0 ? Math.max(0, Math.min(100, Math.round(out / inn * 100))) : 0;
+    const st = left < 0 ? "over" : (inn > 0 && left / inn < 0.2 ? "low" : "");
+    const impliedRate = (() => { const h = addUp(wallet.exchanges, x => x.home); return h > 0 ? Math.round(inn / h) : rate; })();
+    document.getElementById("wal-top").innerHTML = `
+      <div class="head">
+        <div><label>Cash left</label><div class="big ${st}">${fmtVND(left)} ${CUR.symbol}</div></div>
+        <div class="side">${CUR.homeSymbol}${fmtSGD(left / (impliedRate || rate))}<br>at ${fmtVND(impliedRate)}/${CUR.home}</div>
+      </div>
+      <div class="wal-bar"><i class="${st}" style="width:${pct}%"></i></div>
+      <div class="head" style="margin-top:6px"><span class="side" style="text-align:left">changed ${fmtVND(inn)}</span><span class="side">spent ${fmtVND(out)} · ${pct}%</span></div>`;
+    const v = document.getElementById("wal-verdict");
+    if (v) {
+      v.innerHTML = left < 0
+        ? `You are <b>${fmtVND(-left)} ${CUR.symbol}</b> past what you changed. Add the next exchange above.`
+        : (walIn() < fl + cl
+          ? `Your ${fmtVND(walIn())} covers the low end of food but not food plus the rest; on these numbers you are about <b>${fmtVND(fl + cl - walIn())} – ${fmtVND(fh + ch - walIn())} ${CUR.symbol}</b> short for the whole trip in cash. Card covers a good part of it — see the note above — but plan a second exchange.`
+          : `Your ${fmtVND(walIn())} sits inside the expected range for the trip.`);
+    }
+  }
+  paintTop();
+
+  const addSpend = () => {
+    const amt = num(document.getElementById("wal-amt").value);
+    if (!amt) return;
+    wallet.spends.push({ id: walId(), day: document.getElementById("wal-day").value, amt, cat: walCat, note: document.getElementById("wal-note").value.trim(), ts: Date.now() });
+    saveWallet(); redraw();
+  };
+  document.getElementById("wal-go").onclick = addSpend;
+  document.getElementById("wal-amt").onkeydown = (e) => { if (e.key === "Enter") addSpend(); };
+  document.getElementById("wal-note").onkeydown = (e) => { if (e.key === "Enter") addSpend(); };
+  sheetBody.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => {
+    walCat = b.dataset.cat;
+    sheetBody.querySelectorAll("[data-cat]").forEach(o => o.classList.toggle("on", o === b));
+  });
+  sheetBody.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
+    wallet.spends = wallet.spends.filter(x => x.id !== b.dataset.del); saveWallet(); redraw();
+  });
+  sheetBody.querySelectorAll("[data-ex]").forEach(i => i.onchange = () => {
+    const x = wallet.exchanges.find(e => e.id === i.dataset.ex); if (!x) return;
+    if (i.dataset.f === "label") x.label = i.value.trim();
+    else { x[i.dataset.f] = num(i.value); if (i.dataset.f === "vnd") i.value = fmtVND(x.vnd); }
+    saveWallet(); paintTop();
+  });
+  sheetBody.querySelectorAll("[data-exdel]").forEach(b => b.onclick = () => {
+    wallet.exchanges = wallet.exchanges.filter(x => x.id !== b.dataset.exdel); saveWallet(); redraw();
+  });
+  document.getElementById("wal-exadd").onclick = () => {
+    wallet.exchanges.push({ id: walId(), label: "", home: 0, vnd: 0 }); saveWallet(); redraw();
+  };
+  document.getElementById("wal-clear").onclick = () => {
+    if (!confirm("Clear every logged spend and reset the exchanges to the starting amount in the plan?")) return;
+    wallet = seedWallet(); saveWallet(); redraw();
+  };
+}
+
 document.getElementById("bb-now").onclick = () => { closeSheet(); closeMap(); closeDetail(); tick(true); };
 document.getElementById("bb-map").onclick = () => { closeSheet(); openMap(currentDay || DAYS[0], focusStopId); };
 document.getElementById("bb-book").onclick = () => { closeMap(); openLedger(); };
+document.getElementById("bb-wallet").onclick = () => { closeMap(); openWallet(); };
 document.getElementById("bb-ess").onclick = () => { closeMap(); openEssentials(); };
 document.getElementById("bb-more").onclick = () => { closeMap(); openMore(); };
 

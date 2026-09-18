@@ -20,6 +20,19 @@ Offline-capable trip companion for 18–28 September 2026. A single web page wit
 | `img/` | Photos shown on the cards. `KEY-c1.jpg` files are downloaded from Wikimedia Commons by the build (credits in `data/credits.json`). Add your own as `KEY-u1.jpg`, `KEY-u2.jpg` … where KEY is the place key in `plan.js` (e.g. `BHAPPY-u1.jpg`); they appear first. |
 | `tools/research/` | Per-region research behind the plan (verified hours, addresses, pins, sources) and the plan-affecting findings. Not shipped to the phone. |
 
+## Cash tracker
+
+The **Cash** tab tracks the VND you changed against what you have spent. The starting exchange and the
+per-day expected spend live in `BUDGET` at the bottom of `data/plan.js`: `food` is meals, snacks and
+drinks, `cash` is the other things you pay for in notes (Grabs, taxis, gate tickets), both as
+`[low, high]` in VND for two people. Anything already paid in SGD belongs in `LEDGER` instead, which
+is what the Bookings tab shows.
+
+`seedExchanges` is only a seed. The first time a phone opens the tracker it copies those rows into
+that phone's own storage, and from then on the phone's copy wins — so editing `seedExchanges` later
+changes nothing on a phone that has already opened the tab. Spends and exchanges are per phone and
+are not shared, the same as the picks.
+
 ## Rebuilding after editing the plan
 
 ```bash
