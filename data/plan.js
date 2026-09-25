@@ -393,7 +393,7 @@ const PLAN = (() => {
                 tip: "Michelin Guide. Rice-paper rolls you assemble at the table — pork belly, grilled fish, nem lụi — plus the central-Vietnam classics, in a lantern-and-bamboo courtyard. Built for two people sharing, priced per plate not per kilo. About 350 m from Sala on foot. Closes 21:00, so sit down by 19:30." },
     LAMVIEN:   { name: "Lam Viên", addr: "88 Trần Văn Dư, Bắc Mỹ An", lat: 16.04193, lng: 108.24613, approx: true,
                 hours: "10:00 – 22:00 daily", phone: "+84 236 3959 171", price: "Mains 120 – 300k; dinner for two 500 – 900k with wine", vi: "Nhà hàng Lam Viên, 88 Trần Văn Dư, Bắc Mỹ An, Ngũ Hành Sơn",
-                tip: "A Thai-ethnic-style wooden house in a garden, lantern-lit at night, with a proper wine list — the date-night version of Vietnamese cooking. 1.5 km south of Sala, five minutes by Grab. Book for a Sunday." },
+                tip: "A Thai-ethnic-style wooden house in a garden, lantern-lit at night, with a proper wine list — the date-night version of Vietnamese cooking. 2.2 km south of Sala, six or seven minutes by Grab. Book for a Sunday." },
     MADAMELAN: { name: "Madame Lân", addr: "4 Bạch Đằng, on the river by the Hàn bridge", lat: 16.0745, lng: 108.2235, approx: true,
                 hours: "06:30 – 21:30 daily", phone: "+84 90 569 7555", price: "Dishes 50 – 200k", vi: "Nhà hàng Madame Lân, 04 Bạch Đằng, Hải Châu, Đà Nẵng",
                 tip: "Michelin Selected, riverside, a huge menu of central-Vietnamese dishes served fast in a big open house — mì Quảng, bánh xèo, nem lụi, chả cá. Lively rather than intimate. Book a day ahead; 19:45 is the last comfortable seating before the 21:30 close." },
@@ -1431,7 +1431,7 @@ const PLAN = (() => {
           warn: "It closes at 21:00 — be seated by 19:30. Walk-in is normal, but a Sunday courtyard fills; if it is packed, Lam Viên is five minutes by Grab and open to 22:00.",
           options: [
             { role: "primary", place: P.BEPCUON, desc: "Bánh tráng cuốn thịt heo is the one to start with; nem lụi and the grilled fish after. 60 – 150k a plate.", xhs: "Bep Cuon Da Nang 岘港卷饼" },
-            { role: "alt", place: P.LAMVIEN, from: P.ALACARTE, desc: "The prettier room for a last night: a wooden house in a lantern-lit garden with a real wine list, 1.5 km south, five minutes by Grab, open to 22:00. Ring +84 236 3959 171 to book.", xhs: "Lam Vien Restaurant Da Nang 岘港" },
+            { role: "alt", place: P.LAMVIEN, from: P.ALACARTE, desc: "The prettier room for a last night: a wooden house in a lantern-lit garden with a real wine list, 2.2 km south, six or seven minutes by Grab, open to 22:00. Ring +84 236 3959 171 to book.", xhs: "Lam Vien Restaurant Da Nang 岘港" },
             { role: "alt", place: P.MADAMELAN, from: P.ALACARTE, desc: "If you would rather the river: Michelin Selected, a vast central-Vietnam menu served fast in a big open house at the north end of Bạch Đằng. 4 km by Grab, closes 21:30. Book +84 90 569 7555.", xhs: "Madame Lan Da Nang 岘港" },
             { role: "alt", place: P.BEMAN, from: P.ALACARTE, desc: "If you do want seafood after all: it is per 100 g, so two small plates and a plate of greens is a legitimate order for two. 0913 515 351, 1.5 km up the road.", xhs: "Hai San Be Man Da Nang 岘港海鲜" },
           ],

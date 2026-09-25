@@ -1,6 +1,6 @@
 // Service worker: caches the whole app (page, fonts, map data, routes) so it works with no connection.
 // The build script rewrites VERSION; a new version replaces the old cache on next load.
-const VERSION = "20260925T165350";
+const VERSION = "20260925T165416";
 const CACHE = "trip-" + VERSION;
 const LIST = "./data/precache.json";
 
