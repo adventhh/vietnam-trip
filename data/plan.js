@@ -1411,7 +1411,7 @@ const PLAN = (() => {
           body: ["Two hours back at the hotel. Mỹ Khê is a five-minute walk if there is anything left in your legs, and Sum Spa is 100 m down Lâm Hoành if there isn't."],
           options: [
             { role: "primary", place: P.MYKHE, desc: "Flat sand, loungers about 40k; swim only between the flags." },
-            { role: "snack", place: P.CHEESEBM, from: P.SALA, desc: "The viral stretchy-cheese bánh mì cart, 1.6 km south along the beach road at the Đỗ Bá corner — one between two as a pre-dinner snack, since Bếp Cuốn is at 19:15. Check it is trading before you go; it is a cart that has had trouble with the pavement police.", xhs: "banh mi pho mai keo soi Da Nang 岘港拉丝芝士法棍" },
+            { role: "snack", place: P.CHEESEBM, from: P.SALA, desc: "The viral stretchy-cheese bánh mì cart, 1.2 km south along the beach road at the Đỗ Bá corner — a 15-minute walk or a 5-minute Grab — one between two as a pre-dinner snack, since Bếp Cuốn is at 19:15. Check it is trading before you go; it is a cart that has had trouble with the pavement police.", xhs: "banh mi pho mai keo soi Da Nang 岘港拉丝芝士法棍" },
             { role: "alt", place: P.SUMSPA, desc: "Foot reflexology 100 m from Sala, 08:30 – 23:00. After Bà Nà this is the better of the two; book a 16:45 slot from the car.", xhs: "Sum Spa Da Nang" },
             { role: "snack", place: P.KEMBOCOVAN, desc: "Avocado ice cream at Bắc Mỹ An market until 18:00, 2 km away. Cash.", xhs: "Kem Bo Co Van Da Nang 岘港牛油果冰淇淋" },
           ],
