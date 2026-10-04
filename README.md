@@ -33,6 +33,13 @@ that phone's own storage, and from then on the phone's copy wins — so editing 
 changes nothing on a phone that has already opened the tab. Spends and exchanges are per phone and
 are not shared, the same as the picks.
 
+**Exporting.** At the bottom of the Cash sheet, put your name in and tap *Share / save export*. Each
+phone produces one Markdown file, `vietnam-wallet-<name>-<date>.md`: summary, money changed, totals by
+category and by day against the expected range, every transaction, and the raw wallet as a JSON block
+at the end (`"format": "vietnam-trip-wallet"`, `version: 1`) for whatever combines the two phones. On
+iPhone it opens the share sheet; elsewhere it downloads. *Copy as text* puts the same file on the
+clipboard.
+
 ## Rebuilding after editing the plan
 
 ```bash

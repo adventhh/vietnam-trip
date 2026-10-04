@@ -90,7 +90,14 @@ State lives in `localStorage` under `LS("wallet")`, where `LS(k)` is
 - Spends and exchanges are **per phone** and never sync, exactly like the picks.
 - `fmtK()` shortens amounts for the per-day table (980000 → `980k`, 1500000 → `1.5M`).
 
-Other `localStorage` keys, same prefix: `picks`, `checks`, `rate`, `view`, `simOffset`,
+**Export.** `walletExport()` builds one Markdown file per phone — readable tables on top, the raw
+wallet in a fenced ```json block at the end with `format: "vietnam-trip-wallet"`, `version: 1`,
+`owner`, a per-phone `device` id, totals, exchanges and spends (with `day`, `dayN`, `date`, `cat`,
+`note`, `vnd`, `loggedAt`). `shareWalletExport()` uses the Web Share API with a file where the
+browser allows it (iOS), and falls back to a blob download. The owner name is required before export
+so two files can be told apart. Bump the `version` field if the shape of the raw block changes.
+
+Other `localStorage` keys, same prefix (`walletOwner` and `walletDevice` belong to the export): `picks`, `checks`, `rate`, `view`, `simOffset`,
 `installHint`.
 
 ## Recording what actually happened

@@ -360,6 +360,7 @@
   .wal-ex input.txt { font-family: var(--body); }
   .wal-hint { color: var(--ink-3); font-size: 12.5px; margin: 6px 0 0; }
   .wal-empty { color: var(--ink-3); font-size: 13.5px; padding: 10px 2px; }
+  .wal-owner { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); color: var(--ink); }
   table.ledger tr.on td { background: var(--lantern-soft); }
   table.wal-days { font-size: 12px; }
   table.wal-days td, table.wal-days th { padding: 7px 3px; white-space: nowrap; }
@@ -1045,6 +1046,70 @@ const spentOn = (id) => addUp(wallet.spends.filter(x => x.day === id), x => x.am
 const foodOn = (id) => addUp(wallet.spends.filter(x => x.day === id && x.cat === "Food"), x => x.amt);
 let walCat = BUD.categories[0];
 const walId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+/* Export: one Markdown file per phone — the readable breakdown on top, the raw wallet as a JSON block at the
+   bottom — so each person sends a single file and whatever combines them gets both. */
+let walOwner = "";
+try { walOwner = localStorage.getItem(LS("walletOwner")) || ""; } catch (e) {}
+let walDevice = "";
+try { walDevice = localStorage.getItem(LS("walletDevice")) || ""; if (!walDevice) { walDevice = walId(); localStorage.setItem(LS("walletDevice"), walDevice); } } catch (e) { walDevice = walId(); }
+function walletExport() {
+  const off = META.tzTrip.offset * 3600e3;
+  const at = (ms) => new Date(ms + off).toISOString().replace("T", " ").slice(0, 16);
+  const mdc = (v) => String(v == null ? "" : v).replace(/\|/g, "\\|").replace(/[\r\n]+/g, " ").trim();
+  const inn = walIn(), out = walOut(), left = inn - out;
+  const home = addUp(wallet.exchanges, x => x.home);
+  const r = home > 0 ? inn / home : rate;
+  const sgd = (v) => fmtSGD(v / r);
+  const owner = walOwner.trim() || "Unnamed";
+  const dayOf = (id) => DAYS.find(d => d.id === id);
+  const L = [];
+  L.push(`# Vietnam trip wallet — ${mdc(owner)}`, "");
+  L.push(`Exported ${at(Date.now())} ${TRIP_TZ} · ${META.subtitle} · ${wallet.spends.length} transactions`, "");
+  L.push("## Summary", "", `| | ${CUR.code} | ${CUR.home} |`, "|---|---:|---:|");
+  L.push(`| Changed | ${fmtVND(inn)} | ${fmtSGD(home)} |`, `| Spent | ${fmtVND(out)} | ${sgd(out)} |`, `| Left | ${fmtVND(left)} | ${sgd(left)} |`, "");
+  L.push(`Rate used: ${fmtVND(Math.round(r))} ${CUR.code} per ${CUR.home}, implied by the exchanges below.`, "");
+  L.push("## Money changed", "", `| Exchange | ${CUR.home} | ${CUR.code} | Rate |`, "|---|---:|---:|---:|");
+  wallet.exchanges.forEach(x => L.push(`| ${mdc(x.label) || "—"} | ${fmtSGD(Number(x.home) || 0)} | ${fmtVND(Number(x.vnd) || 0)} | ${x.home > 0 ? fmtVND(Math.round(x.vnd / x.home)) : "—"} |`));
+  L.push("", "## By category", "", `| Category | ${CUR.code} | ${CUR.home} | Share |`, "|---|---:|---:|---:|");
+  BUD.categories.concat([...new Set(wallet.spends.map(x => x.cat))].filter(c => !BUD.categories.includes(c))).forEach(c => {
+    const v = addUp(wallet.spends.filter(x => x.cat === c), x => x.amt);
+    if (v) L.push(`| ${mdc(c)} | ${fmtVND(v)} | ${sgd(v)} | ${out ? Math.round(v / out * 100) : 0}% |`);
+  });
+  L.push("", "## By day", "", `| Day | Date | Spent ${CUR.code} | ${CUR.home} | of which food | Expected (low – high) |`, "|---|---|---:|---:|---:|---:|");
+  DAYS.forEach(d => {
+    const v = spentOn(d.id), b = dayBud(d.id);
+    L.push(`| D${d.n} ${d.short} | ${d.date} | ${v ? fmtVND(v) : "—"} | ${v ? sgd(v) : "—"} | ${foodOn(d.id) ? fmtVND(foodOn(d.id)) : "—"} | ${fmtVND(b.food[0] + b.cash[0])} – ${fmtVND(b.food[1] + b.cash[1])} |`);
+  });
+  L.push("", "## Every transaction", "", `| Logged | Day | Category | What | ${CUR.code} | ${CUR.home} |`, "|---|---|---|---|---:|---:|");
+  wallet.spends.slice().sort((a, b) => (a.ts || 0) - (b.ts || 0)).forEach(x => {
+    const d = dayOf(x.day);
+    L.push(`| ${x.ts ? at(x.ts) : "—"} | ${d ? "D" + d.n : "—"} | ${mdc(x.cat)} | ${mdc(x.note) || "—"} | ${fmtVND(x.amt)} | ${sgd(x.amt)} |`);
+  });
+  const raw = {
+    format: "vietnam-trip-wallet", version: 1, owner, device: walDevice, exportedAt: new Date().toISOString(),
+    trip: { title: META.title, from: DAYS[0].date, to: DAYS[DAYS.length - 1].date },
+    currency: { code: CUR.code, home: CUR.home, rate: Math.round(r) },
+    totals: { changedVnd: inn, changedHome: home, spentVnd: out, leftVnd: left },
+    exchanges: wallet.exchanges.map(x => ({ label: x.label || "", home: Number(x.home) || 0, vnd: Number(x.vnd) || 0 })),
+    spends: wallet.spends.map(x => { const d = dayOf(x.day); return { day: x.day, dayN: d ? d.n : null, date: d ? d.date : null, cat: x.cat, note: x.note || "", vnd: x.amt, loggedAt: x.ts ? new Date(x.ts).toISOString() : null }; }),
+  };
+  L.push("", "## Raw data", "", "```json", JSON.stringify(raw, null, 2), "```", "");
+  const slug = owner.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "wallet";
+  return { name: `vietnam-wallet-${slug}-${at(Date.now()).slice(0, 10)}.md`, md: L.join("\n") };
+}
+async function shareWalletExport() {
+  const { name, md } = walletExport();
+  for (const type of ["text/markdown", "text/plain"]) {
+    try {
+      const file = new File([md], name, { type });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return "shared"; }
+    } catch (e) { if (e && e.name === "AbortError") return "cancelled"; }
+  }
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([md], { type: "text/markdown" })); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  return "downloaded";
+}
 /* Day table has five columns on a phone, so amounts go short: 980,000 -> 980k, 1,500,000 -> 1.5M. */
 const fmtK = (v) => v >= 1e6 ? (Math.round(v / 1e4) / 100).toString().replace(/\.0+$/, "") + "M" : (v >= 1000 ? Math.round(v / 1000) + "k" : String(Math.round(v)));
 
@@ -1106,6 +1171,13 @@ function openWallet() {
 
       <h4>Logged</h4>
       <div id="wal-list">${spendRows}</div>
+
+      <h4>Export this phone's wallet</h4>
+      <p>One Markdown file with the breakdown and the raw data inside it. Each phone exports its own; send both on to wherever you are combining them.</p>
+      <input class="wal-owner" id="wal-owner" placeholder="Whose wallet is this? (your name)" value="${esc(walOwner)}">
+      <div class="actions"><button class="btn solid" id="wal-export">Share / save export</button><button class="btn" id="wal-copy">Copy as text</button></div>
+      <p class="wal-hint" id="wal-export-msg"></p>
+
       <div class="actions"><button class="btn" id="wal-clear">Clear everything</button></div>
     </div>`);
 
@@ -1163,8 +1235,21 @@ function openWallet() {
   document.getElementById("wal-exadd").onclick = () => {
     wallet.exchanges.push({ id: walId(), label: "", home: 0, vnd: 0 }); saveWallet(); redraw();
   };
+  const ownerIn = document.getElementById("wal-owner"), exMsg = document.getElementById("wal-export-msg");
+  ownerIn.oninput = () => { walOwner = ownerIn.value; try { localStorage.setItem(LS("walletOwner"), walOwner.trim()); } catch (e) {} };
+  const needName = () => { if (walOwner.trim()) return false; exMsg.textContent = "Put your name in first, so the two files can be told apart."; ownerIn.focus(); return true; };
+  document.getElementById("wal-export").onclick = async () => {
+    if (needName()) return;
+    const how = await shareWalletExport();
+    exMsg.textContent = how === "shared" ? "Sent to the share sheet." : how === "cancelled" ? "Cancelled." : "Saved to your downloads.";
+  };
+  document.getElementById("wal-copy").onclick = async () => {
+    if (needName()) return;
+    try { await navigator.clipboard.writeText(walletExport().md); exMsg.textContent = "Copied. Paste it wherever you like."; }
+    catch (e) { exMsg.textContent = "This browser would not allow copying — use Share / save instead."; }
+  };
   document.getElementById("wal-clear").onclick = () => {
-    if (!confirm("Clear every logged spend and reset the exchanges to the starting amount in the plan?")) return;
+    if (!confirm("Clear every logged spend and reset the exchanges to the starting amount in the plan? Export first if you want to keep them.")) return;
     wallet = seedWallet(); saveWallet(); redraw();
   };
 }
